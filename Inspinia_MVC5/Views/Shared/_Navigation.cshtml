@@ -30,15 +30,34 @@
                     <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">Reportes</a></li>
                 </ul>
             </li>
-
-            <li class="@Html.IsSelected(controller: "CSSAnimations")">
-                <a href="@Url.Action("Index", "CSSAnimations")"><i class="fa fa-magic"></i> <span class="nav-label" data-i18n="nav.animations">CSS Animations </span><span class="label label-info float-right">62</span></a>
+            <li class="@Html.IsSelected(controller: "Facturacion")">
+                <a href="@Url.Action("Facturación", "Facturacion")"><i class="fad fa-treasure-chest"></i> <span class="nav-label" data-i18n="nav.dashboard">Cuentas por cobrar</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Facturación", cssClass: "in")">
+                    <li class="@Html.IsSelected(action: "Dashboard_1")"><a href="@Url.Action("Dashboard_1", "Dashboards")">Facturación</a></li>
+                    <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">Reportes</a></li>
+                </ul>
             </li>
-            <li class="special_link @Html.IsSelected(controller: " Landing")">
-                <a href="@Url.Action("Index", "Landing")"><i class="fa fa-star"></i> <span class="nav-label" data-i18n="nav.landing">Landing page</span></a>
+            <li class="@Html.IsSelected(controller: "Facturacion")">
+                <a href="@Url.Action("Facturación", "Facturacion")"><i class="fad fa-user-friends"></i> <span class="nav-label" data-i18n="nav.dashboard">Clientes</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Facturación", cssClass: "in")">
+                    <li class="@Html.IsSelected(action: "Dashboard_1")"><a href="@Url.Action("Dashboard_1", "Dashboards")">Clientes</a></li>
+                    <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">Reportes</a></li>
+                </ul>
             </li>
-            <li class="special_link @Html.IsSelected(controller: " Json")">
-                <a href="@Url.Action("Index", "Json")"><i class="fa fa-plug"></i> <span class="nav-label">JSON Examples</span></a>
+            <li class="@Html.IsSelected(controller: "Facturacion")">
+                <a href="@Url.Action("Facturación", "Facturacion")"><i class="fad fa-inventory"></i> <span class="nav-label" data-i18n="nav.dashboard">Inventario</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Facturación", cssClass: "in")">
+                    <li class="@Html.IsSelected(action: "Dashboard_1")"><a href="@Url.Action("Dashboard_1", "Dashboards")">Facturación</a></li>
+                    <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">Reportes</a></li>
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "Facturacion")">
+                <a href="@Url.Action("Facturación", "Facturacion")"><i class="fad fa-cog"></i> <span class="nav-label" data-i18n="nav.dashboard">Configuración</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Facturación", cssClass: "in")">
+                    <li class="@Html.IsSelected(action: "Dashboard_1")"><a href="@Url.Action("Dashboard_1", "Dashboards")"><i class="fad fa-file-code"></i> <span class="nav-label"> Tipo de documentos </span></a></li>
+                    <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")"><i class="fad fa-box"></i> <span class="nav-label"> Tipo de productos </span></a></li>
+                    <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")"><i class="fad fa-money-check"></i> <span class="nav-label"> Formas de pago </span></a></li>
+                </ul>
             </li>
         </ul>
     </div>

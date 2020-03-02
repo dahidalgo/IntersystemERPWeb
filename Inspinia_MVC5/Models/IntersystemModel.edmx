@@ -1,0 +1,1696 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="intersystemerpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoleClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" />
+          <Property Name="NormalizedName" Type="nvarchar" MaxLength="256" />
+          <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderDisplayName" Type="nvarchar(max)" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+          <Property Name="NormalizedUserName" Type="nvarchar" MaxLength="256" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="NormalizedEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEnd" Type="datetimeoffset" Precision="7" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserTokens">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="CLIENTE_ID" />
+          </Key>
+          <Property Name="CLIENTE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USUARIO_ID" Type="int" />
+          <Property Name="CODIGO_CLTE" Type="int" />
+          <Property Name="NOMBRE_CLTE" Type="nvarchar" MaxLength="100" />
+          <Property Name="DIRECCION" Type="nvarchar" MaxLength="100" />
+          <Property Name="TELEFONO" Type="nvarchar" MaxLength="10" />
+          <Property Name="CONTACTO" Type="nvarchar" MaxLength="50" />
+          <Property Name="E_MAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="BALANCE" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CLTE_ACTIVO" Type="bit" />
+          <Property Name="FECHA_CREACION" Type="date" />
+          <Property Name="MONTO_ULT_TRAN" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FECHA_ULT_TRAN" Type="date" />
+          <Property Name="DESC_ULT_TRAN" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="DOCS_CC">
+          <Key>
+            <PropertyRef Name="DOC_ID" />
+          </Key>
+          <Property Name="DOC_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TIPO_DOC_ID" Type="int" />
+          <Property Name="FORMA_PAGO_ID" Type="int" />
+          <Property Name="USUARIO_ID" Type="int" />
+          <Property Name="CLIENTE_ID" Type="int" />
+          <Property Name="NRO_DOC" Type="int" />
+          <Property Name="FECHA_EMISION" Type="datetime" />
+          <Property Name="DESC_DOC" Type="nvarchar" MaxLength="100" />
+          <Property Name="MONTO_DOC" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="MONTO_PARCIAL" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FECHA_VENCIMIENTO" Type="datetime" />
+          <Property Name="NRO_PAGOS" Type="int" />
+          <Property Name="BALANCE" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NRO_DOC_PAGADO" Type="int" />
+          <Property Name="ID_PAGADO" Type="int" />
+          <Property Name="ID_ORIGEN" Type="int" />
+          <Property Name="FECHA_HORA" Type="datetime" />
+          <Property Name="ID_BASE" Type="int" />
+        </EntityType>
+        <EntityType Name="FACTURA">
+          <Key>
+            <PropertyRef Name="FACTURA_ID" />
+          </Key>
+          <Property Name="FACTURA_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USUARIO_ID" Type="int" />
+          <Property Name="CLIENTE_ID" Type="int" />
+          <Property Name="SERIE_DOC_ID" Type="int" />
+          <Property Name="NRO_FACTURA" Type="int" />
+          <Property Name="FECHA_EMISION" Type="datetime" />
+          <Property Name="SUBTOTAL" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TOTAL" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ANULADA" Type="bit" />
+          <Property Name="CAUSA_ANULADA" Type="nvarchar" MaxLength="100" />
+          <Property Name="ESTADO_DOC" Type="bit" />
+          <Property Name="PAGOS" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FECHA_ACTUALIZADO" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FACTURA_DETALLE">
+          <Key>
+            <PropertyRef Name="DETALLE_ID" />
+          </Key>
+          <Property Name="DETALLE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FACTURA_ID" Type="int" />
+          <Property Name="PRODUCTO_ID" Type="int" />
+          <Property Name="CANTIDAD" Type="int" />
+          <Property Name="PRECIO_FACTURA" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ANULADA" Type="bit" />
+        </EntityType>
+        <EntityType Name="FORMA_PAGO">
+          <Key>
+            <PropertyRef Name="FORMA_PAGO_ID" />
+          </Key>
+          <Property Name="FORMA_PAGO_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PRODUCTO">
+          <Key>
+            <PropertyRef Name="PRODUCTO_ID" />
+          </Key>
+          <Property Name="PRODUCTO_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TIPO_PRODUCTO_ID" Type="int" />
+          <Property Name="USUARIO_ID" Type="int" />
+          <Property Name="CODIGO_PRODUCTO" Type="int" />
+          <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="50" />
+          <Property Name="PRECIO1" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PRECIO2" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PRECIO3" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FECHA_CREACION" Type="datetime" />
+          <Property Name="FECHA_ULTIMA_VENTA" Type="datetime" />
+          <Property Name="ACTIVO" Type="bit" />
+        </EntityType>
+        <EntityType Name="RECIBO">
+          <Key>
+            <PropertyRef Name="RECIBO_ID" />
+          </Key>
+          <Property Name="RECIBO_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USUARIO_ID" Type="int" />
+          <Property Name="CLIENTE_ID" Type="int" />
+          <Property Name="FORMA_PAGO_ID" Type="int" />
+          <Property Name="NRO_RECIBO" Type="int" />
+          <Property Name="FECHA_EMISION" Type="datetime" />
+          <Property Name="SUBTOTAL" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TOTAL" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ANULADO" Type="bit" />
+          <Property Name="CAUSA_ANULADO" Type="nvarchar" MaxLength="100" />
+          <Property Name="DESCRIPCION" Type="nvarchar(max)" />
+          <Property Name="NRO_DOC_PAGO" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="ROL_ID" />
+          </Key>
+          <Property Name="ROL_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SERIE_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="SERIE_DOC_ID" />
+          </Key>
+          <Property Name="SERIE_DOC_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TIPO_DOC_ID" Type="int" />
+          <Property Name="USUARIO_ID" Type="int" />
+          <Property Name="SERIE" Type="nvarchar" MaxLength="50" />
+          <Property Name="RESOLUCION" Type="nvarchar" MaxLength="50" />
+          <Property Name="DESDE" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="HASTA" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="FECHA_CREACION" Type="datetime" />
+          <Property Name="FECHA_VIGENTE" Type="datetime" />
+          <Property Name="FECHA_RESOLUCION" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TIPO_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="TIPO_DOC_ID" />
+          </Key>
+          <Property Name="TIPO_DOC_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TIPO_PRODUCTO">
+          <Key>
+            <PropertyRef Name="TIPO_PRODUCTO_ID" />
+          </Key>
+          <Property Name="TIPO_PRODUCTO_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO_TIPO_PRODUCTO" Type="int" />
+          <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="USUARIO_ID" />
+          </Key>
+          <Property Name="USUARIO_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE_COMPLETO" Type="nvarchar" MaxLength="100" />
+          <Property Name="NOMBRE_USUARIO" Type="nvarchar" MaxLength="50" />
+          <Property Name="CLAVE" Type="nvarchar" MaxLength="50" />
+          <Property Name="PUESTO" Type="nvarchar" MaxLength="50" />
+          <Property Name="FIRMA" Type="nvarchar(max)" />
+          <Property Name="FOTO" Type="nvarchar(max)" />
+          <Property Name="TIPO_IMAGEN" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="USUARIO_ROL">
+          <Key>
+            <PropertyRef Name="USUARIO_ROL_ID" />
+          </Key>
+          <Property Name="USUARIO_ROL_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USUARIO_ID" Type="int" />
+          <Property Name="ROL_ID" Type="int" />
+        </EntityType>
+        <Association Name="FK_AspNetRoleClaims_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetRoleClaims" Type="Self.AspNetRoleClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetRoleClaims">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserClaims_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserLogins_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserTokens_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserTokens" Type="Self.AspNetUserTokens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserTokens">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLIENTE_REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DOCS_CC_REFERENCE_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="DOCS_CC" Type="Self.DOCS_CC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Principal>
+            <Dependent Role="DOCS_CC">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DOCS_CC_REFERENCE_FORMA_PA">
+          <End Role="FORMA_PAGO" Type="Self.FORMA_PAGO" Multiplicity="0..1" />
+          <End Role="DOCS_CC" Type="Self.DOCS_CC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORMA_PAGO">
+              <PropertyRef Name="FORMA_PAGO_ID" />
+            </Principal>
+            <Dependent Role="DOCS_CC">
+              <PropertyRef Name="FORMA_PAGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DOCS_CC_REFERENCE_TIPO_DOC">
+          <End Role="TIPO_DOCUMENTO" Type="Self.TIPO_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="DOCS_CC" Type="Self.DOCS_CC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_DOCUMENTO">
+              <PropertyRef Name="TIPO_DOC_ID" />
+            </Principal>
+            <Dependent Role="DOCS_CC">
+              <PropertyRef Name="TIPO_DOC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DOCS_CC_REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="DOCS_CC" Type="Self.DOCS_CC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="DOCS_CC">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA__REFERENCE_FACTURA">
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="0..1" />
+          <End Role="FACTURA_DETALLE" Type="Self.FACTURA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACTURA">
+              <PropertyRef Name="FACTURA_ID" />
+            </Principal>
+            <Dependent Role="FACTURA_DETALLE">
+              <PropertyRef Name="FACTURA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA__REFERENCE_PRODUCTO">
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="0..1" />
+          <End Role="FACTURA_DETALLE" Type="Self.FACTURA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTO">
+              <PropertyRef Name="PRODUCTO_ID" />
+            </Principal>
+            <Dependent Role="FACTURA_DETALLE">
+              <PropertyRef Name="PRODUCTO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_REFERENCE_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_REFERENCE_SERIE_DO">
+          <End Role="SERIE_DOCUMENTO" Type="Self.SERIE_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERIE_DOCUMENTO">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_TIPO_PRO">
+          <End Role="TIPO_PRODUCTO" Type="Self.TIPO_PRODUCTO" Multiplicity="0..1" />
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_PRODUCTO">
+              <PropertyRef Name="TIPO_PRODUCTO_ID" />
+            </Principal>
+            <Dependent Role="PRODUCTO">
+              <PropertyRef Name="TIPO_PRODUCTO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="PRODUCTO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECIBO_REFERENCE_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="RECIBO" Type="Self.RECIBO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Principal>
+            <Dependent Role="RECIBO">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECIBO_REFERENCE_FORMA_PA">
+          <End Role="FORMA_PAGO" Type="Self.FORMA_PAGO" Multiplicity="0..1" />
+          <End Role="RECIBO" Type="Self.RECIBO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORMA_PAGO">
+              <PropertyRef Name="FORMA_PAGO_ID" />
+            </Principal>
+            <Dependent Role="RECIBO">
+              <PropertyRef Name="FORMA_PAGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECIBO_REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="RECIBO" Type="Self.RECIBO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="RECIBO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SERIE_DO_REFERENCE_TIPO_DOC">
+          <End Role="TIPO_DOCUMENTO" Type="Self.TIPO_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="SERIE_DOCUMENTO" Type="Self.SERIE_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_DOCUMENTO">
+              <PropertyRef Name="TIPO_DOC_ID" />
+            </Principal>
+            <Dependent Role="SERIE_DOCUMENTO">
+              <PropertyRef Name="TIPO_DOC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SERIE_DO_REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="SERIE_DOCUMENTO" Type="Self.SERIE_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="SERIE_DOCUMENTO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO__REFERENCE_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="USUARIO_ROL" Type="Self.USUARIO_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="ROL_ID" />
+            </Principal>
+            <Dependent Role="USUARIO_ROL">
+              <PropertyRef Name="ROL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO__REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="USUARIO_ROL" Type="Self.USUARIO_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="USUARIO_ROL">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="intersystemerpModelStoreContainer">
+          <EntitySet Name="__EFMigrationsHistory" EntityType="Self.__EFMigrationsHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoleClaims" EntityType="Self.AspNetRoleClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserTokens" EntityType="Self.AspNetUserTokens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DOCS_CC" EntityType="Self.DOCS_CC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FACTURA" EntityType="Self.FACTURA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FACTURA_DETALLE" EntityType="Self.FACTURA_DETALLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FORMA_PAGO" EntityType="Self.FORMA_PAGO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RECIBO" EntityType="Self.RECIBO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SERIE_DOCUMENTO" EntityType="Self.SERIE_DOCUMENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPO_DOCUMENTO" EntityType="Self.TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIO_ROL" EntityType="Self.USUARIO_ROL" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AspNetRoleClaims_AspNetRoles_RoleId" Association="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetRoleClaims" EntitySet="AspNetRoleClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers_UserId" Association="Self.FK_AspNetUserClaims_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserLogins_AspNetUsers_UserId" Association="Self.FK_AspNetUserLogins_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles_RoleId" Association="Self.FK_AspNetUserRoles_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers_UserId" Association="Self.FK_AspNetUserRoles_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserTokens_AspNetUsers_UserId" Association="Self.FK_AspNetUserTokens_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserTokens" EntitySet="AspNetUserTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLIENTE_REFERENCE_USUARIO" Association="Self.FK_CLIENTE_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DOCS_CC_REFERENCE_CLIENTE" Association="Self.FK_DOCS_CC_REFERENCE_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="DOCS_CC" EntitySet="DOCS_CC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DOCS_CC_REFERENCE_FORMA_PA" Association="Self.FK_DOCS_CC_REFERENCE_FORMA_PA">
+            <End Role="FORMA_PAGO" EntitySet="FORMA_PAGO" />
+            <End Role="DOCS_CC" EntitySet="DOCS_CC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DOCS_CC_REFERENCE_TIPO_DOC" Association="Self.FK_DOCS_CC_REFERENCE_TIPO_DOC">
+            <End Role="TIPO_DOCUMENTO" EntitySet="TIPO_DOCUMENTO" />
+            <End Role="DOCS_CC" EntitySet="DOCS_CC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DOCS_CC_REFERENCE_USUARIO" Association="Self.FK_DOCS_CC_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="DOCS_CC" EntitySet="DOCS_CC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA__REFERENCE_FACTURA" Association="Self.FK_FACTURA__REFERENCE_FACTURA">
+            <End Role="FACTURA" EntitySet="FACTURA" />
+            <End Role="FACTURA_DETALLE" EntitySet="FACTURA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA__REFERENCE_PRODUCTO" Association="Self.FK_FACTURA__REFERENCE_PRODUCTO">
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+            <End Role="FACTURA_DETALLE" EntitySet="FACTURA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_REFERENCE_CLIENTE" Association="Self.FK_FACTURA_REFERENCE_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_REFERENCE_SERIE_DO" Association="Self.FK_FACTURA_REFERENCE_SERIE_DO">
+            <End Role="SERIE_DOCUMENTO" EntitySet="SERIE_DOCUMENTO" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_REFERENCE_USUARIO" Association="Self.FK_FACTURA_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_TIPO_PRO" Association="Self.FK_PRODUCTO_REFERENCE_TIPO_PRO">
+            <End Role="TIPO_PRODUCTO" EntitySet="TIPO_PRODUCTO" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_USUARIO" Association="Self.FK_PRODUCTO_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECIBO_REFERENCE_CLIENTE" Association="Self.FK_RECIBO_REFERENCE_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="RECIBO" EntitySet="RECIBO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECIBO_REFERENCE_FORMA_PA" Association="Self.FK_RECIBO_REFERENCE_FORMA_PA">
+            <End Role="FORMA_PAGO" EntitySet="FORMA_PAGO" />
+            <End Role="RECIBO" EntitySet="RECIBO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECIBO_REFERENCE_USUARIO" Association="Self.FK_RECIBO_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="RECIBO" EntitySet="RECIBO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SERIE_DO_REFERENCE_TIPO_DOC" Association="Self.FK_SERIE_DO_REFERENCE_TIPO_DOC">
+            <End Role="TIPO_DOCUMENTO" EntitySet="TIPO_DOCUMENTO" />
+            <End Role="SERIE_DOCUMENTO" EntitySet="SERIE_DOCUMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SERIE_DO_REFERENCE_USUARIO" Association="Self.FK_SERIE_DO_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="SERIE_DOCUMENTO" EntitySet="SERIE_DOCUMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO__REFERENCE_ROL" Association="Self.FK_USUARIO__REFERENCE_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="USUARIO_ROL" EntitySet="USUARIO_ROL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO__REFERENCE_USUARIO" Association="Self.FK_USUARIO__REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="USUARIO_ROL" EntitySet="USUARIO_ROL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="intersystemerpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoleClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId" FromRole="AspNetRoleClaims" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NormalizedName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ConcurrencyStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetRoleClaims" Relationship="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId" FromRole="AspNetRoles" ToRole="AspNetRoleClaims" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_AspNetUserClaims_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderDisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_AspNetUserLogins_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NormalizedUserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NormalizedEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ConcurrencyStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEnd" Type="DateTimeOffset" Precision="7" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_AspNetUserClaims_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_AspNetUserLogins_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetUserTokens" Relationship="Self.FK_AspNetUserTokens_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserTokens" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="AspNetUserTokens">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_AspNetUserTokens_AspNetUsers_UserId" FromRole="AspNetUserTokens" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="CLIENTE_ID" />
+          </Key>
+          <Property Name="CLIENTE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USUARIO_ID" Type="Int32" />
+          <Property Name="CODIGO_CLTE" Type="Int32" />
+          <Property Name="NOMBRE_CLTE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DIRECCION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TELEFONO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CONTACTO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="E_MAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BALANCE" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CLTE_ACTIVO" Type="Boolean" />
+          <Property Name="FECHA_CREACION" Type="DateTime" Precision="0" />
+          <Property Name="MONTO_ULT_TRAN" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FECHA_ULT_TRAN" Type="DateTime" Precision="0" />
+          <Property Name="DESC_ULT_TRAN" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_CLIENTE_REFERENCE_USUARIO" FromRole="CLIENTE" ToRole="USUARIO" />
+          <NavigationProperty Name="DOCS_CC" Relationship="Self.FK_DOCS_CC_REFERENCE_CLIENTE" FromRole="CLIENTE" ToRole="DOCS_CC" />
+          <NavigationProperty Name="FACTURA" Relationship="Self.FK_FACTURA_REFERENCE_CLIENTE" FromRole="CLIENTE" ToRole="FACTURA" />
+          <NavigationProperty Name="RECIBO" Relationship="Self.FK_RECIBO_REFERENCE_CLIENTE" FromRole="CLIENTE" ToRole="RECIBO" />
+        </EntityType>
+        <EntityType Name="DOCS_CC">
+          <Key>
+            <PropertyRef Name="DOC_ID" />
+          </Key>
+          <Property Name="DOC_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TIPO_DOC_ID" Type="Int32" />
+          <Property Name="FORMA_PAGO_ID" Type="Int32" />
+          <Property Name="USUARIO_ID" Type="Int32" />
+          <Property Name="CLIENTE_ID" Type="Int32" />
+          <Property Name="NRO_DOC" Type="Int32" />
+          <Property Name="FECHA_EMISION" Type="DateTime" Precision="3" />
+          <Property Name="DESC_DOC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MONTO_DOC" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MONTO_PARCIAL" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FECHA_VENCIMIENTO" Type="DateTime" Precision="3" />
+          <Property Name="NRO_PAGOS" Type="Int32" />
+          <Property Name="BALANCE" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NRO_DOC_PAGADO" Type="Int32" />
+          <Property Name="ID_PAGADO" Type="Int32" />
+          <Property Name="ID_ORIGEN" Type="Int32" />
+          <Property Name="FECHA_HORA" Type="DateTime" Precision="3" />
+          <Property Name="ID_BASE" Type="Int32" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_DOCS_CC_REFERENCE_CLIENTE" FromRole="DOCS_CC" ToRole="CLIENTE" />
+          <NavigationProperty Name="FORMA_PAGO" Relationship="Self.FK_DOCS_CC_REFERENCE_FORMA_PA" FromRole="DOCS_CC" ToRole="FORMA_PAGO" />
+          <NavigationProperty Name="TIPO_DOCUMENTO" Relationship="Self.FK_DOCS_CC_REFERENCE_TIPO_DOC" FromRole="DOCS_CC" ToRole="TIPO_DOCUMENTO" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_DOCS_CC_REFERENCE_USUARIO" FromRole="DOCS_CC" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="FACTURA">
+          <Key>
+            <PropertyRef Name="FACTURA_ID" />
+          </Key>
+          <Property Name="FACTURA_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USUARIO_ID" Type="Int32" />
+          <Property Name="CLIENTE_ID" Type="Int32" />
+          <Property Name="SERIE_DOC_ID" Type="Int32" />
+          <Property Name="NRO_FACTURA" Type="Int32" />
+          <Property Name="FECHA_EMISION" Type="DateTime" Precision="3" />
+          <Property Name="SUBTOTAL" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TOTAL" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ANULADA" Type="Boolean" />
+          <Property Name="CAUSA_ANULADA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ESTADO_DOC" Type="Boolean" />
+          <Property Name="PAGOS" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FECHA_ACTUALIZADO" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_FACTURA_REFERENCE_CLIENTE" FromRole="FACTURA" ToRole="CLIENTE" />
+          <NavigationProperty Name="FACTURA_DETALLE" Relationship="Self.FK_FACTURA__REFERENCE_FACTURA" FromRole="FACTURA" ToRole="FACTURA_DETALLE" />
+          <NavigationProperty Name="SERIE_DOCUMENTO" Relationship="Self.FK_FACTURA_REFERENCE_SERIE_DO" FromRole="FACTURA" ToRole="SERIE_DOCUMENTO" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_FACTURA_REFERENCE_USUARIO" FromRole="FACTURA" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="FACTURA_DETALLE">
+          <Key>
+            <PropertyRef Name="DETALLE_ID" />
+          </Key>
+          <Property Name="DETALLE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FACTURA_ID" Type="Int32" />
+          <Property Name="PRODUCTO_ID" Type="Int32" />
+          <Property Name="CANTIDAD" Type="Int32" />
+          <Property Name="PRECIO_FACTURA" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ANULADA" Type="Boolean" />
+          <NavigationProperty Name="FACTURA" Relationship="Self.FK_FACTURA__REFERENCE_FACTURA" FromRole="FACTURA_DETALLE" ToRole="FACTURA" />
+          <NavigationProperty Name="PRODUCTO" Relationship="Self.FK_FACTURA__REFERENCE_PRODUCTO" FromRole="FACTURA_DETALLE" ToRole="PRODUCTO" />
+        </EntityType>
+        <EntityType Name="FORMA_PAGO">
+          <Key>
+            <PropertyRef Name="FORMA_PAGO_ID" />
+          </Key>
+          <Property Name="FORMA_PAGO_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DOCS_CC" Relationship="Self.FK_DOCS_CC_REFERENCE_FORMA_PA" FromRole="FORMA_PAGO" ToRole="DOCS_CC" />
+          <NavigationProperty Name="RECIBO" Relationship="Self.FK_RECIBO_REFERENCE_FORMA_PA" FromRole="FORMA_PAGO" ToRole="RECIBO" />
+        </EntityType>
+        <EntityType Name="PRODUCTO">
+          <Key>
+            <PropertyRef Name="PRODUCTO_ID" />
+          </Key>
+          <Property Name="PRODUCTO_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TIPO_PRODUCTO_ID" Type="Int32" />
+          <Property Name="USUARIO_ID" Type="Int32" />
+          <Property Name="CODIGO_PRODUCTO" Type="Int32" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PRECIO1" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PRECIO2" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PRECIO3" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FECHA_CREACION" Type="DateTime" Precision="3" />
+          <Property Name="FECHA_ULTIMA_VENTA" Type="DateTime" Precision="3" />
+          <Property Name="ACTIVO" Type="Boolean" />
+          <NavigationProperty Name="FACTURA_DETALLE" Relationship="Self.FK_FACTURA__REFERENCE_PRODUCTO" FromRole="PRODUCTO" ToRole="FACTURA_DETALLE" />
+          <NavigationProperty Name="TIPO_PRODUCTO" Relationship="Self.FK_PRODUCTO_REFERENCE_TIPO_PRO" FromRole="PRODUCTO" ToRole="TIPO_PRODUCTO" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_PRODUCTO_REFERENCE_USUARIO" FromRole="PRODUCTO" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="RECIBO">
+          <Key>
+            <PropertyRef Name="RECIBO_ID" />
+          </Key>
+          <Property Name="RECIBO_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USUARIO_ID" Type="Int32" />
+          <Property Name="CLIENTE_ID" Type="Int32" />
+          <Property Name="FORMA_PAGO_ID" Type="Int32" />
+          <Property Name="NRO_RECIBO" Type="Int32" />
+          <Property Name="FECHA_EMISION" Type="DateTime" Precision="3" />
+          <Property Name="SUBTOTAL" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TOTAL" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ANULADO" Type="Boolean" />
+          <Property Name="CAUSA_ANULADO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NRO_DOC_PAGO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_RECIBO_REFERENCE_CLIENTE" FromRole="RECIBO" ToRole="CLIENTE" />
+          <NavigationProperty Name="FORMA_PAGO" Relationship="Self.FK_RECIBO_REFERENCE_FORMA_PA" FromRole="RECIBO" ToRole="FORMA_PAGO" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_RECIBO_REFERENCE_USUARIO" FromRole="RECIBO" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="ROL_ID" />
+          </Key>
+          <Property Name="ROL_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="USUARIO_ROL" Relationship="Self.FK_USUARIO__REFERENCE_ROL" FromRole="ROL" ToRole="USUARIO_ROL" />
+        </EntityType>
+        <EntityType Name="SERIE_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="SERIE_DOC_ID" />
+          </Key>
+          <Property Name="SERIE_DOC_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TIPO_DOC_ID" Type="Int32" />
+          <Property Name="USUARIO_ID" Type="Int32" />
+          <Property Name="SERIE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RESOLUCION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DESDE" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="HASTA" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FECHA_CREACION" Type="DateTime" Precision="3" />
+          <Property Name="FECHA_VIGENTE" Type="DateTime" Precision="3" />
+          <Property Name="FECHA_RESOLUCION" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="FACTURA" Relationship="Self.FK_FACTURA_REFERENCE_SERIE_DO" FromRole="SERIE_DOCUMENTO" ToRole="FACTURA" />
+          <NavigationProperty Name="TIPO_DOCUMENTO" Relationship="Self.FK_SERIE_DO_REFERENCE_TIPO_DOC" FromRole="SERIE_DOCUMENTO" ToRole="TIPO_DOCUMENTO" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_SERIE_DO_REFERENCE_USUARIO" FromRole="SERIE_DOCUMENTO" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="TIPO_DOCUMENTO">
+          <Key>
+            <PropertyRef Name="TIPO_DOC_ID" />
+          </Key>
+          <Property Name="TIPO_DOC_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DOCS_CC" Relationship="Self.FK_DOCS_CC_REFERENCE_TIPO_DOC" FromRole="TIPO_DOCUMENTO" ToRole="DOCS_CC" />
+          <NavigationProperty Name="SERIE_DOCUMENTO" Relationship="Self.FK_SERIE_DO_REFERENCE_TIPO_DOC" FromRole="TIPO_DOCUMENTO" ToRole="SERIE_DOCUMENTO" />
+        </EntityType>
+        <EntityType Name="TIPO_PRODUCTO">
+          <Key>
+            <PropertyRef Name="TIPO_PRODUCTO_ID" />
+          </Key>
+          <Property Name="TIPO_PRODUCTO_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO_TIPO_PRODUCTO" Type="Int32" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PRODUCTO" Relationship="Self.FK_PRODUCTO_REFERENCE_TIPO_PRO" FromRole="TIPO_PRODUCTO" ToRole="PRODUCTO" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="USUARIO_ID" />
+          </Key>
+          <Property Name="USUARIO_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE_COMPLETO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NOMBRE_USUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CLAVE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PUESTO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FIRMA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FOTO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TIPO_IMAGEN" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CLIENTE_REFERENCE_USUARIO" FromRole="USUARIO" ToRole="CLIENTE" />
+          <NavigationProperty Name="DOCS_CC" Relationship="Self.FK_DOCS_CC_REFERENCE_USUARIO" FromRole="USUARIO" ToRole="DOCS_CC" />
+          <NavigationProperty Name="FACTURA" Relationship="Self.FK_FACTURA_REFERENCE_USUARIO" FromRole="USUARIO" ToRole="FACTURA" />
+          <NavigationProperty Name="PRODUCTO" Relationship="Self.FK_PRODUCTO_REFERENCE_USUARIO" FromRole="USUARIO" ToRole="PRODUCTO" />
+          <NavigationProperty Name="RECIBO" Relationship="Self.FK_RECIBO_REFERENCE_USUARIO" FromRole="USUARIO" ToRole="RECIBO" />
+          <NavigationProperty Name="SERIE_DOCUMENTO" Relationship="Self.FK_SERIE_DO_REFERENCE_USUARIO" FromRole="USUARIO" ToRole="SERIE_DOCUMENTO" />
+          <NavigationProperty Name="USUARIO_ROL" Relationship="Self.FK_USUARIO__REFERENCE_USUARIO" FromRole="USUARIO" ToRole="USUARIO_ROL" />
+        </EntityType>
+        <EntityType Name="USUARIO_ROL">
+          <Key>
+            <PropertyRef Name="USUARIO_ROL_ID" />
+          </Key>
+          <Property Name="USUARIO_ROL_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USUARIO_ID" Type="Int32" />
+          <Property Name="ROL_ID" Type="Int32" />
+          <NavigationProperty Name="ROL" Relationship="Self.FK_USUARIO__REFERENCE_ROL" FromRole="USUARIO_ROL" ToRole="ROL" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO__REFERENCE_USUARIO" FromRole="USUARIO_ROL" ToRole="USUARIO" />
+        </EntityType>
+        <Association Name="FK_AspNetRoleClaims_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetRoleClaims" Type="Self.AspNetRoleClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetRoleClaims">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserClaims_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserLogins_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserTokens_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserTokens" Type="Self.AspNetUserTokens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserTokens">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLIENTE_REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DOCS_CC_REFERENCE_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="DOCS_CC" Type="Self.DOCS_CC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Principal>
+            <Dependent Role="DOCS_CC">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_REFERENCE_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECIBO_REFERENCE_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="RECIBO" Type="Self.RECIBO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Principal>
+            <Dependent Role="RECIBO">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DOCS_CC_REFERENCE_FORMA_PA">
+          <End Role="FORMA_PAGO" Type="Self.FORMA_PAGO" Multiplicity="0..1" />
+          <End Role="DOCS_CC" Type="Self.DOCS_CC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORMA_PAGO">
+              <PropertyRef Name="FORMA_PAGO_ID" />
+            </Principal>
+            <Dependent Role="DOCS_CC">
+              <PropertyRef Name="FORMA_PAGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DOCS_CC_REFERENCE_TIPO_DOC">
+          <End Role="TIPO_DOCUMENTO" Type="Self.TIPO_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="DOCS_CC" Type="Self.DOCS_CC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_DOCUMENTO">
+              <PropertyRef Name="TIPO_DOC_ID" />
+            </Principal>
+            <Dependent Role="DOCS_CC">
+              <PropertyRef Name="TIPO_DOC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DOCS_CC_REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="DOCS_CC" Type="Self.DOCS_CC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="DOCS_CC">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA__REFERENCE_FACTURA">
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="0..1" />
+          <End Role="FACTURA_DETALLE" Type="Self.FACTURA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACTURA">
+              <PropertyRef Name="FACTURA_ID" />
+            </Principal>
+            <Dependent Role="FACTURA_DETALLE">
+              <PropertyRef Name="FACTURA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_REFERENCE_SERIE_DO">
+          <End Role="SERIE_DOCUMENTO" Type="Self.SERIE_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERIE_DOCUMENTO">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA__REFERENCE_PRODUCTO">
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="0..1" />
+          <End Role="FACTURA_DETALLE" Type="Self.FACTURA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTO">
+              <PropertyRef Name="PRODUCTO_ID" />
+            </Principal>
+            <Dependent Role="FACTURA_DETALLE">
+              <PropertyRef Name="PRODUCTO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECIBO_REFERENCE_FORMA_PA">
+          <End Role="FORMA_PAGO" Type="Self.FORMA_PAGO" Multiplicity="0..1" />
+          <End Role="RECIBO" Type="Self.RECIBO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORMA_PAGO">
+              <PropertyRef Name="FORMA_PAGO_ID" />
+            </Principal>
+            <Dependent Role="RECIBO">
+              <PropertyRef Name="FORMA_PAGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_TIPO_PRO">
+          <End Role="TIPO_PRODUCTO" Type="Self.TIPO_PRODUCTO" Multiplicity="0..1" />
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_PRODUCTO">
+              <PropertyRef Name="TIPO_PRODUCTO_ID" />
+            </Principal>
+            <Dependent Role="PRODUCTO">
+              <PropertyRef Name="TIPO_PRODUCTO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="PRODUCTO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECIBO_REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="RECIBO" Type="Self.RECIBO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="RECIBO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO__REFERENCE_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="USUARIO_ROL" Type="Self.USUARIO_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="ROL_ID" />
+            </Principal>
+            <Dependent Role="USUARIO_ROL">
+              <PropertyRef Name="ROL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SERIE_DO_REFERENCE_TIPO_DOC">
+          <End Role="TIPO_DOCUMENTO" Type="Self.TIPO_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="SERIE_DOCUMENTO" Type="Self.SERIE_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_DOCUMENTO">
+              <PropertyRef Name="TIPO_DOC_ID" />
+            </Principal>
+            <Dependent Role="SERIE_DOCUMENTO">
+              <PropertyRef Name="TIPO_DOC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SERIE_DO_REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="SERIE_DOCUMENTO" Type="Self.SERIE_DOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="SERIE_DOCUMENTO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO__REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="USUARIO_ROL" Type="Self.USUARIO_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="USUARIO_ROL">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="intersystemerpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__EFMigrationsHistory" EntityType="Self.C__EFMigrationsHistory" />
+          <EntitySet Name="AspNetRoleClaims" EntityType="Self.AspNetRoleClaims" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+          <EntitySet Name="AspNetUserTokens" EntityType="Self.AspNetUserTokens" />
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" />
+          <EntitySet Name="DOCS_CC" EntityType="Self.DOCS_CC" />
+          <EntitySet Name="FACTURA" EntityType="Self.FACTURA" />
+          <EntitySet Name="FACTURA_DETALLE" EntityType="Self.FACTURA_DETALLE" />
+          <EntitySet Name="FORMA_PAGO" EntityType="Self.FORMA_PAGO" />
+          <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" />
+          <EntitySet Name="RECIBO" EntityType="Self.RECIBO" />
+          <EntitySet Name="ROL" EntityType="Self.ROL" />
+          <EntitySet Name="SERIE_DOCUMENTO" EntityType="Self.SERIE_DOCUMENTO" />
+          <EntitySet Name="TIPO_DOCUMENTO" EntityType="Self.TIPO_DOCUMENTO" />
+          <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+          <EntitySet Name="USUARIO_ROL" EntityType="Self.USUARIO_ROL" />
+          <AssociationSet Name="FK_AspNetRoleClaims_AspNetRoles_RoleId" Association="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetRoleClaims" EntitySet="AspNetRoleClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers_UserId" Association="Self.FK_AspNetUserClaims_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserLogins_AspNetUsers_UserId" Association="Self.FK_AspNetUserLogins_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserTokens_AspNetUsers_UserId" Association="Self.FK_AspNetUserTokens_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserTokens" EntitySet="AspNetUserTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLIENTE_REFERENCE_USUARIO" Association="Self.FK_CLIENTE_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DOCS_CC_REFERENCE_CLIENTE" Association="Self.FK_DOCS_CC_REFERENCE_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="DOCS_CC" EntitySet="DOCS_CC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_REFERENCE_CLIENTE" Association="Self.FK_FACTURA_REFERENCE_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECIBO_REFERENCE_CLIENTE" Association="Self.FK_RECIBO_REFERENCE_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="RECIBO" EntitySet="RECIBO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DOCS_CC_REFERENCE_FORMA_PA" Association="Self.FK_DOCS_CC_REFERENCE_FORMA_PA">
+            <End Role="FORMA_PAGO" EntitySet="FORMA_PAGO" />
+            <End Role="DOCS_CC" EntitySet="DOCS_CC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DOCS_CC_REFERENCE_TIPO_DOC" Association="Self.FK_DOCS_CC_REFERENCE_TIPO_DOC">
+            <End Role="TIPO_DOCUMENTO" EntitySet="TIPO_DOCUMENTO" />
+            <End Role="DOCS_CC" EntitySet="DOCS_CC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DOCS_CC_REFERENCE_USUARIO" Association="Self.FK_DOCS_CC_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="DOCS_CC" EntitySet="DOCS_CC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA__REFERENCE_FACTURA" Association="Self.FK_FACTURA__REFERENCE_FACTURA">
+            <End Role="FACTURA" EntitySet="FACTURA" />
+            <End Role="FACTURA_DETALLE" EntitySet="FACTURA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_REFERENCE_SERIE_DO" Association="Self.FK_FACTURA_REFERENCE_SERIE_DO">
+            <End Role="SERIE_DOCUMENTO" EntitySet="SERIE_DOCUMENTO" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_REFERENCE_USUARIO" Association="Self.FK_FACTURA_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA__REFERENCE_PRODUCTO" Association="Self.FK_FACTURA__REFERENCE_PRODUCTO">
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+            <End Role="FACTURA_DETALLE" EntitySet="FACTURA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECIBO_REFERENCE_FORMA_PA" Association="Self.FK_RECIBO_REFERENCE_FORMA_PA">
+            <End Role="FORMA_PAGO" EntitySet="FORMA_PAGO" />
+            <End Role="RECIBO" EntitySet="RECIBO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_TIPO_PRO" Association="Self.FK_PRODUCTO_REFERENCE_TIPO_PRO">
+            <End Role="TIPO_PRODUCTO" EntitySet="TIPO_PRODUCTO" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_USUARIO" Association="Self.FK_PRODUCTO_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECIBO_REFERENCE_USUARIO" Association="Self.FK_RECIBO_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="RECIBO" EntitySet="RECIBO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO__REFERENCE_ROL" Association="Self.FK_USUARIO__REFERENCE_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="USUARIO_ROL" EntitySet="USUARIO_ROL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SERIE_DO_REFERENCE_TIPO_DOC" Association="Self.FK_SERIE_DO_REFERENCE_TIPO_DOC">
+            <End Role="TIPO_DOCUMENTO" EntitySet="TIPO_DOCUMENTO" />
+            <End Role="SERIE_DOCUMENTO" EntitySet="SERIE_DOCUMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SERIE_DO_REFERENCE_USUARIO" Association="Self.FK_SERIE_DO_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="SERIE_DOCUMENTO" EntitySet="SERIE_DOCUMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO__REFERENCE_USUARIO" Association="Self.FK_USUARIO__REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="USUARIO_ROL" EntitySet="USUARIO_ROL" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="intersystemerpModelStoreContainer" CdmEntityContainer="intersystemerpEntities">
+          <EntitySetMapping Name="C__EFMigrationsHistory">
+            <EntityTypeMapping TypeName="intersystemerpModel.C__EFMigrationsHistory">
+              <MappingFragment StoreEntitySet="__EFMigrationsHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoleClaims">
+            <EntityTypeMapping TypeName="intersystemerpModel.AspNetRoleClaims">
+              <MappingFragment StoreEntitySet="AspNetRoleClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="intersystemerpModel.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NormalizedName" ColumnName="NormalizedName" />
+                <ScalarProperty Name="ConcurrencyStamp" ColumnName="ConcurrencyStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="intersystemerpModel.AspNetUserClaims">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="intersystemerpModel.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="ProviderDisplayName" ColumnName="ProviderDisplayName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="intersystemerpModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="NormalizedUserName" ColumnName="NormalizedUserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NormalizedEmail" ColumnName="NormalizedEmail" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="ConcurrencyStamp" ColumnName="ConcurrencyStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEnd" ColumnName="LockoutEnd" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserTokens">
+            <EntityTypeMapping TypeName="intersystemerpModel.AspNetUserTokens">
+              <MappingFragment StoreEntitySet="AspNetUserTokens">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENTE">
+            <EntityTypeMapping TypeName="intersystemerpModel.CLIENTE">
+              <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="CLIENTE_ID" ColumnName="CLIENTE_ID" />
+                <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
+                <ScalarProperty Name="CODIGO_CLTE" ColumnName="CODIGO_CLTE" />
+                <ScalarProperty Name="NOMBRE_CLTE" ColumnName="NOMBRE_CLTE" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="CONTACTO" ColumnName="CONTACTO" />
+                <ScalarProperty Name="E_MAIL" ColumnName="E_MAIL" />
+                <ScalarProperty Name="BALANCE" ColumnName="BALANCE" />
+                <ScalarProperty Name="CLTE_ACTIVO" ColumnName="CLTE_ACTIVO" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="MONTO_ULT_TRAN" ColumnName="MONTO_ULT_TRAN" />
+                <ScalarProperty Name="FECHA_ULT_TRAN" ColumnName="FECHA_ULT_TRAN" />
+                <ScalarProperty Name="DESC_ULT_TRAN" ColumnName="DESC_ULT_TRAN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOCS_CC">
+            <EntityTypeMapping TypeName="intersystemerpModel.DOCS_CC">
+              <MappingFragment StoreEntitySet="DOCS_CC">
+                <ScalarProperty Name="DOC_ID" ColumnName="DOC_ID" />
+                <ScalarProperty Name="TIPO_DOC_ID" ColumnName="TIPO_DOC_ID" />
+                <ScalarProperty Name="FORMA_PAGO_ID" ColumnName="FORMA_PAGO_ID" />
+                <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
+                <ScalarProperty Name="CLIENTE_ID" ColumnName="CLIENTE_ID" />
+                <ScalarProperty Name="NRO_DOC" ColumnName="NRO_DOC" />
+                <ScalarProperty Name="FECHA_EMISION" ColumnName="FECHA_EMISION" />
+                <ScalarProperty Name="DESC_DOC" ColumnName="DESC_DOC" />
+                <ScalarProperty Name="MONTO_DOC" ColumnName="MONTO_DOC" />
+                <ScalarProperty Name="MONTO_PARCIAL" ColumnName="MONTO_PARCIAL" />
+                <ScalarProperty Name="FECHA_VENCIMIENTO" ColumnName="FECHA_VENCIMIENTO" />
+                <ScalarProperty Name="NRO_PAGOS" ColumnName="NRO_PAGOS" />
+                <ScalarProperty Name="BALANCE" ColumnName="BALANCE" />
+                <ScalarProperty Name="NRO_DOC_PAGADO" ColumnName="NRO_DOC_PAGADO" />
+                <ScalarProperty Name="ID_PAGADO" ColumnName="ID_PAGADO" />
+                <ScalarProperty Name="ID_ORIGEN" ColumnName="ID_ORIGEN" />
+                <ScalarProperty Name="FECHA_HORA" ColumnName="FECHA_HORA" />
+                <ScalarProperty Name="ID_BASE" ColumnName="ID_BASE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FACTURA">
+            <EntityTypeMapping TypeName="intersystemerpModel.FACTURA">
+              <MappingFragment StoreEntitySet="FACTURA">
+                <ScalarProperty Name="FACTURA_ID" ColumnName="FACTURA_ID" />
+                <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
+                <ScalarProperty Name="CLIENTE_ID" ColumnName="CLIENTE_ID" />
+                <ScalarProperty Name="SERIE_DOC_ID" ColumnName="SERIE_DOC_ID" />
+                <ScalarProperty Name="NRO_FACTURA" ColumnName="NRO_FACTURA" />
+                <ScalarProperty Name="FECHA_EMISION" ColumnName="FECHA_EMISION" />
+                <ScalarProperty Name="SUBTOTAL" ColumnName="SUBTOTAL" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="ANULADA" ColumnName="ANULADA" />
+                <ScalarProperty Name="CAUSA_ANULADA" ColumnName="CAUSA_ANULADA" />
+                <ScalarProperty Name="ESTADO_DOC" ColumnName="ESTADO_DOC" />
+                <ScalarProperty Name="PAGOS" ColumnName="PAGOS" />
+                <ScalarProperty Name="FECHA_ACTUALIZADO" ColumnName="FECHA_ACTUALIZADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FACTURA_DETALLE">
+            <EntityTypeMapping TypeName="intersystemerpModel.FACTURA_DETALLE">
+              <MappingFragment StoreEntitySet="FACTURA_DETALLE">
+                <ScalarProperty Name="DETALLE_ID" ColumnName="DETALLE_ID" />
+                <ScalarProperty Name="FACTURA_ID" ColumnName="FACTURA_ID" />
+                <ScalarProperty Name="PRODUCTO_ID" ColumnName="PRODUCTO_ID" />
+                <ScalarProperty Name="CANTIDAD" ColumnName="CANTIDAD" />
+                <ScalarProperty Name="PRECIO_FACTURA" ColumnName="PRECIO_FACTURA" />
+                <ScalarProperty Name="ANULADA" ColumnName="ANULADA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FORMA_PAGO">
+            <EntityTypeMapping TypeName="intersystemerpModel.FORMA_PAGO">
+              <MappingFragment StoreEntitySet="FORMA_PAGO">
+                <ScalarProperty Name="FORMA_PAGO_ID" ColumnName="FORMA_PAGO_ID" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTO">
+            <EntityTypeMapping TypeName="intersystemerpModel.PRODUCTO">
+              <MappingFragment StoreEntitySet="PRODUCTO">
+                <ScalarProperty Name="PRODUCTO_ID" ColumnName="PRODUCTO_ID" />
+                <ScalarProperty Name="TIPO_PRODUCTO_ID" ColumnName="TIPO_PRODUCTO_ID" />
+                <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
+                <ScalarProperty Name="CODIGO_PRODUCTO" ColumnName="CODIGO_PRODUCTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="PRECIO1" ColumnName="PRECIO1" />
+                <ScalarProperty Name="PRECIO2" ColumnName="PRECIO2" />
+                <ScalarProperty Name="PRECIO3" ColumnName="PRECIO3" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="FECHA_ULTIMA_VENTA" ColumnName="FECHA_ULTIMA_VENTA" />
+                <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECIBO">
+            <EntityTypeMapping TypeName="intersystemerpModel.RECIBO">
+              <MappingFragment StoreEntitySet="RECIBO">
+                <ScalarProperty Name="RECIBO_ID" ColumnName="RECIBO_ID" />
+                <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
+                <ScalarProperty Name="CLIENTE_ID" ColumnName="CLIENTE_ID" />
+                <ScalarProperty Name="FORMA_PAGO_ID" ColumnName="FORMA_PAGO_ID" />
+                <ScalarProperty Name="NRO_RECIBO" ColumnName="NRO_RECIBO" />
+                <ScalarProperty Name="FECHA_EMISION" ColumnName="FECHA_EMISION" />
+                <ScalarProperty Name="SUBTOTAL" ColumnName="SUBTOTAL" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="ANULADO" ColumnName="ANULADO" />
+                <ScalarProperty Name="CAUSA_ANULADO" ColumnName="CAUSA_ANULADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NRO_DOC_PAGO" ColumnName="NRO_DOC_PAGO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROL">
+            <EntityTypeMapping TypeName="intersystemerpModel.ROL">
+              <MappingFragment StoreEntitySet="ROL">
+                <ScalarProperty Name="ROL_ID" ColumnName="ROL_ID" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SERIE_DOCUMENTO">
+            <EntityTypeMapping TypeName="intersystemerpModel.SERIE_DOCUMENTO">
+              <MappingFragment StoreEntitySet="SERIE_DOCUMENTO">
+                <ScalarProperty Name="SERIE_DOC_ID" ColumnName="SERIE_DOC_ID" />
+                <ScalarProperty Name="TIPO_DOC_ID" ColumnName="TIPO_DOC_ID" />
+                <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
+                <ScalarProperty Name="SERIE" ColumnName="SERIE" />
+                <ScalarProperty Name="RESOLUCION" ColumnName="RESOLUCION" />
+                <ScalarProperty Name="DESDE" ColumnName="DESDE" />
+                <ScalarProperty Name="HASTA" ColumnName="HASTA" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="FECHA_VIGENTE" ColumnName="FECHA_VIGENTE" />
+                <ScalarProperty Name="FECHA_RESOLUCION" ColumnName="FECHA_RESOLUCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPO_DOCUMENTO">
+            <EntityTypeMapping TypeName="intersystemerpModel.TIPO_DOCUMENTO">
+              <MappingFragment StoreEntitySet="TIPO_DOCUMENTO">
+                <ScalarProperty Name="TIPO_DOC_ID" ColumnName="TIPO_DOC_ID" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPO_PRODUCTO">
+            <EntityTypeMapping TypeName="intersystemerpModel.TIPO_PRODUCTO">
+              <MappingFragment StoreEntitySet="TIPO_PRODUCTO">
+                <ScalarProperty Name="TIPO_PRODUCTO_ID" ColumnName="TIPO_PRODUCTO_ID" />
+                <ScalarProperty Name="CODIGO_TIPO_PRODUCTO" ColumnName="CODIGO_TIPO_PRODUCTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIO">
+            <EntityTypeMapping TypeName="intersystemerpModel.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
+                <ScalarProperty Name="NOMBRE_COMPLETO" ColumnName="NOMBRE_COMPLETO" />
+                <ScalarProperty Name="NOMBRE_USUARIO" ColumnName="NOMBRE_USUARIO" />
+                <ScalarProperty Name="CLAVE" ColumnName="CLAVE" />
+                <ScalarProperty Name="PUESTO" ColumnName="PUESTO" />
+                <ScalarProperty Name="FIRMA" ColumnName="FIRMA" />
+                <ScalarProperty Name="FOTO" ColumnName="FOTO" />
+                <ScalarProperty Name="TIPO_IMAGEN" ColumnName="TIPO_IMAGEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIO_ROL">
+            <EntityTypeMapping TypeName="intersystemerpModel.USUARIO_ROL">
+              <MappingFragment StoreEntitySet="USUARIO_ROL">
+                <ScalarProperty Name="USUARIO_ROL_ID" ColumnName="USUARIO_ROL_ID" />
+                <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
+                <ScalarProperty Name="ROL_ID" ColumnName="ROL_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="intersystemerpModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
