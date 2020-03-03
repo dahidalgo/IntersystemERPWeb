@@ -21,7 +21,7 @@
                 </div>
             </li>
             <li class="@Html.IsSelected(controller: "")">
-                <a asp-area="default" asp-controller="Home" asp-action="Index"><i class="fad fa-home"></i> <span class="nav-label">Inicio</span></a>
+                <a href="@Url.Action("Dashboard", "Dashboards")"><i class="fad fa-home"></i> <span class="nav-label">Inicio</span></a>
             </li>
             <li class="@Html.IsSelected(controller: "Facturacion")">
                 <a href="@Url.Action("Facturación", "Facturacion")"><i class="fad fa-file-invoice"></i> <span class="nav-label" data-i18n="nav.dashboard">Facturación</span> <span class="fa arrow"></span></a>
@@ -51,11 +51,11 @@
                     <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">Reportes</a></li>
                 </ul>
             </li>
-            <li class="@Html.IsSelected(controller: "Facturacion")">
-                <a href="@Url.Action("Facturación", "Facturacion")"><i class="fad fa-cog"></i> <span class="nav-label" data-i18n="nav.dashboard">Configuración</span> <span class="fa arrow"></span></a>
+            <li class="@Html.IsSelected(controller: "Configuracion")">
+                <a href="@Url.Action("Configuracion", "Configuracion")"><i class="fad fa-cog"></i> <span class="nav-label" data-i18n="nav.dashboard">Configuración</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Facturación", cssClass: "in")">
                     <li class="@Html.IsSelected(action: "Dashboard_1")"><a href="@Url.Action("Dashboard_1", "Dashboards")"><i class="fad fa-file-code"></i> <span class="nav-label"> Tipo de documentos </span></a></li>
-                    <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")"><i class="fad fa-box"></i> <span class="nav-label"> Tipo de productos </span></a></li>
+                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "TIPO_PRODUCTO")"><i class="fad fa-box"></i> <span class="nav-label"> Tipo de productos </span></a></li>
                     <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")"><i class="fad fa-money-check"></i> <span class="nav-label"> Formas de pago </span></a></li>
                 </ul>
             </li>
