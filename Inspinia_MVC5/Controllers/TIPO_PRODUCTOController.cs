@@ -38,6 +38,8 @@ namespace Inspinia_MVC5.Controllers
         // GET: /TIPO_PRODUCTO/Create
         public ActionResult Create()
         {
+            var TipoProd = db.TIPO_PRODUCTO.OrderByDescending(t => t.CODIGO_TIPO_PRODUCTO).Select(t => t.CODIGO_TIPO_PRODUCTO).FirstOrDefault().Value;
+            ViewBag.Codigo = TipoProd + 1;
             return View();
         }
 
