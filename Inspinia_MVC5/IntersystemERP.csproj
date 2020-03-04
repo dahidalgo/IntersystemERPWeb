@@ -126,6 +126,7 @@
     <Compile Include="Controllers\AppViewsController.cs" />
     <Compile Include="Controllers\CSSAnimationsController.cs" />
     <Compile Include="Controllers\EcommerceController.cs" />
+    <Compile Include="Controllers\FORMA_PAGOController.cs" />
     <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\GraphsController.cs" />
@@ -9349,6 +9350,11 @@
     <Content Include="Views\TIPO_PRODUCTO\Details.cshtml" />
     <Content Include="Views\TIPO_PRODUCTO\Edit.cshtml" />
     <Content Include="Views\TIPO_PRODUCTO\Index.cshtml" />
+    <Content Include="Views\FORMA_PAGO\Create.cshtml" />
+    <Content Include="Views\FORMA_PAGO\Delete.cshtml" />
+    <Content Include="Views\FORMA_PAGO\Details.cshtml" />
+    <Content Include="Views\FORMA_PAGO\Edit.cshtml" />
+    <Content Include="Views\FORMA_PAGO\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
