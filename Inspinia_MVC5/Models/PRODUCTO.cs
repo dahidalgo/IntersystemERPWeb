@@ -31,6 +31,7 @@ namespace Inspinia_MVC5.Models
         public Nullable<System.DateTime> FECHA_CREACION { get; set; }
         public Nullable<System.DateTime> FECHA_ULTIMA_VENTA { get; set; }
         public Nullable<bool> ACTIVO { get; set; }
+        public string NOMBRE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FACTURA_DETALLE> FACTURA_DETALLE { get; set; }

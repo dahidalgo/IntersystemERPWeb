@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="intersystemerpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="intersystemerpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__EFMigrationsHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -181,6 +181,7 @@
           <Property Name="FECHA_CREACION" Type="datetime" />
           <Property Name="FECHA_ULTIMA_VENTA" Type="datetime" />
           <Property Name="ACTIVO" Type="bit" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="RECIBO">
           <Key>
@@ -692,8 +693,7 @@
             <End Role="USUARIO_ROL" EntitySet="USUARIO_ROL" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="intersystemerpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -894,6 +894,7 @@
           <NavigationProperty Name="FACTURA_DETALLE" Relationship="Self.FK_FACTURA__REFERENCE_PRODUCTO" FromRole="PRODUCTO" ToRole="FACTURA_DETALLE" />
           <NavigationProperty Name="TIPO_PRODUCTO" Relationship="Self.FK_PRODUCTO_REFERENCE_TIPO_PRO" FromRole="PRODUCTO" ToRole="TIPO_PRODUCTO" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_PRODUCTO_REFERENCE_USUARIO" FromRole="PRODUCTO" ToRole="USUARIO" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="RECIBO">
           <Key>
@@ -1566,6 +1567,7 @@
           <EntitySetMapping Name="PRODUCTO">
             <EntityTypeMapping TypeName="intersystemerpModel.PRODUCTO">
               <MappingFragment StoreEntitySet="PRODUCTO">
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
                 <ScalarProperty Name="PRODUCTO_ID" ColumnName="PRODUCTO_ID" />
                 <ScalarProperty Name="TIPO_PRODUCTO_ID" ColumnName="TIPO_PRODUCTO_ID" />
                 <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
