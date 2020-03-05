@@ -141,6 +141,7 @@
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\ScaffoldingController.cs" />
     <Compile Include="Controllers\TablesController.cs" />
+    <Compile Include="Controllers\TIPO_DOCUMENTOController.cs" />
     <Compile Include="Controllers\TIPO_PRODUCTOController.cs" />
     <Compile Include="Controllers\UIElementsController.cs" />
     <Compile Include="Controllers\WidgetsController.cs" />
@@ -9355,6 +9356,11 @@
     <Content Include="Views\FORMA_PAGO\Details.cshtml" />
     <Content Include="Views\FORMA_PAGO\Edit.cshtml" />
     <Content Include="Views\FORMA_PAGO\Index.cshtml" />
+    <Content Include="Views\TIPO_DOCUMENTO\Create.cshtml" />
+    <Content Include="Views\TIPO_DOCUMENTO\Delete.cshtml" />
+    <Content Include="Views\TIPO_DOCUMENTO\Details.cshtml" />
+    <Content Include="Views\TIPO_DOCUMENTO\Edit.cshtml" />
+    <Content Include="Views\TIPO_DOCUMENTO\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
