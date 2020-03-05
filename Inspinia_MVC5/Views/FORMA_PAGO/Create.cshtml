@@ -18,7 +18,7 @@
                 <h2>Agregar Tipo de Producto</h2>
             </div>
             <div class="panel-body">
-                @using (Html.BeginForm("Create", "FORMA_PAGO", FormMethod.Post))
+                @using (Html.BeginForm("Create", "FORMA_PAGO", FormMethod.Post, new { id = "formulario" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })

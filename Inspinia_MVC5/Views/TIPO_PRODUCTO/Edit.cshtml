@@ -19,7 +19,7 @@
                 <h2>Editar Tipo de Producto</h2>
             </div>
             <div class="panel-body">
-                @using (Html.BeginForm("Edit", "TIPO_PRODUCTO", FormMethod.Post))
+                @using (Html.BeginForm("Edit", "TIPO_PRODUCTO", FormMethod.Post, new { id = "formulario" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
