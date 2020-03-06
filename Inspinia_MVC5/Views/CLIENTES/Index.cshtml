@@ -1,0 +1,182 @@
+﻿@model IEnumerable<Inspinia_MVC5.Models.CLIENTE>
+
+@{
+    ViewBag.Title = "Clientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Clientes</h2>
+    </div>
+</div>
+<p>
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary btn-rounded btn-block" onclick="location.href = '@Url.Action("Create")' "><i class="fad fa-plus-circle"></i> Agregar cliente</button>
+        </div>
+    </div>
+</p>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <span class="text-muted small float-right">Última modificación: <i class="fad fa-clock-o"></i>@ViewBag.fechamod</span>
+                    <h2>Listado de Clientes</h2>
+                    <p></p>
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                               placeholder="Buscar....">
+                    </div>
+                    <div class="clients-list">
+                        <span class="float-right small text-muted">@ViewBag.count Clientes</span>
+                        <ul class="nav nav-tabs">
+                            <li><a class="nav-link active" data-toggle="tab" href="#tab-1"><i class="fad fa-user"></i> Clientes</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="full-height-scroll">
+                                    <div class="table-responsive">
+                                        <table class="footable table table-striped table-hover toggle-arrow-tiny" data-page-size="25" data-filter=#filter data-filtering="true">
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.NOMBRE_CLTE)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.CONTACTO)
+                                                    </td>
+                                                    <td class="contact-type"><i class="fad fa-envelope"> </i></td>
+                                                    <td> @Html.DisplayFor(modelItem => item.E_MAIL)</td>
+                                                    @if (item.CLTE_ACTIVO == true)
+                                                    {
+                                                        <td class="client-status"><span class="label label-primary">Activo</span></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="client-status"><span class="label label-danger">Inactivo</span></td>
+                                                    }
+                                                    <td class="text-right">
+                                                        <div class="btn-group">
+                                                            @*<button class="btn-white btn btn-xs"
+                        onclick="location.href = '@Url.Action("Edit", new { id = item.CLIENTE_ID })' ">
+                    <span class="fad fa-edit"></span>&nbsp;Editar
+                </button>*@
+                                                            <button class="btn-white btn btn-xs"
+                                                                    onclick="location.href = '@Url.Action("Details", new { id = item.CLIENTE_ID })' ">
+                                                                <span class="fad fa-search"></span>&nbsp;Detalle
+                                                            </button>
+                                                            @*<button class="btn-white btn btn-xs"
+                        onclick="location.href = '@Url.Action("Delete", new { id = item.CLIENTE_ID })' ">
+                    <span class="fad fa-eraser"></span>&nbsp;Eliminar
+                </button>*@
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="7">
+                                                        <ul class="pagination pull-right"></ul>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox selected">
+                <div class="ibox-content">
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <div class="row m-b-lg">
+                                <div class="col-lg-4 text-center">
+                                    <h2>Prodensa</h2>
+                                </div>
+                            </div>
+                            <div class="client-detail">
+                                <div class="full-height-scroll">
+                                    <strong>Últimos movimientos</strong>
+                                    <div id="vertical-timeline" class="vertical-container dark-timeline">
+                                        <div class="vertical-timeline-block">
+                                            <div class="vertical-timeline-icon gray-bg">
+                                                <i class="fad fa-file-invoice-dollar"></i>
+                                            </div>
+                                            <div class="vertical-timeline-content">
+                                                <p>
+                                                    Factura Q.
+                                                </p>
+                                                <span class="vertical-date small text-muted"> 200.00 </span>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-block">
+                                            <div class="vertical-timeline-icon gray-bg">
+                                                <i class="fad fa-receipt"></i>
+                                            </div>
+                                            <div class="vertical-timeline-content">
+                                                <p>
+                                                    Pago factura No. - Recibo No. xxx Q.
+                                                </p>
+                                                <span class="vertical-date small text-muted"> 200.00 </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-content">
+                
+                <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="25" data-filter=#filter data-filtering="true">
+                    <thead>
+                        <tr>
+                            <th data-hide="phone">Código</th>
+                            <th data-hide="phone">Descripción</th>
+                            <th class="text-right">Acción</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles {
+    @Styles.Render("~/plugins/footableStyles")
+}
+
+@section Scripts {
+    @Scripts.Render("~/plugins/footable")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.footable').footable();
+
+        });
+    </script>
+}

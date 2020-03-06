@@ -124,6 +124,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AppViewsController.cs" />
+    <Compile Include="Controllers\CLIENTESController.cs" />
     <Compile Include="Controllers\CSSAnimationsController.cs" />
     <Compile Include="Controllers\EcommerceController.cs" />
     <Compile Include="Controllers\FORMA_PAGOController.cs" />
@@ -9361,6 +9362,11 @@
     <Content Include="Views\TIPO_DOCUMENTO\Details.cshtml" />
     <Content Include="Views\TIPO_DOCUMENTO\Edit.cshtml" />
     <Content Include="Views\TIPO_DOCUMENTO\Index.cshtml" />
+    <Content Include="Views\CLIENTES\Create.cshtml" />
+    <Content Include="Views\CLIENTES\Delete.cshtml" />
+    <Content Include="Views\CLIENTES\Details.cshtml" />
+    <Content Include="Views\CLIENTES\Edit.cshtml" />
+    <Content Include="Views\CLIENTES\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
