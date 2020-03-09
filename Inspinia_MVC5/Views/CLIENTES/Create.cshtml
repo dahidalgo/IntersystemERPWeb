@@ -1,163 +1,181 @@
 ﻿@model Inspinia_MVC5.Models.CLIENTE
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Clientes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
-        <h2>Create</h2>
-        <ol class="breadcrumb">
-            <li>
-                @Html.ActionLink("List", "Index")
-            </li>
-            <li class="active">
-                <strong>Create</strong>
-            </li>
-        </ol>
+        <h2>Clientes</h2>
     </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary"})
+</div>
+<p></p>
+<div class="row">
+    <div class="col-lg-7 col-md-7 col-sm-10 col-xs-12 col-md-offset-2" col-lg-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="text-align:center">
+                <h2>Agregar Cliente</h2>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Create", "CLIENTES", FormMethod.Post, new { id = "formulario" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-md-2 col-xs-2">
+                            <h4><strong> Código:&nbsp;&nbsp; </strong></h4>
+                        </div>
+                        <div class="col-md-10 col-xs-10">
+                            @Html.EditorFor(model => model.CODIGO_CLTE, new { htmlAttributes = new { @id = "CODIGO_CLTE", @class = "form-control" } })
+                            <span id="CODIGO_CLTE-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-xs-2">
+                            <h4><strong> Empresa:&nbsp;&nbsp; </strong></h4>
+                        </div>
+                        <div class="col-md-10 col-xs-10">
+                            @Html.EditorFor(model => model.NOMBRE_CLTE, new { htmlAttributes = new { @id = "NOMBRE_CLTE", @class = "form-control" } })
+                            <span id="NOMBRE_CLTE-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-xs-2">
+                            <h4><strong> Dirección:&nbsp;&nbsp; </strong></h4>
+                        </div>
+                        <div class="col-md-10 col-xs-10">
+                            @Html.EditorFor(model => model.DIRECCION, new { htmlAttributes = new { @id = "DIRECCION", @class = "form-control" } })
+                            <span id="DIRECCION-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-xs-2">
+                            <h4><strong> NIT:&nbsp;&nbsp; </strong></h4>
+                        </div>
+                        <div class="col-md-10 col-xs-10">
+                            @Html.EditorFor(model => model.CODIGO_CLTE, new { htmlAttributes = new { @id = "CODIGO_CLTE", @class = "form-control" } })
+                            <span id="CODIGO_CLTE-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-xs-2">
+                            <h4><strong> Contacto:&nbsp;&nbsp; </strong></h4>
+                        </div>
+                        <div class="col-md-10 col-xs-10">
+                            @Html.EditorFor(model => model.CONTACTO, new { htmlAttributes = new { @id = "CONTACTO", @class = "form-control" } })
+                            <span id="CONTACTO-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-xs-2">
+                            <h4><strong> Teléfono:&nbsp;&nbsp; </strong></h4>
+                        </div>
+                        <div class="col-md-10 col-xs-10">
+                            @Html.EditorFor(model => model.TELEFONO, new { htmlAttributes = new { @id = "TELEFONO", @class = "form-control" } })
+                            <span id="TELEFONO-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-xs-2">
+                            <h4><strong> E-mail:&nbsp;&nbsp; </strong></h4>
+                        </div>
+                        <div class="col-md-10 col-xs-10">
+                            @Html.EditorFor(model => model.E_MAIL, new { htmlAttributes = new { @id = "E_MAIL", @class = "form-control" } })
+                            <span id="E_MAIL-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                }
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-2">
+                        <button class="btn btn-success" id="guardar" name="guardar"><i class="fad fa-save"></i>&nbsp;Guardar</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index")' "><i class="fad fa-step-backward"></i>&nbsp;Regresar</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
+@section Styles {
+    @Styles.Render("~/plugins/select2Styles")
+    <style type="text/css">
+        .labelError {
+            color: red;
+        }
 
-<div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Create CLIENTE</h5>
-                </div>
-                <div class="ibox-content">
+        .label-fsteps {
+            color: #999;
+        }
 
-				@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true)
+        .row-steps {
+            border-bottom-color: #999;
+            border-bottom-style: solid;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.USUARIO_ID, "USUARIO_ID", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("USUARIO_ID", String.Empty)
-                @Html.ValidationMessageFor(model => model.USUARIO_ID)
-            </div>
-        </div>
+        .onoffswitch-switch {
+            border: 2px solid #1c84c6 !important;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CODIGO_CLTE, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CODIGO_CLTE)
-                @Html.ValidationMessageFor(model => model.CODIGO_CLTE)
-            </div>
-        </div>
+        .onoffswitch-label {
+            border: 2px solid #1c84c6 !important;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NOMBRE_CLTE, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NOMBRE_CLTE)
-                @Html.ValidationMessageFor(model => model.NOMBRE_CLTE)
-            </div>
-        </div>
+        .onoffswitch-inner:before {
+            content: "SI" !important;
+            background-color: #1c84c6 !important;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DIRECCION, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DIRECCION)
-                @Html.ValidationMessageFor(model => model.DIRECCION)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TELEFONO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TELEFONO)
-                @Html.ValidationMessageFor(model => model.TELEFONO)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CONTACTO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CONTACTO)
-                @Html.ValidationMessageFor(model => model.CONTACTO)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.E_MAIL, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.E_MAIL)
-                @Html.ValidationMessageFor(model => model.E_MAIL)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BALANCE, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BALANCE)
-                @Html.ValidationMessageFor(model => model.BALANCE)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CLTE_ACTIVO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CLTE_ACTIVO)
-                @Html.ValidationMessageFor(model => model.CLTE_ACTIVO)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FECHA_CREACION, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FECHA_CREACION)
-                @Html.ValidationMessageFor(model => model.FECHA_CREACION)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MONTO_ULT_TRAN, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MONTO_ULT_TRAN)
-                @Html.ValidationMessageFor(model => model.MONTO_ULT_TRAN)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FECHA_ULT_TRAN, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FECHA_ULT_TRAN)
-                @Html.ValidationMessageFor(model => model.FECHA_ULT_TRAN)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DESC_ULT_TRAN, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DESC_ULT_TRAN)
-                @Html.ValidationMessageFor(model => model.DESC_ULT_TRAN)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
-				@Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-white"})
-            </div>
-        </div>
-    </div>
+        .onoffswitch-inner:after {
+            content: "NO" !important;
+        }
+    </style>
 }
 
-                </div>
-            </div>
-        </div>
-    </div>
- </div>
+@section Scripts {
+    <script type="text/javascript">
+    $(document).ready(function () {
+        // button next action
+        $("#guardar").click(function () {
+            var formValid = true;
+            var descripcion = $('#descripcion').val();
 
- 
+            //clean all error labels
+            $(".labelError").hide();
+            if (!descripcion) {
+                formValid = false;
+                $("#descripcion-error").text('Requerido.');
+                $("#descripcion-error").show();
+            }
+            if (formValid) {
+                $('#formulario').submit();
+            }
+        });
+    });
+    </script>
+}
