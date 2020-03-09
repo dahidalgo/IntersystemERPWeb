@@ -106,6 +106,7 @@
           <Property Name="MONTO_ULT_TRAN" Type="decimal" Precision="18" Scale="2" />
           <Property Name="FECHA_ULT_TRAN" Type="date" />
           <Property Name="DESC_ULT_TRAN" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NIT" Type="nvarchar" MaxLength="12" />
         </EntityType>
         <EntityType Name="DOCS_CC">
           <Key>
@@ -804,6 +805,7 @@
           <NavigationProperty Name="DOCS_CC" Relationship="Self.FK_DOCS_CC_REFERENCE_CLIENTE" FromRole="CLIENTE" ToRole="DOCS_CC" />
           <NavigationProperty Name="FACTURA" Relationship="Self.FK_FACTURA_REFERENCE_CLIENTE" FromRole="CLIENTE" ToRole="FACTURA" />
           <NavigationProperty Name="RECIBO" Relationship="Self.FK_RECIBO_REFERENCE_CLIENTE" FromRole="CLIENTE" ToRole="RECIBO" />
+          <Property Name="NIT" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DOCS_CC">
           <Key>
@@ -1484,6 +1486,7 @@
           <EntitySetMapping Name="CLIENTE">
             <EntityTypeMapping TypeName="intersystemerpModel.CLIENTE">
               <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="NIT" ColumnName="NIT" />
                 <ScalarProperty Name="CLIENTE_ID" ColumnName="CLIENTE_ID" />
                 <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
                 <ScalarProperty Name="CODIGO_CLTE" ColumnName="CODIGO_CLTE" />

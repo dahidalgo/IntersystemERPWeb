@@ -36,6 +36,7 @@ namespace Inspinia_MVC5.Models
         public Nullable<decimal> MONTO_ULT_TRAN { get; set; }
         public Nullable<System.DateTime> FECHA_ULT_TRAN { get; set; }
         public Nullable<decimal> DESC_ULT_TRAN { get; set; }
+        public string NIT { get; set; }
     
         public virtual USUARIO USUARIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
