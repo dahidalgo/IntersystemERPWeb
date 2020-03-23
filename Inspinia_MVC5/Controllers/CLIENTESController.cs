@@ -94,7 +94,7 @@ namespace Inspinia_MVC5.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="CLIENTE_ID,USUARIO_ID,CODIGO_CLTE,NOMBRE_CLTE,DIRECCION,TELEFONO,CONTACTO,E_MAIL,BALANCE,CLTE_ACTIVO,FECHA_CREACION,MONTO_ULT_TRAN,FECHA_ULT_TRAN,DESC_ULT_TRAN")] CLIENTE cLIENTE)
+        public ActionResult Edit([Bind(Include="CLIENTE_ID,USUARIO_ID,CODIGO_CLTE,NOMBRE_CLTE,DIRECCION,TELEFONO,CONTACTO,E_MAIL,BALANCE,CLTE_ACTIVO,FECHA_CREACION,MONTO_ULT_TRAN,FECHA_ULT_TRAN,DESC_ULT_TRAN, NIT")] CLIENTE cLIENTE)
         {
             if (ModelState.IsValid)
             {
@@ -127,7 +127,8 @@ namespace Inspinia_MVC5.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             CLIENTE cLIENTE = db.CLIENTE.Find(id);
-            db.CLIENTE.Remove(cLIENTE);
+            cLIENTE.CLTE_ACTIVO = false;
+            db.Entry(cLIENTE).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
