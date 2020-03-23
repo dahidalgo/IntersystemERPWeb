@@ -27,7 +27,7 @@
                             <h4><strong> Código:&nbsp;&nbsp; </strong></h4>
                         </div>
                         <div class="col-md-10 col-xs-10">
-                            @Html.EditorFor(model => model.CODIGO_CLTE, new { htmlAttributes = new { @id = "CODIGO_CLTE", @class = "form-control" } })
+                            @Html.EditorFor(model => model.CODIGO_CLTE, new { htmlAttributes = new { @id = "CODIGO_CLTE", @class = "form-control", @Value = ViewBag.ClienteID } })
                             <span id="CODIGO_CLTE-error" class="labelError" style="display:none; ">&nbsp;</span>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                             <h4><strong> Teléfono:&nbsp;&nbsp; </strong></h4>
                         </div>
                         <div class="col-md-10 col-xs-10">
-                            @Html.EditorFor(model => model.TELEFONO, new { htmlAttributes = new { @id = "TELEFONO", @class = "form-control" } })
+                            @Html.EditorFor(model => model.TELEFONO, new { htmlAttributes = new { @id = "TELEFONO", @class = "form-control"} })
                             <span id="TELEFONO-error" class="labelError" style="display:none; ">&nbsp;</span>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                             <h4><strong> E-mail:&nbsp;&nbsp; </strong></h4>
                         </div>
                         <div class="col-md-10 col-xs-10">
-                            @Html.EditorFor(model => model.E_MAIL, new { htmlAttributes = new { @id = "E_MAIL", @class = "form-control" } })
+                            @Html.EditorFor(model => model.E_MAIL, new { htmlAttributes = new { @id = "E_MAIL", @class = "form-control", @type = "email" } })
                             <span id="E_MAIL-error" class="labelError" style="display:none; ">&nbsp;</span>
                         </div>
                     </div>
@@ -115,6 +115,9 @@
                     </div>
                     <div class="col-md-3">
                         <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index")' "><i class="fad fa-step-backward"></i>&nbsp;Regresar</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
                     </div>
                 </div>
             </div>
@@ -163,14 +166,52 @@
         // button next action
         $("#guardar").click(function () {
             var formValid = true;
-            var descripcion = $('#descripcion').val();
+            var codigocte = $('#CODIGO_CLTE').val();
+            var empresa = $('#NOMBRE_CLTE').val();
+            var direccion = $('#DIRECCION').val();
+            var nit = $('#NIT').val();
+            var contacto = $('#CONTACTO').val();
+            var telefono = $('#TELEFONO').val();
+            var email = $('#E_MAIL').val();
 
             //clean all error labels
             $(".labelError").hide();
-            if (!descripcion) {
+
+            if (!codigocte) {
                 formValid = false;
-                $("#descripcion-error").text('Requerido.');
-                $("#descripcion-error").show();
+                $("#CODIGO_CLTE-error").text('Requerido.');
+                $("#CODIGO_CLTE-error").show();
+            }
+
+            if (!empresa) {
+                formValid = false;
+                $("#NOMBRE_CLTE-error").text('Requerido.');
+                $("#NOMBRE_CLTE-error").show();
+            }
+            if (!direccion) {
+                formValid = false;
+                $("#DIRECCION-error").text('Requerido.');
+                $("#DIRECCION-error").show();
+            }
+            if (!nit) {
+                formValid = false;
+                $("#NIT-error").text('Requerido.');
+                $("#NIT-error").show();
+            }
+            if (!contacto) {
+                formValid = false;
+                $("#CONTACTO-error").text('Requerido.');
+                $("#CONTACTO-error").show();
+            }
+            if (!telefono) {
+                formValid = false;
+                $("#TELEFONO-error").text('Requerido.');
+                $("#TELEFONO-error").show();
+            }
+            if (!email) {
+                formValid = false;
+                $("#E_MAIL-error").text('Requerido.');
+                $("#E_MAIL-error").show();
             }
             if (formValid) {
                 $('#formulario').submit();

@@ -42,7 +42,10 @@ namespace Inspinia_MVC5.Controllers
         // GET: /CLIENTES/Create
         public ActionResult Create()
         {
+            var clienteID = db.CLIENTE.OrderByDescending(c => c.CODIGO_CLTE).Select(c => c.CODIGO_CLTE).FirstOrDefault().Value;
+            ViewBag.ClienteID = clienteID + 1;
             ViewBag.USUARIO_ID = new SelectList(db.USUARIO, "USUARIO_ID", "NOMBRE_COMPLETO");
+
             return View();
         }
 
@@ -51,10 +54,16 @@ namespace Inspinia_MVC5.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="CLIENTE_ID,USUARIO_ID,CODIGO_CLTE,NOMBRE_CLTE,DIRECCION,TELEFONO,CONTACTO,E_MAIL,BALANCE,CLTE_ACTIVO,FECHA_CREACION,MONTO_ULT_TRAN,FECHA_ULT_TRAN,DESC_ULT_TRAN")] CLIENTE cLIENTE)
+        public ActionResult Create([Bind(Include="CLIENTE_ID,USUARIO_ID,CODIGO_CLTE,NOMBRE_CLTE,DIRECCION,TELEFONO,CONTACTO,E_MAIL,BALANCE,CLTE_ACTIVO,FECHA_CREACION,MONTO_ULT_TRAN,FECHA_ULT_TRAN,DESC_ULT_TRAN, NIT")] CLIENTE cLIENTE)
         {
+            var clienteID = db.CLIENTE.OrderByDescending(c => c.CODIGO_CLTE).Select(c => c.CODIGO_CLTE).FirstOrDefault().Value;
             if (ModelState.IsValid)
             {
+                //cLIENTE.CLIENTE_ID = clienteID + 1;
+                cLIENTE.USUARIO_ID = 1;
+                cLIENTE.FECHA_CREACION = DateTime.Now;
+                cLIENTE.CLTE_ACTIVO = true;
+
                 db.CLIENTE.Add(cLIENTE);
                 db.SaveChanges();
                 return RedirectToAction("Index");

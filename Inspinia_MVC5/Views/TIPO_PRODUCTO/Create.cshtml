@@ -27,7 +27,7 @@
                             <h4><strong> Código:&nbsp;&nbsp; </strong></h4>
                         </div>
                         <div class="col-md-10 col-xs-10">
-                            @Html.EditorFor(model => model.CODIGO_TIPO_PRODUCTO, new { htmlAttributes = new { @id = "codigo", @class = "form-control", @Value = ViewBag.Codigo} })
+                            @Html.EditorFor(model => model.CODIGO_TIPO_PRODUCTO, new { htmlAttributes = new { @id = "codigo", @class = "form-control", @Value = ViewBag.Codigo, disabled=""} })
                             <span id="codigo-error" class="labelError" style="display:none; ">&nbsp;</span>
                         </div>
                     </div>
