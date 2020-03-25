@@ -141,6 +141,7 @@
     <Compile Include="Controllers\MiscellaneousController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\ScaffoldingController.cs" />
+    <Compile Include="Controllers\SERIE_DOCUMENTOController.cs" />
     <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\TIPO_DOCUMENTOController.cs" />
     <Compile Include="Controllers\TIPO_PRODUCTOController.cs" />
@@ -9367,6 +9368,11 @@
     <Content Include="Views\CLIENTES\Details.cshtml" />
     <Content Include="Views\CLIENTES\Edit.cshtml" />
     <Content Include="Views\CLIENTES\Index.cshtml" />
+    <Content Include="Views\SERIE_DOCUMENTO\Create.cshtml" />
+    <Content Include="Views\SERIE_DOCUMENTO\Delete.cshtml" />
+    <Content Include="Views\SERIE_DOCUMENTO\Details.cshtml" />
+    <Content Include="Views\SERIE_DOCUMENTO\Edit.cshtml" />
+    <Content Include="Views\SERIE_DOCUMENTO\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
