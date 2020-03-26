@@ -222,6 +222,7 @@
           <Property Name="FECHA_CREACION" Type="datetime" />
           <Property Name="FECHA_VIGENTE" Type="datetime" />
           <Property Name="FECHA_RESOLUCION" Type="datetime" />
+          <Property Name="SERIE_ACTIVO" Type="bit" />
         </EntityType>
         <EntityType Name="TIPO_DOCUMENTO">
           <Key>
@@ -943,6 +944,7 @@
           <NavigationProperty Name="FACTURA" Relationship="Self.FK_FACTURA_REFERENCE_SERIE_DO" FromRole="SERIE_DOCUMENTO" ToRole="FACTURA" />
           <NavigationProperty Name="TIPO_DOCUMENTO" Relationship="Self.FK_SERIE_DO_REFERENCE_TIPO_DOC" FromRole="SERIE_DOCUMENTO" ToRole="TIPO_DOCUMENTO" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_SERIE_DO_REFERENCE_USUARIO" FromRole="SERIE_DOCUMENTO" ToRole="USUARIO" />
+          <Property Name="SERIE_ACTIVO" Type="Boolean" />
         </EntityType>
         <EntityType Name="TIPO_DOCUMENTO">
           <Key>
@@ -1614,6 +1616,7 @@
           <EntitySetMapping Name="SERIE_DOCUMENTO">
             <EntityTypeMapping TypeName="intersystemerpModel.SERIE_DOCUMENTO">
               <MappingFragment StoreEntitySet="SERIE_DOCUMENTO">
+                <ScalarProperty Name="SERIE_ACTIVO" ColumnName="SERIE_ACTIVO" />
                 <ScalarProperty Name="SERIE_DOC_ID" ColumnName="SERIE_DOC_ID" />
                 <ScalarProperty Name="TIPO_DOC_ID" ColumnName="TIPO_DOC_ID" />
                 <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
