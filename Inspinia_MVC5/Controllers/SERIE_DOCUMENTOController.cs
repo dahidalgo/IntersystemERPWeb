@@ -49,7 +49,7 @@ namespace Inspinia_MVC5.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="SERIE_DOC_ID,TIPO_DOC_ID,USUARIO_ID,SERIE,RESOLUCION,DESDE,HASTA,FECHA_CREACION,FECHA_VIGENTE,FECHA_RESOLUCION")] SERIE_DOCUMENTO sERIE_DOCUMENTO)
+        public ActionResult Create([Bind(Include= "SERIE_DOC_ID,TIPO_DOC_ID,USUARIO_ID,SERIE,RESOLUCION,DESDE,HASTA,FECHA_CREACION,FECHA_VIGENTE,FECHA_RESOLUCION, SERIE_ACTIVO")] SERIE_DOCUMENTO sERIE_DOCUMENTO)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Inspinia_MVC5.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="SERIE_DOC_ID,TIPO_DOC_ID,USUARIO_ID,SERIE,RESOLUCION,DESDE,HASTA,FECHA_CREACION,FECHA_VIGENTE,FECHA_RESOLUCION")] SERIE_DOCUMENTO sERIE_DOCUMENTO)
+        public ActionResult Edit([Bind(Include= "SERIE_DOC_ID,TIPO_DOC_ID,USUARIO_ID,SERIE,RESOLUCION,DESDE,HASTA,FECHA_CREACION,FECHA_VIGENTE,FECHA_RESOLUCION, SERIE_ACTIVO")] SERIE_DOCUMENTO sERIE_DOCUMENTO)
         {
             if (ModelState.IsValid)
             {
