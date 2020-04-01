@@ -12,7 +12,7 @@
 </div>
 <p></p>
 <div class="row">
-    <div class="col-lg-7 col-md-7 col-sm-10 col-xs-12 col-md-offset-2" col-lg-offset-2">
+    <div class="col-lg-7 col-md-7 col-sm-10 col-xs-12 col-md-offset-2" col-lg-offset-2>
         <div class="panel panel-default">
             <div class="panel-heading" style="text-align:center">
                 <h2>Agregar Serie</h2>
@@ -23,89 +23,83 @@
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="row">
-                        <div class="col-md-2 col-xs-2">
-                            <h4><strong> Código:&nbsp;&nbsp; </strong></h4>
+                        <div class="col-md-1 col-xs-2">
+                            <i class="fad fa-file-code fa-2x"></i>
                         </div>
-                        <div class="col-md-10 col-xs-10">
-                            @Html.EditorFor(model => model.TIPO_DOCUMENTO, new { htmlAttributes = new { @id = "TIPO_DOCUMENTO", @class = "form-control", @Value = ViewBag.ClienteID } })
-                            <span id="TIPO_DOCUMENTO-error" class="labelError" style="display:none; ">&nbsp;</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">&nbsp;</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2 col-xs-2">
-                            <h4><strong> Empresa:&nbsp;&nbsp; </strong></h4>
-                        </div>
-                        <div class="col-md-10 col-xs-10">
-                            @Html.EditorFor(model => model.NOMBRE_CLTE, new { htmlAttributes = new { @id = "NOMBRE_CLTE", @class = "form-control" } })
-                            <span id="NOMBRE_CLTE-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        <div class="col-md-11 col-xs-10">
+                            @Html.DropDownList("TIPO_DOC_ID", null, htmlAttributes: new { @class = "form-control select2", style = "width: 100%; float:left;" })
+                            <span id="TIPO_DOC_ID-error" class="labelError" style="display:none; ">&nbsp;</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">&nbsp;</div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2 col-xs-2">
-                            <h4><strong> Dirección:&nbsp;&nbsp; </strong></h4>
+                        <div class="col-md-1 col-xs-2">
+                            <i class="fad fa-file-plus fa-2x"></i>
                         </div>
-                        <div class="col-md-10 col-xs-10">
-                            @Html.EditorFor(model => model.DIRECCION, new { htmlAttributes = new { @id = "DIRECCION", @class = "form-control" } })
-                            <span id="DIRECCION-error" class="labelError" style="display:none; ">&nbsp;</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">&nbsp;</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2 col-xs-2">
-                            <h4><strong> NIT:&nbsp;&nbsp; </strong></h4>
-                        </div>
-                        <div class="col-md-10 col-xs-10">
-                            @Html.EditorFor(model => model.NIT, new { htmlAttributes = new { @id = "NIT", @class = "form-control" } })
-                            <span id="NIT-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        <div class="col-md-11 col-xs-10">
+                            <input id="serie" type="text" class="form-control" name="serie" placeholder="Serie" value="@ViewBag.serie">
+                            <span id="serie-error" class="labelError" style="display:none; ">&nbsp;</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">&nbsp;</div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2 col-xs-2">
-                            <h4><strong> Contacto:&nbsp;&nbsp; </strong></h4>
+                        <div class="col-md-1 col-xs-2">
+                            <i class="fad fa-file-plus fa-2x"></i>
                         </div>
-                        <div class="col-md-10 col-xs-10">
-                            @Html.EditorFor(model => model.CONTACTO, new { htmlAttributes = new { @id = "CONTACTO", @class = "form-control" } })
-                            <span id="CONTACTO-error" class="labelError" style="display:none; ">&nbsp;</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">&nbsp;</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2 col-xs-2">
-                            <h4><strong> Teléfono:&nbsp;&nbsp; </strong></h4>
-                        </div>
-                        <div class="col-md-10 col-xs-10">
-                            @Html.EditorFor(model => model.TELEFONO, new { htmlAttributes = new { @id = "TELEFONO", @class = "form-control" } })
-                            <span id="TELEFONO-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        <div class="col-md-11 col-xs-10">
+                            <input id="resolucion" type="text" class="form-control" name="resolucion" placeholder="Resolucion" value="@ViewBag.resolucion">
+                            <span id="resolucion-error" class="labelError" style="display:none; ">&nbsp;</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">&nbsp;</div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2 col-xs-2">
-                            <h4><strong> E-mail:&nbsp;&nbsp; </strong></h4>
+                        <div class="col-md-1 col-xs-2">
+                            <i class="fad fa-file-plus fa-2x"></i>
                         </div>
-                        <div class="col-md-10 col-xs-10">
-                            @Html.EditorFor(model => model.E_MAIL, new { htmlAttributes = new { @id = "E_MAIL", @class = "form-control", @type = "email" } })
-                            <span id="E_MAIL-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        <div class="col-md-11 col-xs-10">
+                            <input id="ndesde" type="text" class="form-control" name="ndesde" placeholder="Del" value="@ViewBag.resolucion">
+                            <span id="ndesde-error" class="labelError" style="display:none; ">&nbsp;</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">&nbsp;</div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-1 col-xs-2">
+                            <i class="fad fa-file-plus fa-2x"></i>
+                        </div>
+                        <div class="col-md-11 col-xs-10">
+                            <input id="nhasta" type="text" class="form-control" name="nhasta" placeholder="Al" value="@ViewBag.nhasta">
+                            <span id="nhasta-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-xs-4" id="data_1">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fad fa-calendar"></i></span><input id="fechaResolucion" name="fechaResolucion" type="text" placeholder="Fecha de Resolución" class="form-control" value="@ViewBag.fechaResolucion">
+                            </div>
+                            <span id="fechaResolucion-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                        <div class="col-md-5 col-xs-4" id="data_1">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fad fa-calendar"></i></span><input id="fechaVigente" name="fechaVigente" type="text" placeholder="Fecha de Vencimiento" class="form-control" value="@ViewBag.fechaVigente">
+                            </div>
+                            <span id="fechaVigente-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    
                 }
             </div>
             <div class="panel-footer">
@@ -127,6 +121,7 @@
 
 @section Styles {
     @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/clockpickerStyles")
     <style type="text/css">
         .labelError {
             color: red;
@@ -161,62 +156,95 @@
 }
 
 @section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/clockpicker")
     <script type="text/javascript">
-    $(document).ready(function () {
-        // button next action
-        $("#guardar").click(function () {
-            var formValid = true;
-            var codigocte = $('#CODIGO_CLTE').val();
-            var empresa = $('#NOMBRE_CLTE').val();
-            var direccion = $('#DIRECCION').val();
-            var nit = $('#NIT').val();
-            var contacto = $('#CONTACTO').val();
-            var telefono = $('#TELEFONO').val();
-            var email = $('#E_MAIL').val();
+        $(document).ready(function () {
+            // autocomplete
+            $(".select2").select2();
+            // calendario
+            $.fn.datepicker.dates['en'] = {
+                days: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
+                daysShort: ["Dom", "Lun", "Mar", "Mie", "Juv", "Vie", "Sáb"],
+                daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+                months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                today: "Hoy",
+                clear: "Clear",
+                format: "dd/mm/yyyy",
+                titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+                weekStart: 0
+            };
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            });
 
-            //clean all error labels
-            $(".labelError").hide();
 
-            if (!codigocte) {
-                formValid = false;
-                $("#CODIGO_CLTE-error").text('Requerido.');
-                $("#CODIGO_CLTE-error").show();
-            }
+            //guardar
+            $("#guardar").click(function () {
+                var formValid = true;
+                var codigocte = $('#CODIGO_CLTE').val();
+                var empresa = $('#NOMBRE_CLTE').val();
+                var direccion = $('#DIRECCION').val();
+                var nit = $('#NIT').val();
+                var contacto = $('#CONTACTO').val();
+                var telefono = $('#TELEFONO').val();
+                var email = $('#E_MAIL').val();
 
-            if (!empresa) {
-                formValid = false;
-                $("#NOMBRE_CLTE-error").text('Requerido.');
-                $("#NOMBRE_CLTE-error").show();
-            }
-            if (!direccion) {
-                formValid = false;
-                $("#DIRECCION-error").text('Requerido.');
-                $("#DIRECCION-error").show();
-            }
-            if (!nit) {
-                formValid = false;
-                $("#NIT-error").text('Requerido.');
-                $("#NIT-error").show();
-            }
-            if (!contacto) {
-                formValid = false;
-                $("#CONTACTO-error").text('Requerido.');
-                $("#CONTACTO-error").show();
-            }
-            if (!telefono) {
-                formValid = false;
-                $("#TELEFONO-error").text('Requerido.');
-                $("#TELEFONO-error").show();
-            }
-            if (!email) {
-                formValid = false;
-                $("#E_MAIL-error").text('Requerido.');
-                $("#E_MAIL-error").show();
-            }
-            if (formValid) {
-                $('#formulario').submit();
-            }
+                //clean all error labels
+                $(".labelError").hide();
+
+                if (!codigocte) {
+                    formValid = false;
+                    $("#CODIGO_CLTE-error").text('Requerido.');
+                    $("#CODIGO_CLTE-error").show();
+                }
+
+                if (!empresa) {
+                    formValid = false;
+                    $("#NOMBRE_CLTE-error").text('Requerido.');
+                    $("#NOMBRE_CLTE-error").show();
+                }
+                if (!direccion) {
+                    formValid = false;
+                    $("#DIRECCION-error").text('Requerido.');
+                    $("#DIRECCION-error").show();
+                }
+                if (!nit) {
+                    formValid = false;
+                    $("#NIT-error").text('Requerido.');
+                    $("#NIT-error").show();
+                }
+                if (!contacto) {
+                    formValid = false;
+                    $("#CONTACTO-error").text('Requerido.');
+                    $("#CONTACTO-error").show();
+                }
+                if (!telefono) {
+                    formValid = false;
+                    $("#TELEFONO-error").text('Requerido.');
+                    $("#TELEFONO-error").show();
+                }
+                if (!email) {
+                    formValid = false;
+                    $("#E_MAIL-error").text('Requerido.');
+                    $("#E_MAIL-error").show();
+                }
+                if (formValid) {
+                    $('#formulario').submit();
+                }
+            });
         });
-    });
     </script>
 }

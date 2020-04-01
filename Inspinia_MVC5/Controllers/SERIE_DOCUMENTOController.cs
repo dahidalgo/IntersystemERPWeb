@@ -39,7 +39,16 @@ namespace Inspinia_MVC5.Controllers
         // GET: /SERIE_DOCUMENTO/Create
         public ActionResult Create()
         {
-            ViewBag.TIPO_DOC_ID = new SelectList(db.TIPO_DOCUMENTO, "TIPO_DOC_ID", "DESCRIPCION");
+            SERIE_DOCUMENTO seriedoc = new SERIE_DOCUMENTO();
+            var tipodocList = new List<SelectListItem>();
+            tipodocList.Add(new SelectListItem() { Value = "0", Text = "-Elija Tipo de Documento-", Selected = seriedoc.TIPO_DOC_ID == 0 });
+            tipodocList.AddRange(db.TIPO_DOCUMENTO.Select(r => new SelectListItem()
+            {
+                Value = r.TIPO_DOC_ID + "",
+                Text = r.DESCRIPCION,
+                Selected = seriedoc.TIPO_DOC_ID == r.TIPO_DOC_ID
+            }));
+            ViewBag.TIPO_DOC_ID = tipodocList;
             ViewBag.USUARIO_ID = new SelectList(db.USUARIO, "USUARIO_ID", "NOMBRE_COMPLETO");
             return View();
         }
