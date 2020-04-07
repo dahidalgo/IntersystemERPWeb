@@ -62,6 +62,9 @@ namespace Inspinia_MVC5.Controllers
         {
             if (ModelState.IsValid)
             {
+                sERIE_DOCUMENTO.USUARIO_ID = 1;
+                sERIE_DOCUMENTO.FECHA_CREACION = DateTime.Now;
+                sERIE_DOCUMENTO.SERIE_ACTIVO = true;
                 db.SERIE_DOCUMENTO.Add(sERIE_DOCUMENTO);
                 db.SaveChanges();
                 return RedirectToAction("Index");
