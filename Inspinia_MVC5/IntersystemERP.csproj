@@ -127,6 +127,8 @@
     <Compile Include="Controllers\CLIENTESController.cs" />
     <Compile Include="Controllers\CSSAnimationsController.cs" />
     <Compile Include="Controllers\EcommerceController.cs" />
+    <Compile Include="Controllers\FACTURASController.cs" />
+    <Compile Include="Controllers\FACTURA_DETALLEController.cs" />
     <Compile Include="Controllers\FORMA_PAGOController.cs" />
     <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Controllers\GalleryController.cs" />
@@ -140,6 +142,7 @@
     <Compile Include="Controllers\MetricsController.cs" />
     <Compile Include="Controllers\MiscellaneousController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
+    <Compile Include="Controllers\RECIBOSController.cs" />
     <Compile Include="Controllers\ScaffoldingController.cs" />
     <Compile Include="Controllers\SERIE_DOCUMENTOController.cs" />
     <Compile Include="Controllers\TablesController.cs" />
@@ -9374,6 +9377,21 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\FACTURAS\Create.cshtml" />
+    <Content Include="Views\FACTURAS\Delete.cshtml" />
+    <Content Include="Views\FACTURAS\Details.cshtml" />
+    <Content Include="Views\FACTURAS\Edit.cshtml" />
+    <Content Include="Views\FACTURAS\Index.cshtml" />
+    <Content Include="Views\FACTURA_DETALLE\Create.cshtml" />
+    <Content Include="Views\FACTURA_DETALLE\Delete.cshtml" />
+    <Content Include="Views\FACTURA_DETALLE\Details.cshtml" />
+    <Content Include="Views\FACTURA_DETALLE\Edit.cshtml" />
+    <Content Include="Views\FACTURA_DETALLE\Index.cshtml" />
+    <Content Include="Views\RECIBOS\Create.cshtml" />
+    <Content Include="Views\RECIBOS\Delete.cshtml" />
+    <Content Include="Views\RECIBOS\Details.cshtml" />
+    <Content Include="Views\RECIBOS\Edit.cshtml" />
+    <Content Include="Views\RECIBOS\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

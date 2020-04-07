@@ -1,0 +1,128 @@
+﻿@model IEnumerable<Inspinia_MVC5.Models.FACTURA>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Index</h2>
+        <ol class="breadcrumb">
+            <li class="active">
+                <strong>FACTURA</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>List of FACTURA</h5>
+					<div class="ibox-tools">
+						@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-xs"})
+					</div>
+                </div>
+                <div class="ibox-content">
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NRO_FACTURA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FECHA_EMISION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SUBTOTAL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TOTAL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ANULADA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CAUSA_ANULADA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ESTADO_DOC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PAGOS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FECHA_ACTUALIZADO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLIENTE.NOMBRE_CLTE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SERIE_DOCUMENTO.SERIE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.USUARIO.NOMBRE_COMPLETO)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NRO_FACTURA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FECHA_EMISION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SUBTOTAL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TOTAL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ANULADA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CAUSA_ANULADA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ESTADO_DOC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PAGOS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FECHA_ACTUALIZADO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLIENTE.NOMBRE_CLTE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SERIE_DOCUMENTO.SERIE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.USUARIO.NOMBRE_COMPLETO)
+        </td>
+        <td>
+			@Html.ActionLink("Details", "Details", new { id=item.FACTURA_ID }, new { @class = "btn btn-primary btn-sm"})
+            @Html.ActionLink("Edit", "Edit", new { id=item.FACTURA_ID }, new { @class = "btn btn-white btn-sm"})
+            @Html.ActionLink("Delete", "Delete", new { id=item.FACTURA_ID }, new { @class = "btn btn-white btn-sm"})
+        </td>
+    </tr>
+}
+
+</table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+
+
+

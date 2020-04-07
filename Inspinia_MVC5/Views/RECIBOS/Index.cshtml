@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Inspinia_MVC5.Models.RECIBO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Index</h2>
+        <ol class="breadcrumb">
+            <li class="active">
+                <strong>RECIBO</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>List of RECIBO</h5>
+					<div class="ibox-tools">
+						@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-xs"})
+					</div>
+                </div>
+                <div class="ibox-content">
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NRO_RECIBO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FECHA_EMISION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SUBTOTAL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TOTAL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ANULADO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CAUSA_ANULADO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NRO_DOC_PAGO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLIENTE.NOMBRE_CLTE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FORMA_PAGO.DESCRIPCION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.USUARIO.NOMBRE_COMPLETO)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NRO_RECIBO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FECHA_EMISION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SUBTOTAL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TOTAL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ANULADO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CAUSA_ANULADO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRIPCION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NRO_DOC_PAGO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLIENTE.NOMBRE_CLTE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FORMA_PAGO.DESCRIPCION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.USUARIO.NOMBRE_COMPLETO)
+        </td>
+        <td>
+			@Html.ActionLink("Details", "Details", new { id=item.RECIBO_ID }, new { @class = "btn btn-primary btn-sm"})
+            @Html.ActionLink("Edit", "Edit", new { id=item.RECIBO_ID }, new { @class = "btn btn-white btn-sm"})
+            @Html.ActionLink("Delete", "Delete", new { id=item.RECIBO_ID }, new { @class = "btn btn-white btn-sm"})
+        </td>
+    </tr>
+}
+
+</table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+
+
+
