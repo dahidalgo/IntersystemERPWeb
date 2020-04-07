@@ -142,6 +142,7 @@
     <Compile Include="Controllers\MetricsController.cs" />
     <Compile Include="Controllers\MiscellaneousController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
+    <Compile Include="Controllers\PRODUCTOSController.cs" />
     <Compile Include="Controllers\RECIBOSController.cs" />
     <Compile Include="Controllers\ScaffoldingController.cs" />
     <Compile Include="Controllers\SERIE_DOCUMENTOController.cs" />
@@ -9392,6 +9393,11 @@
     <Content Include="Views\RECIBOS\Details.cshtml" />
     <Content Include="Views\RECIBOS\Edit.cshtml" />
     <Content Include="Views\RECIBOS\Index.cshtml" />
+    <Content Include="Views\PRODUCTOS\Create.cshtml" />
+    <Content Include="Views\PRODUCTOS\Delete.cshtml" />
+    <Content Include="Views\PRODUCTOS\Details.cshtml" />
+    <Content Include="Views\PRODUCTOS\Edit.cshtml" />
+    <Content Include="Views\PRODUCTOS\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
