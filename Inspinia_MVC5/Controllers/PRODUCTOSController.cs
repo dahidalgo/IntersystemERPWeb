@@ -48,7 +48,15 @@ namespace Inspinia_MVC5.Controllers
                 Text = r.DESCRIPCION,
                 Selected = producto.TIPO_PRODUCTO_ID == r.TIPO_PRODUCTO_ID
             }));
-
+            var codproducto = db.PRODUCTO.OrderByDescending(p => p.CODIGO_PRODUCTO).Select(p => p.CODIGO_PRODUCTO).FirstOrDefault();
+            if (codproducto.HasValue)
+            {
+                ViewBag.CODIGO_PRODUCTO = codproducto.Value + 1;
+            }
+            else
+            {
+                ViewBag.CODIGO_PRODUCTO = 1;
+            }
             ViewBag.TIPO_PRODUCTO_ID = tipo_prodList;
             ViewBag.USUARIO_ID = new SelectList(db.USUARIO, "USUARIO_ID", "NOMBRE_COMPLETO");
             return View();

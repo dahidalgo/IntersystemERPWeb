@@ -1,122 +1,50 @@
 ﻿@model IEnumerable<Inspinia_MVC5.Models.PRODUCTO>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Productos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
-        <h2>Index</h2>
-        <ol class="breadcrumb">
-            <li class="active">
-                <strong>PRODUCTO</strong>
-            </li>
-        </ol>
+        <h2>Productos</h2>
     </div>
 </div>
-
+<p>
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary btn-rounded btn-block" onclick="location.href = '@Url.Action("Create")' "><i class="fad fa-plus-circle"></i> Agregar producto</button>
+        </div>
+    </div>
+</p>
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>List of PRODUCTO</h5>
-					<div class="ibox-tools">
-						@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-xs"})
-					</div>
-                </div>
-                <div class="ibox-content">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+                        <div class="product-imitation">
+                            [ INFO ]
+                        </div>
+                        <div class="product-desc">
+                            <span class="product-price">
+                                @Html.DisplayFor(modelItem => item.PRECIO1)
+                            </span>
+                            <small class="text-muted">@Html.DisplayFor(modelItem => item.TIPO_PRODUCTO.DESCRIPCION)</small>
+                            <a href="#" class="product-name"> @Html.DisplayFor(modelItem => item.NOMBRE)</a>
+                            <div class="small m-t-xs">
+                                @Html.DisplayFor(modelItem => item.DESCRIPCION)
+                            </div>
+                            <div class="m-t text-righ">
 
-<table class="table table-striped">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CODIGO_PRODUCTO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DESCRIPCION)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PRECIO1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PRECIO2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PRECIO3)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FECHA_CREACION)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FECHA_ULTIMA_VENTA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ACTIVO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NOMBRE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TIPO_PRODUCTO.DESCRIPCION)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.USUARIO.NOMBRE_COMPLETO)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CODIGO_PRODUCTO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DESCRIPCION)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PRECIO1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PRECIO2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PRECIO3)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FECHA_CREACION)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FECHA_ULTIMA_VENTA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ACTIVO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NOMBRE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TIPO_PRODUCTO.DESCRIPCION)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.USUARIO.NOMBRE_COMPLETO)
-        </td>
-        <td>
-			@Html.ActionLink("Details", "Details", new { id=item.PRODUCTO_ID }, new { @class = "btn btn-primary btn-sm"})
-            @Html.ActionLink("Edit", "Edit", new { id=item.PRODUCTO_ID }, new { @class = "btn btn-white btn-sm"})
-            @Html.ActionLink("Delete", "Delete", new { id=item.PRODUCTO_ID }, new { @class = "btn btn-white btn-sm"})
-        </td>
-    </tr>
-}
-
-</table>
-
+                                <a href='@Url.Action("Details", new { id = item.PRODUCTO_ID })' class="btn btn-xs btn-outline btn-primary">Info <i class="fad fa-long-arrow-right"></i> </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
- </div>
-
-
-
+</div>

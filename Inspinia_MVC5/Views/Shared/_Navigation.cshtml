@@ -44,10 +44,10 @@
                     <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">Reportes</a></li>
                 </ul>
             </li>
-            <li class="@Html.IsSelected(controller: "Facturacion")">
-                <a href="@Url.Action("Facturación", "Facturacion")"><i class="fad fa-inventory"></i> <span class="nav-label" data-i18n="nav.dashboard">Inventario</span> <span class="fa arrow"></span></a>
+            <li class="@Html.IsSelected(controller: "Productos")">
+                <a href="@Url.Action("", "")"><i class="fad fa-inventory"></i> <span class="nav-label" data-i18n="nav.dashboard">Inventario</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Facturación", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Dashboard_1")"><a href="@Url.Action("Dashboard_1", "Dashboards")">Facturación</a></li>
+                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "PRODUCTOS")">Productos</a></li>
                     <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">Reportes</a></li>
                 </ul>
             </li>
