@@ -33,6 +33,7 @@ namespace Inspinia_MVC5.Models
         public Nullable<bool> ESTADO_DOC { get; set; }
         public Nullable<decimal> PAGOS { get; set; }
         public Nullable<System.DateTime> FECHA_ACTUALIZADO { get; set; }
+        public Nullable<System.DateTime> FECHA_VENCIMIENTO { get; set; }
     
         public virtual CLIENTE CLIENTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -130,6 +130,7 @@
           <Property Name="ID_ORIGEN" Type="int" />
           <Property Name="FECHA_HORA" Type="datetime" />
           <Property Name="ID_BASE" Type="int" />
+          <Property Name="TIPO" Type="nvarchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="FACTURA">
           <Key>
@@ -148,6 +149,7 @@
           <Property Name="ESTADO_DOC" Type="bit" />
           <Property Name="PAGOS" Type="decimal" Precision="18" Scale="2" />
           <Property Name="FECHA_ACTUALIZADO" Type="datetime" />
+          <Property Name="FECHA_VENCIMIENTO" Type="datetime" />
         </EntityType>
         <EntityType Name="FACTURA_DETALLE">
           <Key>
@@ -834,6 +836,7 @@
           <NavigationProperty Name="FORMA_PAGO" Relationship="Self.FK_DOCS_CC_REFERENCE_FORMA_PA" FromRole="DOCS_CC" ToRole="FORMA_PAGO" />
           <NavigationProperty Name="TIPO_DOCUMENTO" Relationship="Self.FK_DOCS_CC_REFERENCE_TIPO_DOC" FromRole="DOCS_CC" ToRole="TIPO_DOCUMENTO" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_DOCS_CC_REFERENCE_USUARIO" FromRole="DOCS_CC" ToRole="USUARIO" />
+          <Property Name="TIPO" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="FACTURA">
           <Key>
@@ -856,6 +859,7 @@
           <NavigationProperty Name="FACTURA_DETALLE" Relationship="Self.FK_FACTURA__REFERENCE_FACTURA" FromRole="FACTURA" ToRole="FACTURA_DETALLE" />
           <NavigationProperty Name="SERIE_DOCUMENTO" Relationship="Self.FK_FACTURA_REFERENCE_SERIE_DO" FromRole="FACTURA" ToRole="SERIE_DOCUMENTO" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_FACTURA_REFERENCE_USUARIO" FromRole="FACTURA" ToRole="USUARIO" />
+          <Property Name="FECHA_VENCIMIENTO" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="FACTURA_DETALLE">
           <Key>
@@ -1509,6 +1513,7 @@
           <EntitySetMapping Name="DOCS_CC">
             <EntityTypeMapping TypeName="intersystemerpModel.DOCS_CC">
               <MappingFragment StoreEntitySet="DOCS_CC">
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
                 <ScalarProperty Name="DOC_ID" ColumnName="DOC_ID" />
                 <ScalarProperty Name="TIPO_DOC_ID" ColumnName="TIPO_DOC_ID" />
                 <ScalarProperty Name="FORMA_PAGO_ID" ColumnName="FORMA_PAGO_ID" />
@@ -1533,6 +1538,7 @@
           <EntitySetMapping Name="FACTURA">
             <EntityTypeMapping TypeName="intersystemerpModel.FACTURA">
               <MappingFragment StoreEntitySet="FACTURA">
+                <ScalarProperty Name="FECHA_VENCIMIENTO" ColumnName="FECHA_VENCIMIENTO" />
                 <ScalarProperty Name="FACTURA_ID" ColumnName="FACTURA_ID" />
                 <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
                 <ScalarProperty Name="CLIENTE_ID" ColumnName="CLIENTE_ID" />
