@@ -49,6 +49,14 @@
         <AssociationConnector Association="intersystemerpModel.FK_SERIE_DO_REFERENCE_USUARIO" ManuallyRouted="false" />
         <AssociationConnector Association="intersystemerpModel.FK_USUARIO__REFERENCE_USUARIO" ManuallyRouted="false" />
         <AssociationConnector Association="intersystemerpModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="intersystemerpModel.NOTA_ABONO" Width="1.5" PointX="8.25" PointY="18.75" />
+        <EntityTypeShape EntityType="intersystemerpModel.NOTA_CARGO" Width="1.5" PointX="5.25" PointY="19.75" />
+        <AssociationConnector Association="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_CLIENTE" />
+        <AssociationConnector Association="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_CLIENTE" />
+        <AssociationConnector Association="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_SERIE_DO" />
+        <AssociationConnector Association="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_USUARIO" />
+        <AssociationConnector Association="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_SERIE_DO" />
+        <AssociationConnector Association="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_USUARIO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

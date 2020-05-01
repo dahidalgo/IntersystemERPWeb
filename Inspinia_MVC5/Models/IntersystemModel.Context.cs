@@ -45,5 +45,7 @@ namespace Inspinia_MVC5.Models
         public virtual DbSet<TIPO_PRODUCTO> TIPO_PRODUCTO { get; set; }
         public virtual DbSet<USUARIO> USUARIO { get; set; }
         public virtual DbSet<USUARIO_ROL> USUARIO_ROL { get; set; }
+        public virtual DbSet<NOTA_ABONO> NOTA_ABONO { get; set; }
+        public virtual DbSet<NOTA_CARGO> NOTA_CARGO { get; set; }
     }
 }

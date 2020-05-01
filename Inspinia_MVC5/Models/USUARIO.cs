@@ -24,6 +24,8 @@ namespace Inspinia_MVC5.Models
             this.RECIBO = new HashSet<RECIBO>();
             this.SERIE_DOCUMENTO = new HashSet<SERIE_DOCUMENTO>();
             this.USUARIO_ROL = new HashSet<USUARIO_ROL>();
+            this.NOTA_ABONO = new HashSet<NOTA_ABONO>();
+            this.NOTA_CARGO = new HashSet<NOTA_CARGO>();
         }
     
         public int USUARIO_ID { get; set; }
@@ -49,5 +51,9 @@ namespace Inspinia_MVC5.Models
         public virtual ICollection<SERIE_DOCUMENTO> SERIE_DOCUMENTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<USUARIO_ROL> USUARIO_ROL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NOTA_ABONO> NOTA_ABONO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NOTA_CARGO> NOTA_CARGO { get; set; }
     }
 }

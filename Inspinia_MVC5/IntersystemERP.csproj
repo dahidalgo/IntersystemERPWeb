@@ -206,6 +206,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IntersystemModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\NOTA_ABONO.cs">
+      <DependentUpon>IntersystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NOTA_CARGO.cs">
+      <DependentUpon>IntersystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PRODUCTO.cs">
       <DependentUpon>IntersystemModel.tt</DependentUpon>
     </Compile>

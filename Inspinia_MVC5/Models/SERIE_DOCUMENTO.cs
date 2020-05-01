@@ -18,6 +18,8 @@ namespace Inspinia_MVC5.Models
         public SERIE_DOCUMENTO()
         {
             this.FACTURA = new HashSet<FACTURA>();
+            this.NOTA_ABONO = new HashSet<NOTA_ABONO>();
+            this.NOTA_CARGO = new HashSet<NOTA_CARGO>();
         }
     
         public int SERIE_DOC_ID { get; set; }
@@ -36,5 +38,9 @@ namespace Inspinia_MVC5.Models
         public virtual ICollection<FACTURA> FACTURA { get; set; }
         public virtual TIPO_DOCUMENTO TIPO_DOCUMENTO { get; set; }
         public virtual USUARIO USUARIO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NOTA_ABONO> NOTA_ABONO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NOTA_CARGO> NOTA_CARGO { get; set; }
     }
 }

@@ -169,6 +169,44 @@
           <Property Name="FORMA_PAGO_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="NOTA_ABONO">
+          <Key>
+            <PropertyRef Name="NOTA_ABONO_ID" />
+          </Key>
+          <Property Name="NOTA_ABONO_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USUARIO_ID" Type="int" />
+          <Property Name="CLIENTE_ID" Type="int" />
+          <Property Name="SERIE_DOC_ID" Type="int" />
+          <Property Name="NRO_NOTA_ABONO" Type="int" />
+          <Property Name="FECHA_EMISION" Type="datetime" />
+          <Property Name="SUBTOTAL" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TOTAL" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ANULADA" Type="bit" />
+          <Property Name="CAUSA_ANULADA" Type="nvarchar" MaxLength="100" />
+          <Property Name="ESTADO_DOC" Type="bit" />
+          <Property Name="PAGOS" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FECHA_ACTUALIZADO" Type="datetime" />
+          <Property Name="FECHA_VENCIMIENTO" Type="datetime" />
+        </EntityType>
+        <EntityType Name="NOTA_CARGO">
+          <Key>
+            <PropertyRef Name="NOTA_CARGO_ID" />
+          </Key>
+          <Property Name="NOTA_CARGO_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USUARIO_ID" Type="int" />
+          <Property Name="CLIENTE_ID" Type="int" />
+          <Property Name="SERIE_DOC_ID" Type="int" />
+          <Property Name="NRO_NOTA_CARGO" Type="int" />
+          <Property Name="FECHA_EMISION" Type="datetime" />
+          <Property Name="SUBTOTAL" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TOTAL" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ANULADA" Type="bit" />
+          <Property Name="CAUSA_ANULADA" Type="nvarchar" MaxLength="100" />
+          <Property Name="ESTADO_DOC" Type="bit" />
+          <Property Name="PAGOS" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FECHA_ACTUALIZADO" Type="datetime" />
+          <Property Name="FECHA_VENCIMIENTO" Type="datetime" />
+        </EntityType>
         <EntityType Name="PRODUCTO">
           <Key>
             <PropertyRef Name="PRODUCTO_ID" />
@@ -467,6 +505,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_NOTA_ABONO_REFERENCE_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="NOTA_ABONO" Type="Self.NOTA_ABONO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Principal>
+            <Dependent Role="NOTA_ABONO">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTA_ABONO_REFERENCE_SERIE_DO">
+          <End Role="SERIE_DOCUMENTO" Type="Self.SERIE_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="NOTA_ABONO" Type="Self.NOTA_ABONO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERIE_DOCUMENTO">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Principal>
+            <Dependent Role="NOTA_ABONO">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTA_ABONO_REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="NOTA_ABONO" Type="Self.NOTA_ABONO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="NOTA_ABONO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTA_CARGO_REFERENCE_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="NOTA_CARGO" Type="Self.NOTA_CARGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Principal>
+            <Dependent Role="NOTA_CARGO">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTA_CARGO_REFERENCE_SERIE_DO">
+          <End Role="SERIE_DOCUMENTO" Type="Self.SERIE_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="NOTA_CARGO" Type="Self.NOTA_CARGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERIE_DOCUMENTO">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Principal>
+            <Dependent Role="NOTA_CARGO">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTA_CARGO_REFERENCE_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="NOTA_CARGO" Type="Self.NOTA_CARGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="NOTA_CARGO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PRODUCTO_REFERENCE_TIPO_PRO">
           <End Role="TIPO_PRODUCTO" Type="Self.TIPO_PRODUCTO" Multiplicity="0..1" />
           <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
@@ -589,6 +699,8 @@
           <EntitySet Name="FACTURA" EntityType="Self.FACTURA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FACTURA_DETALLE" EntityType="Self.FACTURA_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FORMA_PAGO" EntityType="Self.FORMA_PAGO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NOTA_ABONO" EntityType="Self.NOTA_ABONO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NOTA_CARGO" EntityType="Self.NOTA_CARGO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RECIBO" EntityType="Self.RECIBO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
@@ -660,6 +772,30 @@
           <AssociationSet Name="FK_FACTURA_REFERENCE_USUARIO" Association="Self.FK_FACTURA_REFERENCE_USUARIO">
             <End Role="USUARIO" EntitySet="USUARIO" />
             <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTA_ABONO_REFERENCE_CLIENTE" Association="Self.FK_NOTA_ABONO_REFERENCE_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="NOTA_ABONO" EntitySet="NOTA_ABONO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTA_ABONO_REFERENCE_SERIE_DO" Association="Self.FK_NOTA_ABONO_REFERENCE_SERIE_DO">
+            <End Role="SERIE_DOCUMENTO" EntitySet="SERIE_DOCUMENTO" />
+            <End Role="NOTA_ABONO" EntitySet="NOTA_ABONO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTA_ABONO_REFERENCE_USUARIO" Association="Self.FK_NOTA_ABONO_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="NOTA_ABONO" EntitySet="NOTA_ABONO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTA_CARGO_REFERENCE_CLIENTE" Association="Self.FK_NOTA_CARGO_REFERENCE_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="NOTA_CARGO" EntitySet="NOTA_CARGO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTA_CARGO_REFERENCE_SERIE_DO" Association="Self.FK_NOTA_CARGO_REFERENCE_SERIE_DO">
+            <End Role="SERIE_DOCUMENTO" EntitySet="SERIE_DOCUMENTO" />
+            <End Role="NOTA_CARGO" EntitySet="NOTA_CARGO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTA_CARGO_REFERENCE_USUARIO" Association="Self.FK_NOTA_CARGO_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="NOTA_CARGO" EntitySet="NOTA_CARGO" />
           </AssociationSet>
           <AssociationSet Name="FK_PRODUCTO_REFERENCE_TIPO_PRO" Association="Self.FK_PRODUCTO_REFERENCE_TIPO_PRO">
             <End Role="TIPO_PRODUCTO" EntitySet="TIPO_PRODUCTO" />
@@ -810,6 +946,8 @@
           <NavigationProperty Name="FACTURA" Relationship="Self.FK_FACTURA_REFERENCE_CLIENTE" FromRole="CLIENTE" ToRole="FACTURA" />
           <NavigationProperty Name="RECIBO" Relationship="Self.FK_RECIBO_REFERENCE_CLIENTE" FromRole="CLIENTE" ToRole="RECIBO" />
           <Property Name="NIT" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NOTA_ABONO" Relationship="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_CLIENTE" FromRole="CLIENTE" ToRole="NOTA_ABONO" />
+          <NavigationProperty Name="NOTA_CARGO" Relationship="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_CLIENTE" FromRole="CLIENTE" ToRole="NOTA_CARGO" />
         </EntityType>
         <EntityType Name="DOCS_CC">
           <Key>
@@ -951,6 +1089,8 @@
           <NavigationProperty Name="TIPO_DOCUMENTO" Relationship="Self.FK_SERIE_DO_REFERENCE_TIPO_DOC" FromRole="SERIE_DOCUMENTO" ToRole="TIPO_DOCUMENTO" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_SERIE_DO_REFERENCE_USUARIO" FromRole="SERIE_DOCUMENTO" ToRole="USUARIO" />
           <Property Name="SERIE_ACTIVO" Type="Boolean" />
+          <NavigationProperty Name="NOTA_ABONO" Relationship="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_SERIE_DO" FromRole="SERIE_DOCUMENTO" ToRole="NOTA_ABONO" />
+          <NavigationProperty Name="NOTA_CARGO" Relationship="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_SERIE_DO" FromRole="SERIE_DOCUMENTO" ToRole="NOTA_CARGO" />
         </EntityType>
         <EntityType Name="TIPO_DOCUMENTO">
           <Key>
@@ -989,6 +1129,8 @@
           <NavigationProperty Name="RECIBO" Relationship="Self.FK_RECIBO_REFERENCE_USUARIO" FromRole="USUARIO" ToRole="RECIBO" />
           <NavigationProperty Name="SERIE_DOCUMENTO" Relationship="Self.FK_SERIE_DO_REFERENCE_USUARIO" FromRole="USUARIO" ToRole="SERIE_DOCUMENTO" />
           <NavigationProperty Name="USUARIO_ROL" Relationship="Self.FK_USUARIO__REFERENCE_USUARIO" FromRole="USUARIO" ToRole="USUARIO_ROL" />
+          <NavigationProperty Name="NOTA_ABONO" Relationship="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_USUARIO" FromRole="USUARIO" ToRole="NOTA_ABONO" />
+          <NavigationProperty Name="NOTA_CARGO" Relationship="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_USUARIO" FromRole="USUARIO" ToRole="NOTA_CARGO" />
         </EntityType>
         <EntityType Name="USUARIO_ROL">
           <Key>
@@ -1405,7 +1547,149 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="NOTA_ABONO" EntityType="intersystemerpModel.NOTA_ABONO" />
+          <EntitySet Name="NOTA_CARGO" EntityType="intersystemerpModel.NOTA_CARGO" />
+          <AssociationSet Name="FK_NOTA_ABONO_REFERENCE_CLIENTE" Association="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="NOTA_ABONO" EntitySet="NOTA_ABONO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTA_CARGO_REFERENCE_CLIENTE" Association="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="NOTA_CARGO" EntitySet="NOTA_CARGO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTA_ABONO_REFERENCE_SERIE_DO" Association="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_SERIE_DO">
+            <End Role="SERIE_DOCUMENTO" EntitySet="SERIE_DOCUMENTO" />
+            <End Role="NOTA_ABONO" EntitySet="NOTA_ABONO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTA_ABONO_REFERENCE_USUARIO" Association="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="NOTA_ABONO" EntitySet="NOTA_ABONO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTA_CARGO_REFERENCE_SERIE_DO" Association="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_SERIE_DO">
+            <End Role="SERIE_DOCUMENTO" EntitySet="SERIE_DOCUMENTO" />
+            <End Role="NOTA_CARGO" EntitySet="NOTA_CARGO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTA_CARGO_REFERENCE_USUARIO" Association="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="NOTA_CARGO" EntitySet="NOTA_CARGO" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="NOTA_ABONO">
+          <Key>
+            <PropertyRef Name="NOTA_ABONO_ID" />
+          </Key>
+          <Property Name="NOTA_ABONO_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USUARIO_ID" Type="Int32" />
+          <Property Name="CLIENTE_ID" Type="Int32" />
+          <Property Name="SERIE_DOC_ID" Type="Int32" />
+          <Property Name="NRO_NOTA_ABONO" Type="Int32" />
+          <Property Name="FECHA_EMISION" Type="DateTime" Precision="3" />
+          <Property Name="SUBTOTAL" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TOTAL" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ANULADA" Type="Boolean" />
+          <Property Name="CAUSA_ANULADA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ESTADO_DOC" Type="Boolean" />
+          <Property Name="PAGOS" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FECHA_ACTUALIZADO" Type="DateTime" Precision="3" />
+          <Property Name="FECHA_VENCIMIENTO" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CLIENTE" Relationship="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_CLIENTE" FromRole="NOTA_ABONO" ToRole="CLIENTE" />
+          <NavigationProperty Name="SERIE_DOCUMENTO" Relationship="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_SERIE_DO" FromRole="NOTA_ABONO" ToRole="SERIE_DOCUMENTO" />
+          <NavigationProperty Name="USUARIO" Relationship="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_USUARIO" FromRole="NOTA_ABONO" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="NOTA_CARGO">
+          <Key>
+            <PropertyRef Name="NOTA_CARGO_ID" />
+          </Key>
+          <Property Name="NOTA_CARGO_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USUARIO_ID" Type="Int32" />
+          <Property Name="CLIENTE_ID" Type="Int32" />
+          <Property Name="SERIE_DOC_ID" Type="Int32" />
+          <Property Name="NRO_NOTA_CARGO" Type="Int32" />
+          <Property Name="FECHA_EMISION" Type="DateTime" Precision="3" />
+          <Property Name="SUBTOTAL" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TOTAL" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ANULADA" Type="Boolean" />
+          <Property Name="CAUSA_ANULADA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ESTADO_DOC" Type="Boolean" />
+          <Property Name="PAGOS" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FECHA_ACTUALIZADO" Type="DateTime" Precision="3" />
+          <Property Name="FECHA_VENCIMIENTO" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CLIENTE" Relationship="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_CLIENTE" FromRole="NOTA_CARGO" ToRole="CLIENTE" />
+          <NavigationProperty Name="SERIE_DOCUMENTO" Relationship="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_SERIE_DO" FromRole="NOTA_CARGO" ToRole="SERIE_DOCUMENTO" />
+          <NavigationProperty Name="USUARIO" Relationship="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_USUARIO" FromRole="NOTA_CARGO" ToRole="USUARIO" />
+        </EntityType>
+        <Association Name="FK_NOTA_ABONO_REFERENCE_CLIENTE">
+          <End Type="intersystemerpModel.CLIENTE" Role="CLIENTE" Multiplicity="0..1" />
+          <End Type="intersystemerpModel.NOTA_ABONO" Role="NOTA_ABONO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Principal>
+            <Dependent Role="NOTA_ABONO">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTA_CARGO_REFERENCE_CLIENTE">
+          <End Type="intersystemerpModel.CLIENTE" Role="CLIENTE" Multiplicity="0..1" />
+          <End Type="intersystemerpModel.NOTA_CARGO" Role="NOTA_CARGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Principal>
+            <Dependent Role="NOTA_CARGO">
+              <PropertyRef Name="CLIENTE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTA_ABONO_REFERENCE_SERIE_DO">
+          <End Type="intersystemerpModel.SERIE_DOCUMENTO" Role="SERIE_DOCUMENTO" Multiplicity="0..1" />
+          <End Type="intersystemerpModel.NOTA_ABONO" Role="NOTA_ABONO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERIE_DOCUMENTO">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Principal>
+            <Dependent Role="NOTA_ABONO">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTA_ABONO_REFERENCE_USUARIO">
+          <End Type="intersystemerpModel.USUARIO" Role="USUARIO" Multiplicity="0..1" />
+          <End Type="intersystemerpModel.NOTA_ABONO" Role="NOTA_ABONO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="NOTA_ABONO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTA_CARGO_REFERENCE_SERIE_DO">
+          <End Type="intersystemerpModel.SERIE_DOCUMENTO" Role="SERIE_DOCUMENTO" Multiplicity="0..1" />
+          <End Type="intersystemerpModel.NOTA_CARGO" Role="NOTA_CARGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERIE_DOCUMENTO">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Principal>
+            <Dependent Role="NOTA_CARGO">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTA_CARGO_REFERENCE_USUARIO">
+          <End Type="intersystemerpModel.USUARIO" Role="USUARIO" Multiplicity="0..1" />
+          <End Type="intersystemerpModel.NOTA_CARGO" Role="NOTA_CARGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Principal>
+            <Dependent Role="NOTA_CARGO">
+              <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1687,6 +1971,46 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="NOTA_ABONO">
+            <EntityTypeMapping TypeName="intersystemerpModel.NOTA_ABONO">
+              <MappingFragment StoreEntitySet="NOTA_ABONO">
+                <ScalarProperty Name="FECHA_VENCIMIENTO" ColumnName="FECHA_VENCIMIENTO" />
+                <ScalarProperty Name="FECHA_ACTUALIZADO" ColumnName="FECHA_ACTUALIZADO" />
+                <ScalarProperty Name="PAGOS" ColumnName="PAGOS" />
+                <ScalarProperty Name="ESTADO_DOC" ColumnName="ESTADO_DOC" />
+                <ScalarProperty Name="CAUSA_ANULADA" ColumnName="CAUSA_ANULADA" />
+                <ScalarProperty Name="ANULADA" ColumnName="ANULADA" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="SUBTOTAL" ColumnName="SUBTOTAL" />
+                <ScalarProperty Name="FECHA_EMISION" ColumnName="FECHA_EMISION" />
+                <ScalarProperty Name="NRO_NOTA_ABONO" ColumnName="NRO_NOTA_ABONO" />
+                <ScalarProperty Name="SERIE_DOC_ID" ColumnName="SERIE_DOC_ID" />
+                <ScalarProperty Name="CLIENTE_ID" ColumnName="CLIENTE_ID" />
+                <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
+                <ScalarProperty Name="NOTA_ABONO_ID" ColumnName="NOTA_ABONO_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NOTA_CARGO">
+            <EntityTypeMapping TypeName="intersystemerpModel.NOTA_CARGO">
+              <MappingFragment StoreEntitySet="NOTA_CARGO">
+                <ScalarProperty Name="FECHA_VENCIMIENTO" ColumnName="FECHA_VENCIMIENTO" />
+                <ScalarProperty Name="FECHA_ACTUALIZADO" ColumnName="FECHA_ACTUALIZADO" />
+                <ScalarProperty Name="PAGOS" ColumnName="PAGOS" />
+                <ScalarProperty Name="ESTADO_DOC" ColumnName="ESTADO_DOC" />
+                <ScalarProperty Name="CAUSA_ANULADA" ColumnName="CAUSA_ANULADA" />
+                <ScalarProperty Name="ANULADA" ColumnName="ANULADA" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="SUBTOTAL" ColumnName="SUBTOTAL" />
+                <ScalarProperty Name="FECHA_EMISION" ColumnName="FECHA_EMISION" />
+                <ScalarProperty Name="NRO_NOTA_CARGO" ColumnName="NRO_NOTA_CARGO" />
+                <ScalarProperty Name="SERIE_DOC_ID" ColumnName="SERIE_DOC_ID" />
+                <ScalarProperty Name="CLIENTE_ID" ColumnName="CLIENTE_ID" />
+                <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
+                <ScalarProperty Name="NOTA_CARGO_ID" ColumnName="NOTA_CARGO_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
