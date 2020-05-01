@@ -26,6 +26,7 @@ namespace Inspinia_MVC5.Models
         public string CAUSA_ANULADO { get; set; }
         public string DESCRIPCION { get; set; }
         public string NRO_DOC_PAGO { get; set; }
+        public Nullable<int> NRO_FACTURA { get; set; }
     
         public virtual CLIENTE CLIENTE { get; set; }
         public virtual FORMA_PAGO FORMA_PAGO { get; set; }

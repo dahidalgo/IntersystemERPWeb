@@ -202,6 +202,7 @@
           <Property Name="CAUSA_ANULADO" Type="nvarchar" MaxLength="100" />
           <Property Name="DESCRIPCION" Type="nvarchar(max)" />
           <Property Name="NRO_DOC_PAGO" Type="nvarchar" MaxLength="50" />
+          <Property Name="NRO_FACTURA" Type="int" />
         </EntityType>
         <EntityType Name="ROL">
           <Key>
@@ -922,6 +923,7 @@
           <NavigationProperty Name="CLIENTE" Relationship="Self.FK_RECIBO_REFERENCE_CLIENTE" FromRole="RECIBO" ToRole="CLIENTE" />
           <NavigationProperty Name="FORMA_PAGO" Relationship="Self.FK_RECIBO_REFERENCE_FORMA_PA" FromRole="RECIBO" ToRole="FORMA_PAGO" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_RECIBO_REFERENCE_USUARIO" FromRole="RECIBO" ToRole="USUARIO" />
+          <Property Name="NRO_FACTURA" Type="Int32" />
         </EntityType>
         <EntityType Name="ROL">
           <Key>
@@ -1596,6 +1598,7 @@
           <EntitySetMapping Name="RECIBO">
             <EntityTypeMapping TypeName="intersystemerpModel.RECIBO">
               <MappingFragment StoreEntitySet="RECIBO">
+                <ScalarProperty Name="NRO_FACTURA" ColumnName="NRO_FACTURA" />
                 <ScalarProperty Name="RECIBO_ID" ColumnName="RECIBO_ID" />
                 <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
                 <ScalarProperty Name="CLIENTE_ID" ColumnName="CLIENTE_ID" />
