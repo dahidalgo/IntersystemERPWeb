@@ -141,6 +141,8 @@
     <Compile Include="Controllers\MailboxController.cs" />
     <Compile Include="Controllers\MetricsController.cs" />
     <Compile Include="Controllers\MiscellaneousController.cs" />
+    <Compile Include="Controllers\NOTA_ABONOController.cs" />
+    <Compile Include="Controllers\NOTA_CARGOController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\PRODUCTOSController.cs" />
     <Compile Include="Controllers\RECIBOSController.cs" />
@@ -9404,6 +9406,16 @@
     <Content Include="Views\PRODUCTOS\Details.cshtml" />
     <Content Include="Views\PRODUCTOS\Edit.cshtml" />
     <Content Include="Views\PRODUCTOS\Index.cshtml" />
+    <Content Include="Views\NOTA_ABONO\Create.cshtml" />
+    <Content Include="Views\NOTA_ABONO\Delete.cshtml" />
+    <Content Include="Views\NOTA_ABONO\Details.cshtml" />
+    <Content Include="Views\NOTA_ABONO\Edit.cshtml" />
+    <Content Include="Views\NOTA_ABONO\Index.cshtml" />
+    <Content Include="Views\NOTA_CARGO\Create.cshtml" />
+    <Content Include="Views\NOTA_CARGO\Delete.cshtml" />
+    <Content Include="Views\NOTA_CARGO\Details.cshtml" />
+    <Content Include="Views\NOTA_CARGO\Edit.cshtml" />
+    <Content Include="Views\NOTA_CARGO\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

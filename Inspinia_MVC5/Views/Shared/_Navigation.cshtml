@@ -30,13 +30,16 @@
                     <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">Reportes</a></li>
                 </ul>
             </li>
-            <li class="@Html.IsSelected(controller: "Facturacion")">
-                <a href="@Url.Action("Facturación", "Facturacion")"><i class="fad fa-treasure-chest"></i> <span class="nav-label" data-i18n="nav.dashboard">Cuentas por cobrar</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Facturación", cssClass: "in")">
+            <li class="@Html.IsSelected(controller: "")">
+                <a href="@Url.Action("", "")"><i class="fad fa-treasure-chest"></i> <span class="nav-label" data-i18n="nav.dashboard">Cuentas por cobrar</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "", cssClass: "in")">
                     <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "RECIBOS")">Recibos de caja</a></li>
+                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "NOTA_ABONO")">Notas de abono</a></li>
+                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "NOTA_CARGO")">Notas de cargo</a></li>
                     <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">Reportes</a></li>
                 </ul>
             </li>
+
             <li class="@Html.IsSelected(controller: "CLIENTES")">
                 <a href="@Url.Action("Index", "CLIENTES")"><i class="fad fa-user-friends"></i> <span class="nav-label" data-i18n="nav.dashboard">Clientes</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "CLIENTES", cssClass: "in")">

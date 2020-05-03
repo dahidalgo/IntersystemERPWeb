@@ -28,6 +28,7 @@ namespace Inspinia_MVC5.Models
         public Nullable<decimal> PAGOS { get; set; }
         public Nullable<System.DateTime> FECHA_ACTUALIZADO { get; set; }
         public Nullable<System.DateTime> FECHA_VENCIMIENTO { get; set; }
+        public string DESCRIPCION { get; set; }
     
         public virtual CLIENTE CLIENTE { get; set; }
         public virtual SERIE_DOCUMENTO SERIE_DOCUMENTO { get; set; }

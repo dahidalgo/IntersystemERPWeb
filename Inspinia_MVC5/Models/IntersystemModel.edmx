@@ -187,6 +187,7 @@
           <Property Name="PAGOS" Type="decimal" Precision="18" Scale="2" />
           <Property Name="FECHA_ACTUALIZADO" Type="datetime" />
           <Property Name="FECHA_VENCIMIENTO" Type="datetime" />
+          <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="NOTA_CARGO">
           <Key>
@@ -206,6 +207,7 @@
           <Property Name="PAGOS" Type="decimal" Precision="18" Scale="2" />
           <Property Name="FECHA_ACTUALIZADO" Type="datetime" />
           <Property Name="FECHA_VENCIMIENTO" Type="datetime" />
+          <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="PRODUCTO">
           <Key>
@@ -1595,6 +1597,7 @@
           <NavigationProperty Name="CLIENTE" Relationship="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_CLIENTE" FromRole="NOTA_ABONO" ToRole="CLIENTE" />
           <NavigationProperty Name="SERIE_DOCUMENTO" Relationship="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_SERIE_DO" FromRole="NOTA_ABONO" ToRole="SERIE_DOCUMENTO" />
           <NavigationProperty Name="USUARIO" Relationship="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_USUARIO" FromRole="NOTA_ABONO" ToRole="USUARIO" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="NOTA_CARGO">
           <Key>
@@ -1617,6 +1620,7 @@
           <NavigationProperty Name="CLIENTE" Relationship="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_CLIENTE" FromRole="NOTA_CARGO" ToRole="CLIENTE" />
           <NavigationProperty Name="SERIE_DOCUMENTO" Relationship="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_SERIE_DO" FromRole="NOTA_CARGO" ToRole="SERIE_DOCUMENTO" />
           <NavigationProperty Name="USUARIO" Relationship="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_USUARIO" FromRole="NOTA_CARGO" ToRole="USUARIO" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_NOTA_ABONO_REFERENCE_CLIENTE">
           <End Type="intersystemerpModel.CLIENTE" Role="CLIENTE" Multiplicity="0..1" />
@@ -1974,6 +1978,7 @@
           <EntitySetMapping Name="NOTA_ABONO">
             <EntityTypeMapping TypeName="intersystemerpModel.NOTA_ABONO">
               <MappingFragment StoreEntitySet="NOTA_ABONO">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="FECHA_VENCIMIENTO" ColumnName="FECHA_VENCIMIENTO" />
                 <ScalarProperty Name="FECHA_ACTUALIZADO" ColumnName="FECHA_ACTUALIZADO" />
                 <ScalarProperty Name="PAGOS" ColumnName="PAGOS" />
@@ -1994,6 +1999,7 @@
           <EntitySetMapping Name="NOTA_CARGO">
             <EntityTypeMapping TypeName="intersystemerpModel.NOTA_CARGO">
               <MappingFragment StoreEntitySet="NOTA_CARGO">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="FECHA_VENCIMIENTO" ColumnName="FECHA_VENCIMIENTO" />
                 <ScalarProperty Name="FECHA_ACTUALIZADO" ColumnName="FECHA_ACTUALIZADO" />
                 <ScalarProperty Name="PAGOS" ColumnName="PAGOS" />
