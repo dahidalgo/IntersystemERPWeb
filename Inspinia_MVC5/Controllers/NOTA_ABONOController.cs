@@ -93,7 +93,7 @@ namespace Inspinia_MVC5.Controllers
                 docs_cc.MONTO_DOC = nOTA_ABONO.TOTAL;
                 docs_cc.MONTO_PARCIAL = nOTA_ABONO.TOTAL;
                 docs_cc.FECHA_HORA = DateTime.Now;
-                docs_cc.TIPO = "D";
+                docs_cc.TIPO = "A";
                 docs_cc.FECHA_VENCIMIENTO = nOTA_ABONO.FECHA_VENCIMIENTO;
                 docs_cc.NRO_PAGOS = 0;
                 docs_cc.BALANCE = nOTA_ABONO.TOTAL;
@@ -190,7 +190,7 @@ namespace Inspinia_MVC5.Controllers
                 SERIE_DOCUMENTO sERIE = db.SERIE_DOCUMENTO.Find(id);
                 if (sERIE.SERIE_ACTIVO.HasValue && sERIE.SERIE_ACTIVO == true)
                 {
-                    var numerona = db.NOTA_ABONO.Where(f => f.SERIE_DOC_ID == id.Value).OrderByDescending(f => f.NRO_NOTA_ABONO).Select(f => f.NRO_NOTA_CARGO).FirstOrDefault();
+                    var numerona = db.NOTA_ABONO.Where(f => f.SERIE_DOC_ID == id.Value).OrderByDescending(f => f.NRO_NOTA_ABONO).Select(f => f.NRO_NOTA_ABONO).FirstOrDefault();
                     if (numerona.HasValue)
                     {
                         nanumero = numerona.Value + 1;
