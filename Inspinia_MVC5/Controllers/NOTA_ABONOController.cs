@@ -39,8 +39,30 @@ namespace Inspinia_MVC5.Controllers
         // GET: /NOTA_ABONO/Create
         public ActionResult Create()
         {
-            ViewBag.CLIENTE_ID = new SelectList(db.CLIENTE, "CLIENTE_ID", "NOMBRE_CLTE");
-            ViewBag.SERIE_DOC_ID = new SelectList(db.SERIE_DOCUMENTO, "SERIE_DOC_ID", "SERIE");
+            NOTA_ABONO NotaAbono = new NOTA_ABONO();
+            //Clientes
+            var clienteList = new List<SelectListItem>();
+            clienteList.Add(new SelectListItem() { Value = "0", Text = "-Elija Cliente-", Selected = NotaAbono.CLIENTE_ID == 0 });
+            clienteList.AddRange(db.CLIENTE.Select(r => new SelectListItem()
+            {
+                Value = r.CLIENTE_ID + "",
+                Text = r.NOMBRE_CLTE,
+                Selected = NotaAbono.CLIENTE_ID == r.CLIENTE_ID
+            }));
+
+            //Serie
+            var seriesList = new List<SelectListItem>();
+            seriesList.Add(new SelectListItem() { Value = "0", Text = "-Elija Serie-", Selected = NotaAbono.SERIE_DOC_ID == 0 });
+            seriesList.AddRange(db.SERIE_DOCUMENTO.Where(r => r.SERIE_ACTIVO == true && r.TIPO_DOC_ID == 1003).Select(r => new SelectListItem()
+            {
+                Value = r.SERIE_DOC_ID + "",
+                Text = r.SERIE,
+                Selected = NotaAbono.SERIE_DOC_ID == r.SERIE_DOC_ID
+            }));
+
+            ViewBag.CLIENTE_ID = clienteList;
+            ViewBag.SERIE_DOC_ID = seriesList;
+            ViewBag.FECHA_EMISION = DateTime.Now.Date.ToShortDateString();
             ViewBag.USUARIO_ID = new SelectList(db.USUARIO, "USUARIO_ID", "NOMBRE_COMPLETO");
             return View();
         }
@@ -54,7 +76,28 @@ namespace Inspinia_MVC5.Controllers
         {
             if (ModelState.IsValid)
             {
+                nOTA_ABONO.USUARIO_ID = 1;
+                nOTA_ABONO.ANULADA = false;
+                nOTA_ABONO.ESTADO_DOC = false;
+                nOTA_ABONO.SUBTOTAL = nOTA_ABONO.TOTAL;
                 db.NOTA_ABONO.Add(nOTA_ABONO);
+                db.SaveChanges();
+
+                DOCS_CC docs_cc = new DOCS_CC();
+                SERIE_DOCUMENTO sERIE = db.SERIE_DOCUMENTO.Find(nOTA_ABONO.SERIE_DOC_ID);
+                docs_cc.TIPO_DOC_ID = sERIE.TIPO_DOC_ID;
+                docs_cc.USUARIO_ID = 1;
+                docs_cc.CLIENTE_ID = nOTA_ABONO.CLIENTE_ID;
+                docs_cc.NRO_DOC = nOTA_ABONO.NRO_NOTA_ABONO;
+                docs_cc.FECHA_EMISION = nOTA_ABONO.FECHA_EMISION;
+                docs_cc.MONTO_DOC = nOTA_ABONO.TOTAL;
+                docs_cc.MONTO_PARCIAL = nOTA_ABONO.TOTAL;
+                docs_cc.FECHA_HORA = DateTime.Now;
+                docs_cc.TIPO = "D";
+                docs_cc.FECHA_VENCIMIENTO = nOTA_ABONO.FECHA_VENCIMIENTO;
+                docs_cc.NRO_PAGOS = 0;
+                docs_cc.BALANCE = nOTA_ABONO.TOTAL;
+                db.DOCS_CC.Add(docs_cc);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -135,6 +178,35 @@ namespace Inspinia_MVC5.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public int? GetNumeroNotaAbono(int? id)
+        {
+            int? nanumero = null;
+
+            if (id.HasValue && id.Value > 0)
+            {
+                SERIE_DOCUMENTO sERIE = db.SERIE_DOCUMENTO.Find(id);
+                if (sERIE.SERIE_ACTIVO.HasValue && sERIE.SERIE_ACTIVO == true)
+                {
+                    var numerona = db.NOTA_ABONO.Where(f => f.SERIE_DOC_ID == id.Value).OrderByDescending(f => f.NRO_NOTA_ABONO).Select(f => f.NRO_NOTA_CARGO).FirstOrDefault();
+                    if (numerona.HasValue)
+                    {
+                        nanumero = numerona.Value + 1;
+                    }
+                    else
+                    {
+                        nanumero = Convert.ToInt32(sERIE.DESDE);
+                    }
+                    return nanumero;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            return nanumero;
         }
     }
 }
