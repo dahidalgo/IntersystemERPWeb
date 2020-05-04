@@ -61,7 +61,7 @@ namespace Inspinia_MVC5.Controllers
             //Serie
             var seriesList = new List<SelectListItem>();
             seriesList.Add(new SelectListItem() { Value = "0", Text = "-Elija Serie-", Selected = Factura.SERIE_DOC_ID == 0 });
-            seriesList.AddRange(db.SERIE_DOCUMENTO.Where(r => r.SERIE_ACTIVO == true).Select(r => new SelectListItem()
+            seriesList.AddRange(db.SERIE_DOCUMENTO.Where(r => r.SERIE_ACTIVO == true && r.TIPO_DOC_ID == 1).Select(r => new SelectListItem()
             {
                 Value = r.SERIE_DOC_ID + "",
                 Text = r.SERIE,
