@@ -27,6 +27,7 @@
                     <thead>
                         <tr>
                             <th data-hide="phone">Código</th>
+                            <th data-hide="phone">Tipo</th>
                             <th data-hide="phone">Serie</th>
                             <th data-hide="phone">Resolución</th>
                             <th data-hide="phone">Estado</th>
@@ -40,6 +41,9 @@
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.SERIE_DOC_ID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TIPO_DOCUMENTO.DESCRIPCION)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.SERIE)
