@@ -101,7 +101,7 @@ namespace Inspinia_MVC5.Controllers
                 docs_cc.MONTO_DOC = fACTURA.TOTAL;
                 docs_cc.MONTO_PARCIAL = fACTURA.TOTAL;
                 docs_cc.FECHA_HORA = DateTime.Now;
-                docs_cc.TIPO = "D";
+                docs_cc.TIPO = "C";
                 docs_cc.FECHA_VENCIMIENTO = fACTURA.FECHA_VENCIMIENTO;
                 docs_cc.NRO_PAGOS = 0;
                 docs_cc.BALANCE = fACTURA.TOTAL;

@@ -96,7 +96,7 @@ namespace Inspinia_MVC5.Controllers
                 docs_cc.MONTO_DOC = nOTA_CARGO.TOTAL;
                 docs_cc.MONTO_PARCIAL = nOTA_CARGO.TOTAL;
                 docs_cc.FECHA_HORA = DateTime.Now;
-                docs_cc.TIPO = "D";
+                docs_cc.TIPO = "C";
                 docs_cc.FECHA_VENCIMIENTO = nOTA_CARGO.FECHA_VENCIMIENTO;
                 docs_cc.NRO_PAGOS = 0;
                 docs_cc.BALANCE = nOTA_CARGO.TOTAL;
