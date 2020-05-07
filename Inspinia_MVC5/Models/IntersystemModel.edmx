@@ -244,6 +244,17 @@
           <Property Name="NRO_DOC_PAGO" Type="nvarchar" MaxLength="50" />
           <Property Name="NRO_FACTURA" Type="int" />
         </EntityType>
+        <EntityType Name="RECIBO_DETALLE">
+          <Key>
+            <PropertyRef Name="RECIBO_DETALLE_ID" />
+          </Key>
+          <Property Name="RECIBO_DETALLE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RECIBO_ID" Type="int" />
+          <Property Name="FACTURA_ID" Type="int" />
+          <Property Name="NOTA_CARGO_ID" Type="int" />
+          <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="250" />
+          <Property Name="MONTO" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
         <EntityType Name="ROL">
           <Key>
             <PropertyRef Name="ROL_ID" />
@@ -603,6 +614,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RECIBO_D_REFERENCE_FACTURA">
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="0..1" />
+          <End Role="RECIBO_DETALLE" Type="Self.RECIBO_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACTURA">
+              <PropertyRef Name="FACTURA_ID" />
+            </Principal>
+            <Dependent Role="RECIBO_DETALLE">
+              <PropertyRef Name="FACTURA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECIBO_D_REFERENCE_NOTA_CAR">
+          <End Role="NOTA_CARGO" Type="Self.NOTA_CARGO" Multiplicity="0..1" />
+          <End Role="RECIBO_DETALLE" Type="Self.RECIBO_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NOTA_CARGO">
+              <PropertyRef Name="NOTA_CARGO_ID" />
+            </Principal>
+            <Dependent Role="RECIBO_DETALLE">
+              <PropertyRef Name="NOTA_CARGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECIBO_D_REFERENCE_RECIBO">
+          <End Role="RECIBO" Type="Self.RECIBO" Multiplicity="0..1" />
+          <End Role="RECIBO_DETALLE" Type="Self.RECIBO_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RECIBO">
+              <PropertyRef Name="RECIBO_ID" />
+            </Principal>
+            <Dependent Role="RECIBO_DETALLE">
+              <PropertyRef Name="RECIBO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RECIBO_REFERENCE_CLIENTE">
           <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
           <End Role="RECIBO" Type="Self.RECIBO" Multiplicity="*" />
@@ -705,6 +752,7 @@
           <EntitySet Name="NOTA_CARGO" EntityType="Self.NOTA_CARGO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RECIBO" EntityType="Self.RECIBO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RECIBO_DETALLE" EntityType="Self.RECIBO_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SERIE_DOCUMENTO" EntityType="Self.SERIE_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_DOCUMENTO" EntityType="Self.TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
@@ -806,6 +854,18 @@
           <AssociationSet Name="FK_PRODUCTO_REFERENCE_USUARIO" Association="Self.FK_PRODUCTO_REFERENCE_USUARIO">
             <End Role="USUARIO" EntitySet="USUARIO" />
             <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECIBO_D_REFERENCE_FACTURA" Association="Self.FK_RECIBO_D_REFERENCE_FACTURA">
+            <End Role="FACTURA" EntitySet="FACTURA" />
+            <End Role="RECIBO_DETALLE" EntitySet="RECIBO_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECIBO_D_REFERENCE_NOTA_CAR" Association="Self.FK_RECIBO_D_REFERENCE_NOTA_CAR">
+            <End Role="NOTA_CARGO" EntitySet="NOTA_CARGO" />
+            <End Role="RECIBO_DETALLE" EntitySet="RECIBO_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECIBO_D_REFERENCE_RECIBO" Association="Self.FK_RECIBO_D_REFERENCE_RECIBO">
+            <End Role="RECIBO" EntitySet="RECIBO" />
+            <End Role="RECIBO_DETALLE" EntitySet="RECIBO_DETALLE" />
           </AssociationSet>
           <AssociationSet Name="FK_RECIBO_REFERENCE_CLIENTE" Association="Self.FK_RECIBO_REFERENCE_CLIENTE">
             <End Role="CLIENTE" EntitySet="CLIENTE" />
@@ -1001,6 +1061,7 @@
           <NavigationProperty Name="SERIE_DOCUMENTO" Relationship="Self.FK_FACTURA_REFERENCE_SERIE_DO" FromRole="FACTURA" ToRole="SERIE_DOCUMENTO" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_FACTURA_REFERENCE_USUARIO" FromRole="FACTURA" ToRole="USUARIO" />
           <Property Name="FECHA_VENCIMIENTO" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="RECIBO_DETALLE" Relationship="intersystemerpModel.FK_RECIBO_D_REFERENCE_FACTURA" FromRole="FACTURA" ToRole="RECIBO_DETALLE" />
         </EntityType>
         <EntityType Name="FACTURA_DETALLE">
           <Key>
@@ -1064,6 +1125,7 @@
           <NavigationProperty Name="FORMA_PAGO" Relationship="Self.FK_RECIBO_REFERENCE_FORMA_PA" FromRole="RECIBO" ToRole="FORMA_PAGO" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_RECIBO_REFERENCE_USUARIO" FromRole="RECIBO" ToRole="USUARIO" />
           <Property Name="NRO_FACTURA" Type="Int32" />
+          <NavigationProperty Name="RECIBO_DETALLE" Relationship="intersystemerpModel.FK_RECIBO_D_REFERENCE_RECIBO" FromRole="RECIBO" ToRole="RECIBO_DETALLE" />
         </EntityType>
         <EntityType Name="ROL">
           <Key>
@@ -1575,6 +1637,19 @@
             <End Role="USUARIO" EntitySet="USUARIO" />
             <End Role="NOTA_CARGO" EntitySet="NOTA_CARGO" />
           </AssociationSet>
+          <EntitySet Name="RECIBO_DETALLE" EntityType="intersystemerpModel.RECIBO_DETALLE" />
+          <AssociationSet Name="FK_RECIBO_D_REFERENCE_FACTURA" Association="intersystemerpModel.FK_RECIBO_D_REFERENCE_FACTURA">
+            <End Role="FACTURA" EntitySet="FACTURA" />
+            <End Role="RECIBO_DETALLE" EntitySet="RECIBO_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECIBO_D_REFERENCE_NOTA_CAR" Association="intersystemerpModel.FK_RECIBO_D_REFERENCE_NOTA_CAR">
+            <End Role="NOTA_CARGO" EntitySet="NOTA_CARGO" />
+            <End Role="RECIBO_DETALLE" EntitySet="RECIBO_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECIBO_D_REFERENCE_RECIBO" Association="intersystemerpModel.FK_RECIBO_D_REFERENCE_RECIBO">
+            <End Role="RECIBO" EntitySet="RECIBO" />
+            <End Role="RECIBO_DETALLE" EntitySet="RECIBO_DETALLE" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="NOTA_ABONO">
           <Key>
@@ -1621,6 +1696,7 @@
           <NavigationProperty Name="SERIE_DOCUMENTO" Relationship="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_SERIE_DO" FromRole="NOTA_CARGO" ToRole="SERIE_DOCUMENTO" />
           <NavigationProperty Name="USUARIO" Relationship="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_USUARIO" FromRole="NOTA_CARGO" ToRole="USUARIO" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RECIBO_DETALLE" Relationship="intersystemerpModel.FK_RECIBO_D_REFERENCE_NOTA_CAR" FromRole="NOTA_CARGO" ToRole="RECIBO_DETALLE" />
         </EntityType>
         <Association Name="FK_NOTA_ABONO_REFERENCE_CLIENTE">
           <End Type="intersystemerpModel.CLIENTE" Role="CLIENTE" Multiplicity="0..1" />
@@ -1691,6 +1767,56 @@
             </Principal>
             <Dependent Role="NOTA_CARGO">
               <PropertyRef Name="USUARIO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RECIBO_DETALLE">
+          <Key>
+            <PropertyRef Name="RECIBO_DETALLE_ID" />
+          </Key>
+          <Property Name="RECIBO_DETALLE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RECIBO_ID" Type="Int32" />
+          <Property Name="FACTURA_ID" Type="Int32" />
+          <Property Name="NOTA_CARGO_ID" Type="Int32" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MONTO" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="FACTURA" Relationship="intersystemerpModel.FK_RECIBO_D_REFERENCE_FACTURA" FromRole="RECIBO_DETALLE" ToRole="FACTURA" />
+          <NavigationProperty Name="NOTA_CARGO" Relationship="intersystemerpModel.FK_RECIBO_D_REFERENCE_NOTA_CAR" FromRole="RECIBO_DETALLE" ToRole="NOTA_CARGO" />
+          <NavigationProperty Name="RECIBO" Relationship="intersystemerpModel.FK_RECIBO_D_REFERENCE_RECIBO" FromRole="RECIBO_DETALLE" ToRole="RECIBO" />
+        </EntityType>
+        <Association Name="FK_RECIBO_D_REFERENCE_FACTURA">
+          <End Type="intersystemerpModel.FACTURA" Role="FACTURA" Multiplicity="0..1" />
+          <End Type="intersystemerpModel.RECIBO_DETALLE" Role="RECIBO_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACTURA">
+              <PropertyRef Name="FACTURA_ID" />
+            </Principal>
+            <Dependent Role="RECIBO_DETALLE">
+              <PropertyRef Name="FACTURA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECIBO_D_REFERENCE_NOTA_CAR">
+          <End Type="intersystemerpModel.NOTA_CARGO" Role="NOTA_CARGO" Multiplicity="0..1" />
+          <End Type="intersystemerpModel.RECIBO_DETALLE" Role="RECIBO_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NOTA_CARGO">
+              <PropertyRef Name="NOTA_CARGO_ID" />
+            </Principal>
+            <Dependent Role="RECIBO_DETALLE">
+              <PropertyRef Name="NOTA_CARGO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECIBO_D_REFERENCE_RECIBO">
+          <End Type="intersystemerpModel.RECIBO" Role="RECIBO" Multiplicity="0..1" />
+          <End Type="intersystemerpModel.RECIBO_DETALLE" Role="RECIBO_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RECIBO">
+              <PropertyRef Name="RECIBO_ID" />
+            </Principal>
+            <Dependent Role="RECIBO_DETALLE">
+              <PropertyRef Name="RECIBO_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2014,6 +2140,18 @@
                 <ScalarProperty Name="CLIENTE_ID" ColumnName="CLIENTE_ID" />
                 <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
                 <ScalarProperty Name="NOTA_CARGO_ID" ColumnName="NOTA_CARGO_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECIBO_DETALLE">
+            <EntityTypeMapping TypeName="intersystemerpModel.RECIBO_DETALLE">
+              <MappingFragment StoreEntitySet="RECIBO_DETALLE">
+                <ScalarProperty Name="MONTO" ColumnName="MONTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NOTA_CARGO_ID" ColumnName="NOTA_CARGO_ID" />
+                <ScalarProperty Name="FACTURA_ID" ColumnName="FACTURA_ID" />
+                <ScalarProperty Name="RECIBO_ID" ColumnName="RECIBO_ID" />
+                <ScalarProperty Name="RECIBO_DETALLE_ID" ColumnName="RECIBO_DETALLE_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

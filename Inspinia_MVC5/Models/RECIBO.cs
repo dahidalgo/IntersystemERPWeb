@@ -14,6 +14,12 @@ namespace Inspinia_MVC5.Models
     
     public partial class RECIBO
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public RECIBO()
+        {
+            this.RECIBO_DETALLE = new HashSet<RECIBO_DETALLE>();
+        }
+    
         public int RECIBO_ID { get; set; }
         public Nullable<int> USUARIO_ID { get; set; }
         public Nullable<int> CLIENTE_ID { get; set; }
@@ -31,5 +37,7 @@ namespace Inspinia_MVC5.Models
         public virtual CLIENTE CLIENTE { get; set; }
         public virtual FORMA_PAGO FORMA_PAGO { get; set; }
         public virtual USUARIO USUARIO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RECIBO_DETALLE> RECIBO_DETALLE { get; set; }
     }
 }

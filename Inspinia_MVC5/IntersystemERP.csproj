@@ -220,6 +220,9 @@
     <Compile Include="Models\RECIBO.cs">
       <DependentUpon>IntersystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RECIBO_DETALLE.cs">
+      <DependentUpon>IntersystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ROL.cs">
       <DependentUpon>IntersystemModel.tt</DependentUpon>
     </Compile>

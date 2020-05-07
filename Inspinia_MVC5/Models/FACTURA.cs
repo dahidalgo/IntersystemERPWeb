@@ -18,6 +18,7 @@ namespace Inspinia_MVC5.Models
         public FACTURA()
         {
             this.FACTURA_DETALLE = new HashSet<FACTURA_DETALLE>();
+            this.RECIBO_DETALLE = new HashSet<RECIBO_DETALLE>();
         }
     
         public int FACTURA_ID { get; set; }
@@ -40,5 +41,7 @@ namespace Inspinia_MVC5.Models
         public virtual ICollection<FACTURA_DETALLE> FACTURA_DETALLE { get; set; }
         public virtual SERIE_DOCUMENTO SERIE_DOCUMENTO { get; set; }
         public virtual USUARIO USUARIO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RECIBO_DETALLE> RECIBO_DETALLE { get; set; }
     }
 }

@@ -57,6 +57,10 @@
         <AssociationConnector Association="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_USUARIO" />
         <AssociationConnector Association="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_SERIE_DO" />
         <AssociationConnector Association="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_USUARIO" />
+        <EntityTypeShape EntityType="intersystemerpModel.RECIBO_DETALLE" Width="1.5" PointX="10.5" PointY="15" />
+        <AssociationConnector Association="intersystemerpModel.FK_RECIBO_D_REFERENCE_FACTURA" />
+        <AssociationConnector Association="intersystemerpModel.FK_RECIBO_D_REFERENCE_NOTA_CAR" />
+        <AssociationConnector Association="intersystemerpModel.FK_RECIBO_D_REFERENCE_RECIBO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
