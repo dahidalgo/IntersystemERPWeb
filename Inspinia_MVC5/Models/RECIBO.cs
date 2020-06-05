@@ -33,11 +33,13 @@ namespace Inspinia_MVC5.Models
         public string DESCRIPCION { get; set; }
         public string NRO_DOC_PAGO { get; set; }
         public Nullable<int> NRO_FACTURA { get; set; }
+        public Nullable<int> SERIE_DOC_ID { get; set; }
     
         public virtual CLIENTE CLIENTE { get; set; }
         public virtual FORMA_PAGO FORMA_PAGO { get; set; }
         public virtual USUARIO USUARIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RECIBO_DETALLE> RECIBO_DETALLE { get; set; }
+        public virtual SERIE_DOCUMENTO SERIE_DOCUMENTO { get; set; }
     }
 }

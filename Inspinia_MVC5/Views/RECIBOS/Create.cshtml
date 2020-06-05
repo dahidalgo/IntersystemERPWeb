@@ -1,147 +1,465 @@
 ﻿@model Inspinia_MVC5.Models.RECIBO
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Recibos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
-        <h2>Create</h2>
-        <ol class="breadcrumb">
-            <li>
-                @Html.ActionLink("List", "Index")
-            </li>
-            <li class="active">
-                <strong>Create</strong>
-            </li>
-        </ol>
+        <h2>Recibos de Caja</h2>
     </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary"})
+</div>
+<p></p>
+<div class="row">
+    <div class="col-lg-7 col-md-7 col-sm-10 col-xs-12 col-md-offset-2" col-lg-offset-2>
+        <div class="panel panel-default">
+            <div class="panel-heading" style="text-align:center">
+                <h2>Agregar Recibo de caja</h2>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Create", "RECIBO", FormMethod.Post, new { id = "formulario" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-md-5 col-xs-4" id="data_1">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fad fa-calendar"></i></span><input id="FECHA_EMISION" name="FECHA_EMISION" type="text" placeholder="Fecha de Resolución" class="form-control" value="@ViewBag.FECHA_EMISION">
+                            </div>
+                            <span id="FECHA_EMISION-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 col-xs-2">
+                            <i class="fad fa-file-code fa-2x"></i>
+                        </div>
+                        <div class="col-md-11 col-xs-10">
+                            @Html.DropDownList("SERIE_DOC_ID", null, htmlAttributes: new { @id = "SERIE_DOC_ID", @class = "form-control select2", style = "width: 100%; float:left;" })
+                            <span id="SERIE_DOC_ID-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 col-xs-2">
+                            <i class="fad fa-file-prescription fa-2x"></i>
+                        </div>
+                        <div class="col-md-11 col-xs-10">
+                            <input id="NRO_RECIBO" type="text" class="form-control" name="NRO_RECIBO" placeholder="No. Recibo" value="@ViewBag.NRO_RECIBO">
+                            <span id="NRO_RECIBO-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 col-xs-2">
+                            <i class="fad fa-user fa-2x"></i>
+                        </div>
+                        <div class="col-md-11 col-xs-10">
+                            @Html.DropDownList("CLIENTE_ID", null, htmlAttributes: new { @id = "CLIENTE_ID", @class = "form-control select2", style = "width: 100%; float:left;" })
+                            <span id="CLIENTE_ID-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+
+                    //Detalle de los recibos
+                    
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h5>Recibo Detalle</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="row">
+                                    <div class="col-md-4 col-xs-4">
+                                        @Html.DropDownList("ITEMLIST", null, htmlAttributes: new { @id = "ITEMLIST", @class = "form-control select2", style = "width: 100%; float:left;" })
+                                        <span id="CLIENTE_ID-error" class="labelError" style="display:none; ">&nbsp;</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">&nbsp;</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4 col-xs-4" id="div_pago">
+                                        @Html.DropDownList("DOC_ID", null, htmlAttributes: new { @id = "DOC_ID", @class = "form-control select2", style = "width: 100%; float:left;" })
+                                        <span id="DOC_ID-error" class="labelError" style="display:none; ">&nbsp;</span>
+                                    </div>
+                                    <div class="col-md-4 col-xs-4" id="div_descripcion">
+                                        <input id="OTRO_DESC" type="text" class="form-control" name="OTRO_DESC" placeholder="Descripción">
+                                        <span id="OTRO_DESC-error" class="labelError" style="display:none; ">&nbsp;</span>
+                                    </div>
+                                    <div class="col-md-4 col-xs-4">
+                                        <input id="MONTO" type="number" class="form-control" name="MONTO" placeholder="Monto" value="@ViewBag.MONTO">
+                                        <span id="MONTO-error" class="labelError" style="display:none; ">&nbsp;</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        @*<button class="btn btn-success" id="btnagregar" name="btnagregar"><i class="fad fa-plus-hexagon"></i>&nbsp;Agregar</button>*@
+                                        <input type="button" class="btn btn-success" id="btnagregar" value="Agregar">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">&nbsp;</div>
+                                </div>
+                                <div id="reciboItems" class="table table-light">
+
+                                </div>
+                            </div>
+                        </div>
+                    
+                    //Termina detalle de recibos
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 col-xs-2">
+                            <i class="fad fa-file-alt fa-2x"></i>
+                        </div>
+                        <div class="col-md-1 col-xs-1 well m-t">
+                            <strong>TOTAL </strong>
+                        </div>
+                        <div class="col-md-4 col-xs-10">
+                            <input id="TOTAL" type="number" class="form-control" name="TOTAL" placeholder="Total" value="0">
+                            <span id="TOTAL-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 col-xs-2">
+                            <i class="fad fa-money-bill fa-2x"></i>
+                        </div>
+                        <div class="col-md-11 col-xs-10">
+                            @Html.DropDownList("FORMA_PAGO_ID", null, htmlAttributes: new { @id = "FORMA_PAGO_ID", @class = "form-control select2", style = "width: 100%; float:left;" })
+                            <span id="FORMA_PAGO_ID-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row" id="div_nro_doc">
+                        <div class="col-md-1 col-xs-2">
+                            <i class="fad fa-money-check-edit-alt fa-2x"></i>
+                        </div>
+                        <div class="col-md-11 col-xs-10">
+                            <input id="NRO_DOC_PAGO" type="text" class="form-control" name="NRO_DOC_PAGO" placeholder="No. Documento" value="@ViewBag.NRO_DOC_PAGO">
+                            <span id="NRO_DOC_PAGO-error" class="labelError" style="display:none; ">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                }
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-3">
+                        <button class="btn btn-success" id="guardar" name="guardar"><i class="fad fa-save"></i>&nbsp;Guardar</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index")' "><i class="fad fa-step-backward"></i>&nbsp;Regresar</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">&nbsp;</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
+@section Styles {
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    <style type="text/css">
+        .labelError {
+            color: red;
+        }
 
-<div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Create RECIBO</h5>
-                </div>
-                <div class="ibox-content">
+        .label-fsteps {
+            color: #999;
+        }
 
-				@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true)
+        .row-steps {
+            border-bottom-color: #999;
+            border-bottom-style: solid;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.USUARIO_ID, "USUARIO_ID", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("USUARIO_ID", String.Empty)
-                @Html.ValidationMessageFor(model => model.USUARIO_ID)
-            </div>
-        </div>
+        .onoffswitch-switch {
+            border: 2px solid #1c84c6 !important;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CLIENTE_ID, "CLIENTE_ID", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CLIENTE_ID", String.Empty)
-                @Html.ValidationMessageFor(model => model.CLIENTE_ID)
-            </div>
-        </div>
+        .onoffswitch-label {
+            border: 2px solid #1c84c6 !important;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FORMA_PAGO_ID, "FORMA_PAGO_ID", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("FORMA_PAGO_ID", String.Empty)
-                @Html.ValidationMessageFor(model => model.FORMA_PAGO_ID)
-            </div>
-        </div>
+        .onoffswitch-inner:before {
+            content: "SI" !important;
+            background-color: #1c84c6 !important;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NRO_RECIBO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NRO_RECIBO)
-                @Html.ValidationMessageFor(model => model.NRO_RECIBO)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FECHA_EMISION, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FECHA_EMISION)
-                @Html.ValidationMessageFor(model => model.FECHA_EMISION)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SUBTOTAL, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SUBTOTAL)
-                @Html.ValidationMessageFor(model => model.SUBTOTAL)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TOTAL, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TOTAL)
-                @Html.ValidationMessageFor(model => model.TOTAL)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ANULADO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ANULADO)
-                @Html.ValidationMessageFor(model => model.ANULADO)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CAUSA_ANULADO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CAUSA_ANULADO)
-                @Html.ValidationMessageFor(model => model.CAUSA_ANULADO)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DESCRIPCION, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DESCRIPCION)
-                @Html.ValidationMessageFor(model => model.DESCRIPCION)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NRO_DOC_PAGO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NRO_DOC_PAGO)
-                @Html.ValidationMessageFor(model => model.NRO_DOC_PAGO)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
-				@Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-white"})
-            </div>
-        </div>
-    </div>
+        .onoffswitch-inner:after {
+            content: "NO" !important;
+        }
+    </style>
 }
 
-                </div>
-            </div>
-        </div>
-    </div>
- </div>
+@section Scripts {
 
- 
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/clockpicker")
+<script type="text/javascript">
+    $(document).ready(function () {
+        var reciboItems = [];
+
+            // autocomplete
+            $(".select2").select2();
+            // calendario
+            $.fn.datepicker.dates['en'] = {
+                days: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
+                daysShort: ["Dom", "Lun", "Mar", "Mie", "Juv", "Vie", "Sáb"],
+                daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+                months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                today: "Hoy",
+                clear: "Clear",
+                format: "dd/mm/yyyy",
+                titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+                weekStart: 0
+            };
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            });
+
+            //Tipo de pago
+            $("#FORMA_PAGO_ID").change(function () {
+                var idSelected = parseInt($(this).val());
+                switch (idSelected) {
+                    case 0:
+                        $("#div_nro_doc").hide();
+                        break;
+                    case 1:
+                        $("#div_nro_doc").hide();
+                        break;
+                    case 2:
+                        $("#div_nro_doc").show();
+                        break;
+                    case 3:
+                        $("#div_nro_doc").show();
+                        break;
+                }
+            }).change();
+
+
+            //Boton agregar item recibo detalle
+            $("#btnagregar").click(function () {
+                var total = $('#TOTAL').val();
+                var monto = $('#MONTO').val();
+                var totalr = "";
+                if (isNaN(total)) {
+                    total = 0;
+                }
+                totalr = parseFloat(total) + parseFloat(monto);
+                $("#TOTAL").val('');
+                $("#TOTAL").val(totalr);
+
+                reciboItems.push({
+                    Id: $('#DOC_ID').val(),
+                    Factura: $('#DOC_ID option:selected').text(),
+                    Monto: monto
+                });
+                GenerateItemsTable();
+            });
+
+            //Tipo de documento a pagar
+            $("#ITEMLIST").change(function () {
+                var idSelected = parseInt($(this).val());
+                var codigocte = $('#CLIENTE_ID').val();
+                switch (idSelected) {
+                    case 0:
+                        $("#div_descripcion").hide();
+                        break;
+                    case 1:
+                        $("#div_pago").show();
+                        $("#div_descripcion").hide();
+                        break;
+                    case 3:
+                        $("#div_pago").show();
+                        $("#div_descripcion").hide();
+                        break;
+                    case 4:
+                        $("#div_pago").hide();
+                        $("#div_descripcion").show();
+                        break;
+                }
+                if (idSelected > 0) {
+                    $.ajax({
+                        url: '@Url.Action("GetListaDocumentos", "RECIBOS")',
+                        type: "POST",
+                        data: {
+                            id: idSelected,
+                            cliente: codigocte
+                        },
+                        success: function (response) {
+                            $.each(response, function (i, option) {
+                                $('#DOC_ID').append($('<option/>').attr("value", option.Value).text(option.Text));
+                            });
+                        },
+                        error: function () {
+
+                        }
+                    });
+                }
+            }).change();
+
+            //guardar
+        $("#guardar").click(function () {
+            var formValid = true;
+
+            if (formValid) {
+                var data = {
+                    ClienteID: $('#CLIENTE_ID').val(),
+
+                    ReciboDetalle : reciboItems
+                }
+                $(this).val('Por favor espere... ');
+
+                $.ajax({
+                    url: '@Url.Action("GuardarRecibo", "RECIBOS")',
+                });
+                //var codigocte = $('#CODIGO_CLTE').val();
+                //var empresa = $('#NOMBRE_CLTE').val();
+                //var direccion = $('#DIRECCION').val();
+                //var nit = $('#NIT').val();
+                //var contacto = $('#CONTACTO').val();
+                //var telefono = $('#TELEFONO').val();
+                //var email = $('#E_MAIL').val();
+
+                //clean all error labels
+                //$(".labelError").hide();
+
+                //if (!codigocte) {
+                //    formValid = false;
+                //    $("#CODIGO_CLTE-error").text('Requerido.');
+                //    $("#CODIGO_CLTE-error").show();
+                //}
+
+                //if (!empresa) {
+                //    formValid = false;
+                //    $("#NOMBRE_CLTE-error").text('Requerido.');
+                //    $("#NOMBRE_CLTE-error").show();
+                //}
+                //if (!direccion) {
+                //    formValid = false;
+                //    $("#DIRECCION-error").text('Requerido.');
+                //    $("#DIRECCION-error").show();
+                //}
+                //if (!nit) {
+                //    formValid = false;
+                //    $("#NIT-error").text('Requerido.');
+                //    $("#NIT-error").show();
+                //}
+                //if (!contacto) {
+                //    formValid = false;
+                //    $("#CONTACTO-error").text('Requerido.');
+                //    $("#CONTACTO-error").show();
+                //}
+                //if (!telefono) {
+                //    formValid = false;
+                //    $("#TELEFONO-error").text('Requerido.');
+                //    $("#TELEFONO-error").show();
+                //}
+                //if (!email) {
+                //    formValid = false;
+                //    $("#E_MAIL-error").text('Requerido.');
+                //    $("#E_MAIL-error").show();
+                //}
+                //if (formValid) {
+                //    $('#formulario').submit();
+                //}
+            });
+
+            //GetNumeroFactura
+            $("#SERIE_DOC_ID").change(function () {
+                var idSelected = $(this).val();
+
+                if (idSelected > 0) {
+                    $.ajax({
+                        url: '@Url.Action("GetNumeroRecibo", "RECIBOS")',
+                        type: "POST",
+                        data: {
+                            id: idSelected
+                        },
+                        success: function (response) {
+                            $("#NRO_RECIBO").val(response);
+                            $("#NRO_RECIBO").change();
+                        },
+                        error: function () {
+
+                        }
+                    });
+                }
+            });
+
+            //GetMontoDocumento
+            $("#DOC_ID").change(function () {
+                var idSelected = $(this).val();
+                if (idSelected > 0) {
+                    $.ajax({
+                        url: '@Url.Action("GetMontoDocumento", "RECIBOS")',
+                        type: "POST",
+                        data: {
+                            id: idSelected
+                        },
+                        success: function (response) {
+                            $("#MONTO").val(response);
+                            $("#MONTO").change();
+                        },
+                        error: function () {
+
+                        }
+                    });
+                }
+            });
+
+            //funcion agregar items a la tabla
+        function GenerateItemsTable() {
+                if (reciboItems.length > 0) {
+                    var $table = $('<table/>');
+                    $table.append('<thead><tr><th>Id</th><th>Factura</th><th>Monto</th></tr></thead>');
+                    var $tbody = $('<tbody/>');
+                    $.each(reciboItems, function (i, val) {
+                        var $row = $('<tr/>');
+                        $row.append($('<td/>').html(val.Id));
+                        $row.append($('<td/>').html(val.Factura));
+                        $row.append($('<td/>').html(val.Monto));
+                        $tbody.append($row);
+                    });
+                    $table.append($tbody);
+                    $('#reciboItems').html($table);
+                }
+            }
+        });
+</script>
+}

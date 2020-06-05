@@ -61,6 +61,7 @@
         <AssociationConnector Association="intersystemerpModel.FK_RECIBO_D_REFERENCE_FACTURA" />
         <AssociationConnector Association="intersystemerpModel.FK_RECIBO_D_REFERENCE_NOTA_CAR" />
         <AssociationConnector Association="intersystemerpModel.FK_RECIBO_D_REFERENCE_RECIBO" />
+        <AssociationConnector Association="intersystemerpModel.FK_RECIBO_REFERENCE_SERIE_DO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

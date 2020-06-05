@@ -243,6 +243,7 @@
           <Property Name="DESCRIPCION" Type="nvarchar(max)" />
           <Property Name="NRO_DOC_PAGO" Type="nvarchar" MaxLength="50" />
           <Property Name="NRO_FACTURA" Type="int" />
+          <Property Name="SERIE_DOC_ID" Type="int" />
         </EntityType>
         <EntityType Name="RECIBO_DETALLE">
           <Key>
@@ -674,6 +675,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RECIBO_REFERENCE_SERIE_DO">
+          <End Role="SERIE_DOCUMENTO" Type="Self.SERIE_DOCUMENTO" Multiplicity="0..1" />
+          <End Role="RECIBO" Type="Self.RECIBO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERIE_DOCUMENTO">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Principal>
+            <Dependent Role="RECIBO">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RECIBO_REFERENCE_USUARIO">
           <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
           <End Role="RECIBO" Type="Self.RECIBO" Multiplicity="*" />
@@ -873,6 +886,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_RECIBO_REFERENCE_FORMA_PA" Association="Self.FK_RECIBO_REFERENCE_FORMA_PA">
             <End Role="FORMA_PAGO" EntitySet="FORMA_PAGO" />
+            <End Role="RECIBO" EntitySet="RECIBO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECIBO_REFERENCE_SERIE_DO" Association="Self.FK_RECIBO_REFERENCE_SERIE_DO">
+            <End Role="SERIE_DOCUMENTO" EntitySet="SERIE_DOCUMENTO" />
             <End Role="RECIBO" EntitySet="RECIBO" />
           </AssociationSet>
           <AssociationSet Name="FK_RECIBO_REFERENCE_USUARIO" Association="Self.FK_RECIBO_REFERENCE_USUARIO">
@@ -1126,6 +1143,8 @@
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_RECIBO_REFERENCE_USUARIO" FromRole="RECIBO" ToRole="USUARIO" />
           <Property Name="NRO_FACTURA" Type="Int32" />
           <NavigationProperty Name="RECIBO_DETALLE" Relationship="intersystemerpModel.FK_RECIBO_D_REFERENCE_RECIBO" FromRole="RECIBO" ToRole="RECIBO_DETALLE" />
+          <Property Name="SERIE_DOC_ID" Type="Int32" />
+          <NavigationProperty Name="SERIE_DOCUMENTO" Relationship="intersystemerpModel.FK_RECIBO_REFERENCE_SERIE_DO" FromRole="RECIBO" ToRole="SERIE_DOCUMENTO" />
         </EntityType>
         <EntityType Name="ROL">
           <Key>
@@ -1155,6 +1174,7 @@
           <Property Name="SERIE_ACTIVO" Type="Boolean" />
           <NavigationProperty Name="NOTA_ABONO" Relationship="intersystemerpModel.FK_NOTA_ABONO_REFERENCE_SERIE_DO" FromRole="SERIE_DOCUMENTO" ToRole="NOTA_ABONO" />
           <NavigationProperty Name="NOTA_CARGO" Relationship="intersystemerpModel.FK_NOTA_CARGO_REFERENCE_SERIE_DO" FromRole="SERIE_DOCUMENTO" ToRole="NOTA_CARGO" />
+          <NavigationProperty Name="RECIBO" Relationship="intersystemerpModel.FK_RECIBO_REFERENCE_SERIE_DO" FromRole="SERIE_DOCUMENTO" ToRole="RECIBO" />
         </EntityType>
         <EntityType Name="TIPO_DOCUMENTO">
           <Key>
@@ -1650,6 +1670,10 @@
             <End Role="RECIBO" EntitySet="RECIBO" />
             <End Role="RECIBO_DETALLE" EntitySet="RECIBO_DETALLE" />
           </AssociationSet>
+          <AssociationSet Name="FK_RECIBO_REFERENCE_SERIE_DO" Association="intersystemerpModel.FK_RECIBO_REFERENCE_SERIE_DO">
+            <End Role="SERIE_DOCUMENTO" EntitySet="SERIE_DOCUMENTO" />
+            <End Role="RECIBO" EntitySet="RECIBO" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="NOTA_ABONO">
           <Key>
@@ -1817,6 +1841,18 @@
             </Principal>
             <Dependent Role="RECIBO_DETALLE">
               <PropertyRef Name="RECIBO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECIBO_REFERENCE_SERIE_DO">
+          <End Type="intersystemerpModel.SERIE_DOCUMENTO" Role="SERIE_DOCUMENTO" Multiplicity="0..1" />
+          <End Type="intersystemerpModel.RECIBO" Role="RECIBO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERIE_DOCUMENTO">
+              <PropertyRef Name="SERIE_DOC_ID" />
+            </Principal>
+            <Dependent Role="RECIBO">
+              <PropertyRef Name="SERIE_DOC_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2012,6 +2048,7 @@
           <EntitySetMapping Name="RECIBO">
             <EntityTypeMapping TypeName="intersystemerpModel.RECIBO">
               <MappingFragment StoreEntitySet="RECIBO">
+                <ScalarProperty Name="SERIE_DOC_ID" ColumnName="SERIE_DOC_ID" />
                 <ScalarProperty Name="NRO_FACTURA" ColumnName="NRO_FACTURA" />
                 <ScalarProperty Name="RECIBO_ID" ColumnName="RECIBO_ID" />
                 <ScalarProperty Name="USUARIO_ID" ColumnName="USUARIO_ID" />
