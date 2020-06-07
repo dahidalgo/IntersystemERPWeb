@@ -250,7 +250,10 @@ namespace Inspinia_MVC5.Controllers
         public JsonResult GuardarRecibo(RECIBO rECIBO)
         {
             bool status = false;
+            if (ModelState.IsValid)
+            {
 
+            }
 
             return new JsonResult { Data = new { status = status } };
         }
