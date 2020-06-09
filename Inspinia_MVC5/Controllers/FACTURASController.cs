@@ -18,7 +18,7 @@ namespace Inspinia_MVC5.Controllers
         public ActionResult Index()
         {
             DateTime fecha = DateTime.Now;
-            var factura = db.FACTURA.Include(f => f.CLIENTE).Include(f => f.SERIE_DOCUMENTO).Include(f => f.USUARIO);
+            var factura = db.FACTURA.OrderByDescending(f => f.FACTURA_ID).Include(f => f.CLIENTE).Include(f => f.SERIE_DOCUMENTO).Include(f => f.USUARIO);
             var total_mes = db.FACTURA.Where(t => t.FECHA_EMISION.Value.Month == fecha.Month && t.FECHA_EMISION.Value.Year == fecha.Year).Sum(t => t.TOTAL);
             var total_anio = db.FACTURA.Where(t => t.FECHA_EMISION.Value.Year == fecha.Year).Sum(t => t.TOTAL).Value;
             var facturas = db.SERIE_DOCUMENTO.Select(f => f.HASTA).FirstOrDefault() - db.FACTURA.OrderByDescending(f => f.NRO_FACTURA).Select(f => f.NRO_FACTURA).FirstOrDefault();

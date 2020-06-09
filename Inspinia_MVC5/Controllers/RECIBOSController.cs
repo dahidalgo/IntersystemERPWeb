@@ -247,12 +247,24 @@ namespace Inspinia_MVC5.Controllers
 
         /*GuardarRecibo */
         [HttpPost]
-        public JsonResult GuardarRecibo(RECIBO rECIBO)
+        public JsonResult GuardarRecibo(RECIBO R)
         {
             bool status = false;
             if (ModelState.IsValid)
             {
-
+                using (intersystemerpEntities dc = new intersystemerpEntities())
+                {
+                    RECIBO rECIBO = new RECIBO {NRO_RECIBO = R.NRO_RECIBO, CLIENTE_ID = R.CLIENTE_ID };
+                    foreach (var i in rECIBO.RECIBO_DETALLE)
+                    {
+                        
+                        rECIBO.RECIBO_DETALLE.Add(i);
+                    }
+                }
+            }
+            else
+            {
+                status = false;
             }
 
             return new JsonResult { Data = new { status = status } };

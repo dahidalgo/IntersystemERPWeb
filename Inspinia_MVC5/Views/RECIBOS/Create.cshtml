@@ -285,9 +285,9 @@
                 $("#TOTAL").val(totalr);
 
                 reciboItems.push({
-                    Id: $('#DOC_ID').val(),
-                    Factura: $('#DOC_ID option:selected').text(),
-                    Monto: monto
+                    FACTURA_ID: $('#DOC_ID').val(),
+                    FACTURA: $('#DOC_ID option:selected').text(),
+                    MONTO: monto
                 });
                 GenerateItemsTable();
             });
@@ -339,66 +339,42 @@
 
             if (formValid) {
                 var data = {
-                    ClienteID: $('#CLIENTE_ID').val(),
+                    NRO_RECIBO: $('#NRO_RECIBO').val(),
+                    CLIENTE_ID: $('#CLIENTE_ID').val(),
 
-                    ReciboDetalle : reciboItems
+                    RECIBO_DETALLE: reciboItems
                 }
                 $(this).val('Por favor espere... ');
 
                 $.ajax({
                     url: '@Url.Action("GuardarRecibo", "RECIBOS")',
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    dataType: "JSON",
+                    contentType: "application/json",
+                    success: function (d) {
+                        //check is successfully save to database 
+                        if (d.status == true) {
+                            //will send status from server side
+                            alert('Successfully done.');
+                            //clear form
+                            orderItems = [];
+                            $('#NRO_RECIBO').val('');
+                            $('#CLIENTE_ID').val('');
+                            $('#orderItems').empty();
+                        }
+                        else {
+                            alert('Failed');
+                        }
+                        $('#submit').val('Save');
+                    },
+                    error: function () {
+                        alert('Error. Please try again.');
+                        $('#submit').val('Save');
+                    }
                 });
-                //var codigocte = $('#CODIGO_CLTE').val();
-                //var empresa = $('#NOMBRE_CLTE').val();
-                //var direccion = $('#DIRECCION').val();
-                //var nit = $('#NIT').val();
-                //var contacto = $('#CONTACTO').val();
-                //var telefono = $('#TELEFONO').val();
-                //var email = $('#E_MAIL').val();
-
-                //clean all error labels
-                //$(".labelError").hide();
-
-                //if (!codigocte) {
-                //    formValid = false;
-                //    $("#CODIGO_CLTE-error").text('Requerido.');
-                //    $("#CODIGO_CLTE-error").show();
-                //}
-
-                //if (!empresa) {
-                //    formValid = false;
-                //    $("#NOMBRE_CLTE-error").text('Requerido.');
-                //    $("#NOMBRE_CLTE-error").show();
-                //}
-                //if (!direccion) {
-                //    formValid = false;
-                //    $("#DIRECCION-error").text('Requerido.');
-                //    $("#DIRECCION-error").show();
-                //}
-                //if (!nit) {
-                //    formValid = false;
-                //    $("#NIT-error").text('Requerido.');
-                //    $("#NIT-error").show();
-                //}
-                //if (!contacto) {
-                //    formValid = false;
-                //    $("#CONTACTO-error").text('Requerido.');
-                //    $("#CONTACTO-error").show();
-                //}
-                //if (!telefono) {
-                //    formValid = false;
-                //    $("#TELEFONO-error").text('Requerido.');
-                //    $("#TELEFONO-error").show();
-                //}
-                //if (!email) {
-                //    formValid = false;
-                //    $("#E_MAIL-error").text('Requerido.');
-                //    $("#E_MAIL-error").show();
-                //}
-                //if (formValid) {
-                //    $('#formulario').submit();
-                //}
-            });
+            }
+        });
 
             //GetNumeroFactura
             $("#SERIE_DOC_ID").change(function () {
@@ -451,9 +427,9 @@
                     var $tbody = $('<tbody/>');
                     $.each(reciboItems, function (i, val) {
                         var $row = $('<tr/>');
-                        $row.append($('<td/>').html(val.Id));
-                        $row.append($('<td/>').html(val.Factura));
-                        $row.append($('<td/>').html(val.Monto));
+                        $row.append($('<td/>').html(val.FACTURA_ID));
+                        $row.append($('<td/>').html(val.FACTURA));
+                        $row.append($('<td/>').html(val.MONTO));
                         $tbody.append($row);
                     });
                     $table.append($tbody);
