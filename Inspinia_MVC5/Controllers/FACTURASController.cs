@@ -108,7 +108,7 @@ namespace Inspinia_MVC5.Controllers
                 db.DOCS_CC.Add(docs_cc);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
 
             ViewBag.CLIENTE_ID = new SelectList(db.CLIENTE, "CLIENTE_ID", "NOMBRE_CLTE", fACTURA.CLIENTE_ID);
