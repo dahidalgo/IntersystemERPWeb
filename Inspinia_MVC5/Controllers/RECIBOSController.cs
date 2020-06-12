@@ -254,11 +254,15 @@ namespace Inspinia_MVC5.Controllers
             {
                 using (intersystemerpEntities dc = new intersystemerpEntities())
                 {
+                    var reciboID = db.RECIBO.OrderByDescending(r => r.RECIBO_ID).Select(r => r.RECIBO_ID).FirstOrDefault();
                     RECIBO rECIBO = new RECIBO {NRO_RECIBO = R.NRO_RECIBO, CLIENTE_ID = R.CLIENTE_ID };
+                    
+
                     foreach (var i in rECIBO.RECIBO_DETALLE)
                     {
-                        
-                        rECIBO.RECIBO_DETALLE.Add(i);
+
+                        i.RECIBO_ID = reciboID + 1;
+                        //rECIBO.RECIBO_DETALLE.Add(i);
                     }
                 }
             }
