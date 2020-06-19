@@ -98,6 +98,7 @@ namespace Inspinia_MVC5.Controllers
                 docs_cc.FECHA_VENCIMIENTO = nOTA_CARGO.FECHA_VENCIMIENTO;
                 docs_cc.NRO_PAGOS = 0;
                 docs_cc.BALANCE = nOTA_CARGO.TOTAL;
+                docs_cc.ID_ORIGEN = db.NOTA_CARGO.Where(n => n.NRO_NOTA_CARGO == nOTA_CARGO.NRO_NOTA_CARGO).Select(n => n.NOTA_CARGO_ID).FirstOrDefault();
                 db.DOCS_CC.Add(docs_cc);
                 db.SaveChanges();
 

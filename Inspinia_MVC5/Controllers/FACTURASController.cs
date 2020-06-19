@@ -105,6 +105,7 @@ namespace Inspinia_MVC5.Controllers
                 docs_cc.FECHA_VENCIMIENTO = fACTURA.FECHA_VENCIMIENTO;
                 docs_cc.NRO_PAGOS = 0;
                 docs_cc.BALANCE = fACTURA.TOTAL;
+                docs_cc.ID_ORIGEN = db.FACTURA.Where(f => f.NRO_FACTURA == fACTURA.NRO_FACTURA).Select(f => f.FACTURA_ID).FirstOrDefault();
                 db.DOCS_CC.Add(docs_cc);
                 db.SaveChanges();
 

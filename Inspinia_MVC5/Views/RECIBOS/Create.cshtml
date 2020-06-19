@@ -80,7 +80,7 @@
                                 <div class="row">
                                     <div class="col-md-4 col-xs-4">
                                         @Html.DropDownList("ITEMLIST", null, htmlAttributes: new { @id = "ITEMLIST", @class = "form-control select2", style = "width: 100%; float:left;" })
-                                        <span id="CLIENTE_ID-error" class="labelError" style="display:none; ">&nbsp;</span>
+                                        <span id="ITEMLIST-error" class="labelError" style="display:none; ">&nbsp;</span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -336,12 +336,16 @@
             //guardar
         $("#guardar").click(function () {
             var formValid = true;
-
+            var tipodoc = $('#ITEMLIST').val();
             if (formValid) {
                 var data = {
+                    FECHA_EMISION: $('#FECHA_EMISION').val(),
+                    SERIE_DOC_ID: $('#SERIE_DOC_ID').val(),
                     NRO_RECIBO: $('#NRO_RECIBO').val(),
                     CLIENTE_ID: $('#CLIENTE_ID').val(),
-
+                    TOTAL: $('#TOTAL').val(), 
+                    FORMA_PAGO_ID: $('#FORMA_PAGO_ID').val(), 
+                    NRO_DOC_PAGO: $('#NRO_DOC_PAGO').val(), 
                     RECIBO_DETALLE: reciboItems
                 }
                 $(this).val('Por favor espere... ');
@@ -361,6 +365,7 @@
                             orderItems = [];
                             $('#NRO_RECIBO').val('');
                             $('#CLIENTE_ID').val('');
+                            $('#ITEMLIST').val();
                             $('#orderItems').empty();
                         }
                         else {
@@ -369,6 +374,7 @@
                         $('#submit').val('Save');
                     },
                     error: function () {
+                        console.log(data, tipodoc);
                         alert('Error. Please try again.');
                         $('#submit').val('Save');
                     }
