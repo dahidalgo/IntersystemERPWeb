@@ -349,7 +349,6 @@
                     RECIBO_DETALLE: reciboItems
                 }
                 $(this).val('Por favor espere... ');
-
                 $.ajax({
                     url: '@Url.Action("GuardarRecibo", "RECIBOS")',
                     type: "POST",
@@ -365,7 +364,6 @@
                             orderItems = [];
                             $('#NRO_RECIBO').val('');
                             $('#CLIENTE_ID').val('');
-                            $('#ITEMLIST').val();
                             $('#orderItems').empty();
                         }
                         else {
@@ -374,7 +372,7 @@
                         $('#submit').val('Save');
                     },
                     error: function () {
-                        console.log(data, tipodoc);
+                        console.log(data, "TIPODOC", tipodoc);
                         alert('Error. Please try again.');
                         $('#submit').val('Save');
                     }
@@ -429,12 +427,13 @@
         function GenerateItemsTable() {
                 if (reciboItems.length > 0) {
                     var $table = $('<table/>');
-                    $table.append('<thead><tr><th>Id</th><th>Factura</th><th>Monto</th></tr></thead>');
+                    $table.append('<thead><tr><th>Id</th><th>Factura</th><th>Monto</th><th hidden>TipoDoc</th></tr></thead>');
                     var $tbody = $('<tbody/>');
                     $.each(reciboItems, function (i, val) {
                         var $row = $('<tr/>');
                         $row.append($('<td/>').html(val.FACTURA_ID));
                         $row.append($('<td/>').html(val.FACTURA));
+                        $row.append($('<td/>').html(val.MONTO));
                         $row.append($('<td/>').html(val.MONTO));
                         $tbody.append($row);
                     });

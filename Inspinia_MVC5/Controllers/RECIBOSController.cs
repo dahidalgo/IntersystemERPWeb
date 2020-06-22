@@ -285,7 +285,7 @@ namespace Inspinia_MVC5.Controllers
                         dOCS.MONTO_PARCIAL = i.MONTO;
                         dOCS.NRO_PAGOS = 1;
                         dOCS.BALANCE = 0;
-                        dOCS.NRO_DOC_PAGADO = db.DOCS_CC.Where(n => n.DOC_ID == i.FACTURA_ID).Select(n => n.NRO_DOC).FirstOrDefault();
+                        //dOCS.NRO_DOC_PAGADO = 
 
                         
 
