@@ -287,7 +287,8 @@
                 reciboItems.push({
                     FACTURA_ID: $('#DOC_ID').val(),
                     FACTURA: $('#DOC_ID option:selected').text(),
-                    MONTO: monto
+                    MONTO: monto,
+                    TIPO_DOC_ID: $('#ITEMLIST').val()
                 });
                 GenerateItemsTable();
             });
@@ -379,7 +380,7 @@
                 });
             }
         });
-
+        5528-5392
             //GetNumeroFactura
             $("#SERIE_DOC_ID").change(function () {
                 var idSelected = $(this).val();
@@ -427,14 +428,14 @@
         function GenerateItemsTable() {
                 if (reciboItems.length > 0) {
                     var $table = $('<table/>');
-                    $table.append('<thead><tr><th>Id</th><th>Factura</th><th>Monto</th><th hidden>TipoDoc</th></tr></thead>');
+                    $table.append('<thead><tr><th hidden>Id</th><th>Documento No.</th><th>Monto</th><th hidden>TipoDoc</th></tr></thead>');
                     var $tbody = $('<tbody/>');
                     $.each(reciboItems, function (i, val) {
                         var $row = $('<tr/>');
-                        $row.append($('<td/>').html(val.FACTURA_ID));
+                        $row.append($('<td hidden/>').html(val.FACTURA_ID));
                         $row.append($('<td/>').html(val.FACTURA));
                         $row.append($('<td/>').html(val.MONTO));
-                        $row.append($('<td/>').html(val.MONTO));
+                        $row.append($('<td hidden/>').html(val.TIPO_DOC_ID));
                         $tbody.append($row);
                     });
                     $table.append($tbody);
