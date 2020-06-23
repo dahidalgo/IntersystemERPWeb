@@ -19,6 +19,7 @@ namespace Inspinia_MVC5.Models
         {
             this.DOCS_CC = new HashSet<DOCS_CC>();
             this.SERIE_DOCUMENTO = new HashSet<SERIE_DOCUMENTO>();
+            this.RECIBO_DETALLE = new HashSet<RECIBO_DETALLE>();
         }
     
         public int TIPO_DOC_ID { get; set; }
@@ -28,5 +29,7 @@ namespace Inspinia_MVC5.Models
         public virtual ICollection<DOCS_CC> DOCS_CC { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SERIE_DOCUMENTO> SERIE_DOCUMENTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RECIBO_DETALLE> RECIBO_DETALLE { get; set; }
     }
 }

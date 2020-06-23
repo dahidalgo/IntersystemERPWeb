@@ -20,9 +20,11 @@ namespace Inspinia_MVC5.Models
         public Nullable<int> NOTA_CARGO_ID { get; set; }
         public string DESCRIPCION { get; set; }
         public Nullable<decimal> MONTO { get; set; }
+        public Nullable<int> TIPO_DOC_ID { get; set; }
     
         public virtual FACTURA FACTURA { get; set; }
         public virtual NOTA_CARGO NOTA_CARGO { get; set; }
         public virtual RECIBO RECIBO { get; set; }
+        public virtual TIPO_DOCUMENTO TIPO_DOCUMENTO { get; set; }
     }
 }
