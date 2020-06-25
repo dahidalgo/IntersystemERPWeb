@@ -258,42 +258,95 @@ namespace Inspinia_MVC5.Controllers
                     RECIBO rECIBO = new RECIBO {FECHA_EMISION = R.FECHA_EMISION, SERIE_DOC_ID = R.SERIE_DOC_ID, NRO_RECIBO = R.NRO_RECIBO, 
                         CLIENTE_ID = R.CLIENTE_ID, SUBTOTAL = R.TOTAL, TOTAL = R.TOTAL, FORMA_PAGO_ID = R.FORMA_PAGO_ID, 
                         NRO_DOC_PAGO = R.NRO_DOC_PAGO, USUARIO_ID = 1 };
-                    
+
                     foreach (var i in rECIBO.RECIBO_DETALLE)
                     {
-
                         i.RECIBO_ID = reciboID + 1;
-                        //rECIBO.RECIBO_DETALLE.Add(i);
-
-                        /*Actualizo datos de factura*/
-                        FACTURA fACTURA = db.FACTURA.Find(i.FACTURA_ID);
-                        fACTURA.FECHA_ACTUALIZADO = DateTime.Today;
-                        fACTURA.PAGOS = fACTURA.PAGOS + i.MONTO;
-                        //db.Entry(fACTURA).State = EntityState.Modified;
-                        //db.SaveChanges();
-
-                        /*Para guardar el recibo en tabla DOCS_CC */
-                        DOCS_CC dOCS = new DOCS_CC();
-                        dOCS.TIPO_DOC_ID = rECIBO.SERIE_DOCUMENTO.TIPO_DOC_ID;
-                        dOCS.FORMA_PAGO_ID = rECIBO.FORMA_PAGO_ID;
-                        dOCS.USUARIO_ID = 1;
-                        dOCS.CLIENTE_ID = rECIBO.CLIENTE_ID;
-                        dOCS.NRO_DOC = i.FACTURA.NRO_FACTURA;
-                        dOCS.FECHA_EMISION = R.FECHA_EMISION;
-                        dOCS.DESC_DOC = "Pago factura No. " + i.FACTURA.NRO_FACTURA;
-                        dOCS.MONTO_DOC = i.MONTO;
-                        dOCS.MONTO_PARCIAL = i.MONTO;
-                        dOCS.NRO_PAGOS = 1;
-                        dOCS.BALANCE = 0;
-                        //dOCS.NRO_DOC_PAGADO = 
-
-                        
-
-                        //dOCS.ID_PAGADO = db.DOCS_CC.Where(d => d.NRO_DOC == )
-                        //db.DOCS_CC.Where(d => d.NRO_DOC == fACTURA.NRO_FACTURA).Select(d => d.NRO_PAGOS).FirstOrDefault() + 1
+                        rECIBO.RECIBO_DETALLE.Add(i);
                     }
                     dc.RECIBO.Add(rECIBO);
                     dc.SaveChanges();
+
+                    foreach (var i in rECIBO.RECIBO_DETALLE)
+                    {
+                        if (i.TIPO_DOC_ID == 1) //Si es factura lo que cancelan
+                        {
+                            /*Actualizo datos de factura*/
+                            FACTURA fACTURA = db.FACTURA.Find(i.FACTURA_ID);
+                            fACTURA.FECHA_ACTUALIZADO = DateTime.Today;
+                            fACTURA.PAGOS = fACTURA.PAGOS + i.MONTO;
+                            db.Entry(fACTURA).State = EntityState.Modified;
+                            db.SaveChanges();
+
+                            /*Para guardar el recibo en tabla DOCS_CC */
+                            DOCS_CC dOCS = new DOCS_CC();
+                            dOCS.TIPO_DOC_ID = rECIBO.SERIE_DOCUMENTO.TIPO_DOC_ID;
+                            dOCS.FORMA_PAGO_ID = rECIBO.FORMA_PAGO_ID;
+                            dOCS.USUARIO_ID = 1;
+                            dOCS.CLIENTE_ID = rECIBO.CLIENTE_ID;
+                            dOCS.NRO_DOC = db.RECIBO.OrderByDescending(r => r.RECIBO_ID).Select(r => r.NRO_RECIBO).FirstOrDefault();
+                            dOCS.FECHA_EMISION = R.FECHA_EMISION;
+                            dOCS.DESC_DOC = "Pago de factura No. " + i.FACTURA.NRO_FACTURA;
+                            dOCS.MONTO_DOC = i.MONTO;
+                            dOCS.MONTO_PARCIAL = i.MONTO;
+                            dOCS.NRO_PAGOS = 1;
+                            dOCS.BALANCE = 0;
+                            dOCS.NRO_DOC_PAGADO = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == fACTURA.NRO_FACTURA).Select(f => f.NRO_DOC).FirstOrDefault();
+                            dOCS.ID_PAGADO = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == fACTURA.NRO_FACTURA).Select(f => f.DOC_ID).FirstOrDefault();
+                            dOCS.FECHA_HORA = DateTime.Now;
+                            dOCS.ID_BASE = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == fACTURA.NRO_FACTURA).Select(f => f.DOC_ID).FirstOrDefault();
+                            db.DOCS_CC.Add(dOCS);
+                            db.SaveChanges();
+
+                            /*Para actualizar factura en DOCS_CC*/
+                            DOCS_CC dOC1 = db.DOCS_CC.Find(dOCS.ID_PAGADO);
+                            dOC1.NRO_PAGOS = dOC1.NRO_PAGOS + 1;
+                            dOC1.BALANCE = dOC1.BALANCE - i.MONTO;
+                            dOC1.NRO_DOC_PAGADO = dOCS.NRO_DOC;
+                            dOC1.ID_PAGADO = dOCS.DOC_ID;
+                            db.Entry(dOC1).State = EntityState.Modified;
+                            db.SaveChanges();
+
+                        }
+                        else if (i.TIPO_DOC_ID == 3) //Si es nota de cargo lo que cancelan
+                        {
+                            /*Actualizo datos de nota de cargo*/
+                            NOTA_CARGO nOTA_CARGO = db.NOTA_CARGO.Find(i.FACTURA_ID);
+                            nOTA_CARGO.FECHA_ACTUALIZADO = DateTime.Today;
+                            nOTA_CARGO.PAGOS = i.MONTO;
+                            db.Entry(nOTA_CARGO).State = EntityState.Modified;
+                            db.SaveChanges();
+
+                            /*Para guardar el recibo en tabla DOCS_CC */
+                            DOCS_CC dOCS = new DOCS_CC();
+                            dOCS.TIPO_DOC_ID = rECIBO.SERIE_DOCUMENTO.TIPO_DOC_ID;
+                            dOCS.FORMA_PAGO_ID = rECIBO.FORMA_PAGO_ID;
+                            dOCS.USUARIO_ID = 1;
+                            dOCS.CLIENTE_ID = rECIBO.CLIENTE_ID;
+                            dOCS.NRO_DOC = db.RECIBO.OrderByDescending(r => r.RECIBO_ID).Select(r => r.NRO_RECIBO).FirstOrDefault();
+                            dOCS.FECHA_EMISION = R.FECHA_EMISION;
+                            dOCS.DESC_DOC = "Pago de Nota de cargo No. " + nOTA_CARGO.NRO_NOTA_CARGO;
+                            dOCS.MONTO_DOC = i.MONTO;
+                            dOCS.MONTO_PARCIAL = i.MONTO;
+                            dOCS.NRO_PAGOS = 1;
+                            dOCS.BALANCE = 0;
+                            dOCS.NRO_DOC_PAGADO = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == nOTA_CARGO.NRO_NOTA_CARGO).Select(f => f.NRO_DOC).FirstOrDefault();
+                            dOCS.ID_PAGADO = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == nOTA_CARGO.NRO_NOTA_CARGO).Select(f => f.DOC_ID).FirstOrDefault();
+                            dOCS.FECHA_HORA = DateTime.Now;
+                            dOCS.ID_BASE = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == nOTA_CARGO.NRO_NOTA_CARGO).Select(f => f.DOC_ID).FirstOrDefault();
+                            db.DOCS_CC.Add(dOCS);
+                            db.SaveChanges();
+
+                            /*Para actualizar factura en DOCS_CC*/
+                            DOCS_CC dOC1 = db.DOCS_CC.Find(dOCS.ID_PAGADO);
+                            dOC1.NRO_PAGOS = dOC1.NRO_PAGOS + 1;
+                            dOC1.BALANCE = dOC1.BALANCE - i.MONTO;
+                            dOC1.NRO_DOC_PAGADO = dOCS.NRO_DOC;
+                            dOC1.ID_PAGADO = dOCS.DOC_ID;
+                            db.Entry(dOC1).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
                     status = true;
                 }
             }
