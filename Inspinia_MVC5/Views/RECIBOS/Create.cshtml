@@ -359,6 +359,7 @@
                     success: function (d) {
                         //check is successfully save to database 
                         if (d.status == true) {
+                            console.log("d: ", d);
                             //will send status from server side
                             alert('Successfully done.');
                             //clear form
@@ -368,6 +369,7 @@
                             $('#orderItems').empty();
                         }
                         else {
+                            console.log("d: ", d);
                             alert('Failed');
                         }
                         $('#submit').val('Save');
@@ -380,7 +382,6 @@
                 });
             }
         });
-        5528-5392
             //GetNumeroFactura
             $("#SERIE_DOC_ID").change(function () {
                 var idSelected = $(this).val();
