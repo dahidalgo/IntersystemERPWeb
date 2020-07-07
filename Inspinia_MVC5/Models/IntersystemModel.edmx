@@ -256,6 +256,7 @@
           <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="250" />
           <Property Name="MONTO" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TIPO_DOC_ID" Type="int" />
+          <Property Name="DOC_NRO" Type="int" />
         </EntityType>
         <EntityType Name="ROL">
           <Key>
@@ -1831,6 +1832,7 @@
           <NavigationProperty Name="RECIBO" Relationship="intersystemerpModel.FK_RECIBO_D_REFERENCE_RECIBO" FromRole="RECIBO_DETALLE" ToRole="RECIBO" />
           <Property Name="TIPO_DOC_ID" Type="Int32" />
           <NavigationProperty Name="TIPO_DOCUMENTO" Relationship="intersystemerpModel.FK_RECIBO_D_REFERENCE_TIPO_DOC" FromRole="RECIBO_DETALLE" ToRole="TIPO_DOCUMENTO" />
+          <Property Name="DOC_NRO" Type="Int32" />
         </EntityType>
         <Association Name="FK_RECIBO_D_REFERENCE_FACTURA">
           <End Type="intersystemerpModel.FACTURA" Role="FACTURA" Multiplicity="0..1" />
@@ -2219,6 +2221,7 @@
           <EntitySetMapping Name="RECIBO_DETALLE">
             <EntityTypeMapping TypeName="intersystemerpModel.RECIBO_DETALLE">
               <MappingFragment StoreEntitySet="RECIBO_DETALLE">
+                <ScalarProperty Name="DOC_NRO" ColumnName="DOC_NRO" />
                 <ScalarProperty Name="TIPO_DOC_ID" ColumnName="TIPO_DOC_ID" />
                 <ScalarProperty Name="MONTO" ColumnName="MONTO" />
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />

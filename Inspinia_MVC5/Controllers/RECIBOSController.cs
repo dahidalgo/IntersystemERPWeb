@@ -17,7 +17,7 @@ namespace Inspinia_MVC5.Controllers
         // GET: /RECIBOS/
         public ActionResult Index()
         {
-            var recibo = db.RECIBO.Include(r => r.CLIENTE).Include(r => r.FORMA_PAGO).Include(r => r.USUARIO);
+            var recibo = db.RECIBO.OrderByDescending(r => r.NRO_RECIBO).Include(r => r.CLIENTE).Include(r => r.FORMA_PAGO).Include(r => r.USUARIO);
             return View(recibo.ToList());
         }
 
@@ -247,19 +247,26 @@ namespace Inspinia_MVC5.Controllers
 
         /*GuardarRecibo */
         [HttpPost]
-        public JsonResult GuardarRecibo(RECIBO R, int? tipodocu)
+        public ActionResult GuardarRecibo(RECIBO R)
         {
             bool status = false;
+            
+            //Comprueba si el ModelState es valido
+            var errors = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
+
             if (ModelState.IsValid)
             {
                 using (intersystemerpEntities dc = new intersystemerpEntities())
                 {
                     var reciboID = db.RECIBO.OrderByDescending(r => r.RECIBO_ID).Select(r => r.RECIBO_ID).FirstOrDefault();
-                    RECIBO rECIBO = new RECIBO {FECHA_EMISION = R.FECHA_EMISION, SERIE_DOC_ID = R.SERIE_DOC_ID, NRO_RECIBO = R.NRO_RECIBO, 
-                        CLIENTE_ID = R.CLIENTE_ID, SUBTOTAL = R.TOTAL, TOTAL = R.TOTAL, FORMA_PAGO_ID = R.FORMA_PAGO_ID, 
-                        NRO_DOC_PAGO = R.NRO_DOC_PAGO, USUARIO_ID = 1 };
+                    RECIBO rECIBO = new RECIBO {FECHA_EMISION = R.FECHA_EMISION, SERIE_DOC_ID = R.SERIE_DOC_ID, 
+                        NRO_RECIBO = R.NRO_RECIBO, CLIENTE_ID = R.CLIENTE_ID, SUBTOTAL = R.TOTAL, TOTAL = R.TOTAL, 
+                        FORMA_PAGO_ID = R.FORMA_PAGO_ID, NRO_DOC_PAGO = R.NRO_DOC_PAGO, USUARIO_ID = 1 };
 
-                    foreach (var i in rECIBO.RECIBO_DETALLE)
+                    foreach (var i in R.RECIBO_DETALLE)
                     {
                         i.RECIBO_ID = reciboID + 1;
                         rECIBO.RECIBO_DETALLE.Add(i);
@@ -267,26 +274,37 @@ namespace Inspinia_MVC5.Controllers
                     dc.RECIBO.Add(rECIBO);
                     dc.SaveChanges();
 
-                    foreach (var i in rECIBO.RECIBO_DETALLE)
+                    foreach (var i in R.RECIBO_DETALLE)
                     {
                         if (i.TIPO_DOC_ID == 1) //Si es factura lo que cancelan
                         {
                             /*Actualizo datos de factura*/
-                            FACTURA fACTURA = db.FACTURA.Find(i.FACTURA_ID);
+                            #region
+                            FACTURA fACTURA = db.FACTURA.FirstOrDefault(f => f.NRO_FACTURA == i.DOC_NRO);
                             fACTURA.FECHA_ACTUALIZADO = DateTime.Today;
                             fACTURA.PAGOS = fACTURA.PAGOS + i.MONTO;
+                            if(fACTURA.TOTAL - fACTURA.PAGOS == 0)
+                            {
+                                fACTURA.ESTADO_DOC = true;
+                            }
+                            else
+                            {
+                                fACTURA.ESTADO_DOC = false;
+                            }
                             db.Entry(fACTURA).State = EntityState.Modified;
                             db.SaveChanges();
+                            #endregion
 
                             /*Para guardar el recibo en tabla DOCS_CC */
+                            #region
                             DOCS_CC dOCS = new DOCS_CC();
-                            dOCS.TIPO_DOC_ID = rECIBO.SERIE_DOCUMENTO.TIPO_DOC_ID;
+                            dOCS.TIPO_DOC_ID = 2;
                             dOCS.FORMA_PAGO_ID = rECIBO.FORMA_PAGO_ID;
                             dOCS.USUARIO_ID = 1;
                             dOCS.CLIENTE_ID = rECIBO.CLIENTE_ID;
                             dOCS.NRO_DOC = db.RECIBO.OrderByDescending(r => r.RECIBO_ID).Select(r => r.NRO_RECIBO).FirstOrDefault();
                             dOCS.FECHA_EMISION = R.FECHA_EMISION;
-                            dOCS.DESC_DOC = "Pago de factura No. " + i.FACTURA.NRO_FACTURA;
+                            dOCS.DESC_DOC = "Pago de factura No. " + i.DOC_NRO;
                             dOCS.MONTO_DOC = i.MONTO;
                             dOCS.MONTO_PARCIAL = i.MONTO;
                             dOCS.NRO_PAGOS = 1;
@@ -297,8 +315,10 @@ namespace Inspinia_MVC5.Controllers
                             dOCS.ID_BASE = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == fACTURA.NRO_FACTURA).Select(f => f.DOC_ID).FirstOrDefault();
                             db.DOCS_CC.Add(dOCS);
                             db.SaveChanges();
+                            #endregion
 
                             /*Para actualizar factura en DOCS_CC*/
+                            #region
                             DOCS_CC dOC1 = db.DOCS_CC.Find(dOCS.ID_PAGADO);
                             dOC1.NRO_PAGOS = dOC1.NRO_PAGOS + 1;
                             dOC1.BALANCE = dOC1.BALANCE - i.MONTO;
@@ -306,20 +326,32 @@ namespace Inspinia_MVC5.Controllers
                             dOC1.ID_PAGADO = dOCS.DOC_ID;
                             db.Entry(dOC1).State = EntityState.Modified;
                             db.SaveChanges();
+                            #endregion
 
                         }
                         else if (i.TIPO_DOC_ID == 3) //Si es nota de cargo lo que cancelan
                         {
                             /*Actualizo datos de nota de cargo*/
-                            NOTA_CARGO nOTA_CARGO = db.NOTA_CARGO.Find(i.FACTURA_ID);
+                            #region Actualizar nota de cargo
+                            NOTA_CARGO nOTA_CARGO = db.NOTA_CARGO.FirstOrDefault(n => n.NRO_NOTA_CARGO == i.DOC_NRO);
                             nOTA_CARGO.FECHA_ACTUALIZADO = DateTime.Today;
                             nOTA_CARGO.PAGOS = i.MONTO;
+                            if(nOTA_CARGO.TOTAL - nOTA_CARGO.PAGOS == 0)
+                            {
+                                nOTA_CARGO.ESTADO_DOC = true;
+                            }
+                            else
+                            {
+                                nOTA_CARGO.ESTADO_DOC = false;
+                            }
                             db.Entry(nOTA_CARGO).State = EntityState.Modified;
                             db.SaveChanges();
+                            #endregion
 
                             /*Para guardar el recibo en tabla DOCS_CC */
+                            #region guardar recibo en DOCS_CC
                             DOCS_CC dOCS = new DOCS_CC();
-                            dOCS.TIPO_DOC_ID = rECIBO.SERIE_DOCUMENTO.TIPO_DOC_ID;
+                            dOCS.TIPO_DOC_ID = 2;
                             dOCS.FORMA_PAGO_ID = rECIBO.FORMA_PAGO_ID;
                             dOCS.USUARIO_ID = 1;
                             dOCS.CLIENTE_ID = rECIBO.CLIENTE_ID;
@@ -336,8 +368,10 @@ namespace Inspinia_MVC5.Controllers
                             dOCS.ID_BASE = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == nOTA_CARGO.NRO_NOTA_CARGO).Select(f => f.DOC_ID).FirstOrDefault();
                             db.DOCS_CC.Add(dOCS);
                             db.SaveChanges();
+                            #endregion
 
-                            /*Para actualizar factura en DOCS_CC*/
+                            /*Para actualizar NOTA_CARGO en DOCS_CC*/
+                            #region actualizar NOTA_CARGO en DOCS_CC
                             DOCS_CC dOC1 = db.DOCS_CC.Find(dOCS.ID_PAGADO);
                             dOC1.NRO_PAGOS = dOC1.NRO_PAGOS + 1;
                             dOC1.BALANCE = dOC1.BALANCE - i.MONTO;
@@ -345,17 +379,19 @@ namespace Inspinia_MVC5.Controllers
                             dOC1.ID_PAGADO = dOCS.DOC_ID;
                             db.Entry(dOC1).State = EntityState.Modified;
                             db.SaveChanges();
+                            #endregion
                         }
                     }
                     status = true;
+                    return RedirectToAction("Create");
                 }
             }
             else
             {
                 status = false;
             }
-
-            return new JsonResult { Data = new { status = status } };
+            return RedirectToAction("Create");
+            //return new JsonResult { Data = new { status = status } };
         }
     }
 }

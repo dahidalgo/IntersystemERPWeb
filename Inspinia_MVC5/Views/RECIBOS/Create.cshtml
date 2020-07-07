@@ -285,10 +285,10 @@
                 $("#TOTAL").val(totalr);
 
                 reciboItems.push({
-                    FACTURA_ID: $('#DOC_ID').val(),
-                    FACTURA: $('#DOC_ID option:selected').text(),
+                    FACTURA_ID: parseInt($('#DOC_ID').val()),
+                    DOC_NRO: parseInt($("#DOC_ID option:selected").text()),
                     MONTO: monto,
-                    TIPO_DOC_ID: $('#ITEMLIST').val()
+                    TIPO_DOC_ID: parseInt($('#ITEMLIST').val())
                 });
                 GenerateItemsTable();
             });
@@ -335,53 +335,51 @@
             }).change();
 
             //guardar
-        $("#guardar").click(function () {
-            var formValid = true;
-            var tipodoc = $('#ITEMLIST').val();
-            if (formValid) {
-                var data = {
-                    FECHA_EMISION: $('#FECHA_EMISION').val(),
-                    SERIE_DOC_ID: $('#SERIE_DOC_ID').val(),
-                    NRO_RECIBO: $('#NRO_RECIBO').val(),
-                    CLIENTE_ID: $('#CLIENTE_ID').val(),
-                    TOTAL: $('#TOTAL').val(), 
-                    FORMA_PAGO_ID: $('#FORMA_PAGO_ID').val(), 
-                    NRO_DOC_PAGO: $('#NRO_DOC_PAGO').val(), 
-                    RECIBO_DETALLE: reciboItems
-                }
-                $(this).val('Por favor espere... ');
-                $.ajax({
-                    url: '@Url.Action("GuardarRecibo", "RECIBOS")',
-                    type: "POST",
-                    data: JSON.stringify(data),
-                    dataType: "JSON",
-                    contentType: "application/json",
-                    success: function (d) {
-                        //check is successfully save to database 
-                        if (d.status == true) {
-                            console.log("d: ", d);
-                            //will send status from server side
-                            alert('Successfully done.');
-                            //clear form
-                            orderItems = [];
-                            $('#NRO_RECIBO').val('');
-                            $('#CLIENTE_ID').val('');
-                            $('#orderItems').empty();
-                        }
-                        else {
-                            console.log("d: ", d);
-                            alert('Failed');
-                        }
-                        $('#submit').val('Save');
-                    },
-                    error: function () {
-                        console.log(data, "TIPODOC", tipodoc);
-                        alert('Error. Please try again.');
-                        $('#submit').val('Save');
+            $("#guardar").click(function () {
+                var formValid = true;
+                if (formValid) {
+                    var data = {
+                        FECHA_EMISION: $('#FECHA_EMISION').val(),
+                        SERIE_DOC_ID: $('#SERIE_DOC_ID').val(),
+                        NRO_RECIBO: $('#NRO_RECIBO').val(),
+                        CLIENTE_ID: $('#CLIENTE_ID').val(),
+                        TOTAL: $('#TOTAL').val(), 
+                        FORMA_PAGO_ID: $('#FORMA_PAGO_ID').val(), 
+                        NRO_DOC_PAGO: $('#NRO_DOC_PAGO').val(), 
+                        RECIBO_DETALLE: reciboItems,
                     }
-                });
-            }
-        });
+                    console.log("Detalle: ", reciboItems);
+                    $(this).val('Por favor espere... ');
+                    $.ajax({
+                        url: '@Url.Action("GuardarRecibo", "RECIBOS")',
+                        type: "POST",
+                        data: JSON.stringify(data),
+                        dataType: "JSON",
+                        contentType: "application/json",
+                        success: function (d) {
+                            //check is successfully save to database 
+                            if (d.status == true) {
+                                //will send status from server side
+                                //alert('Successfully done.');
+                                //clear form
+                                orderItems = [];
+                                $('#NRO_RECIBO').val('');
+                                $('#CLIENTE_ID').val('');
+                                $('#orderItems').empty();
+                            }
+                            else {
+                                alert('Failed');
+                            }
+                            $('#submit').val('Save');
+                        },
+                        error: function () {
+                            //alert('Error. Please try again.');
+                            $('#submit').val('Save');
+                            window.location.href = '@Url.Action("Create", "RECIBOS" )';
+                        }
+                    });
+                }
+            });
             //GetNumeroFactura
             $("#SERIE_DOC_ID").change(function () {
                 var idSelected = $(this).val();
@@ -429,12 +427,12 @@
         function GenerateItemsTable() {
                 if (reciboItems.length > 0) {
                     var $table = $('<table/>');
-                    $table.append('<thead><tr><th hidden>Id</th><th>Documento No.</th><th>Monto</th><th hidden>TipoDoc</th></tr></thead>');
+                    $table.append('<thead><tr><th hidden>Id</th><th>Doc. No.</th><th>Monto</th><th hidden>TipoDoc</th></tr></thead>');
                     var $tbody = $('<tbody/>');
                     $.each(reciboItems, function (i, val) {
                         var $row = $('<tr/>');
                         $row.append($('<td hidden/>').html(val.FACTURA_ID));
-                        $row.append($('<td/>').html(val.FACTURA));
+                        $row.append($('<td/>').html(val.DOC_NRO));
                         $row.append($('<td/>').html(val.MONTO));
                         $row.append($('<td hidden/>').html(val.TIPO_DOC_ID));
                         $tbody.append($row);
