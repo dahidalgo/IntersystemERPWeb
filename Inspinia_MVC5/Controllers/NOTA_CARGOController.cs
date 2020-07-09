@@ -81,6 +81,7 @@ namespace Inspinia_MVC5.Controllers
                 nOTA_CARGO.ANULADA = false;
                 nOTA_CARGO.ESTADO_DOC = false;
                 nOTA_CARGO.SUBTOTAL = nOTA_CARGO.TOTAL;
+                nOTA_CARGO.PAGOS = 0;
                 db.NOTA_CARGO.Add(nOTA_CARGO);
                 db.SaveChanges();
 
