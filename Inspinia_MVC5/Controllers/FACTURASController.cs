@@ -88,6 +88,7 @@ namespace Inspinia_MVC5.Controllers
                 fACTURA.ANULADA = false;
                 fACTURA.ESTADO_DOC = false;
                 fACTURA.SUBTOTAL = fACTURA.TOTAL;
+                fACTURA.PAGOS = 0;
                 db.FACTURA.Add(fACTURA);
                 db.SaveChanges();
 
