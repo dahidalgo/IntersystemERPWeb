@@ -282,7 +282,7 @@ namespace Inspinia_MVC5.Controllers
                             #region
                             FACTURA fACTURA = db.FACTURA.FirstOrDefault(f => f.NRO_FACTURA == i.DOC_NRO);
                             fACTURA.FECHA_ACTUALIZADO = DateTime.Today;
-                            fACTURA.PAGOS = fACTURA.PAGOS + i.MONTO;
+                            fACTURA.PAGOS = fACTURA.PAGOS.HasValue ? fACTURA.PAGOS + i.MONTO : i.MONTO;
                             if(fACTURA.TOTAL - fACTURA.PAGOS == 0)
                             {
                                 fACTURA.ESTADO_DOC = true;
@@ -335,7 +335,7 @@ namespace Inspinia_MVC5.Controllers
                             #region Actualizar nota de cargo
                             NOTA_CARGO nOTA_CARGO = db.NOTA_CARGO.FirstOrDefault(n => n.NRO_NOTA_CARGO == i.DOC_NRO);
                             nOTA_CARGO.FECHA_ACTUALIZADO = DateTime.Today;
-                            nOTA_CARGO.PAGOS = i.MONTO;
+                            nOTA_CARGO.PAGOS = nOTA_CARGO.PAGOS.HasValue ? nOTA_CARGO.PAGOS + i.MONTO : i.MONTO;
                             if(nOTA_CARGO.TOTAL - nOTA_CARGO.PAGOS == 0)
                             {
                                 nOTA_CARGO.ESTADO_DOC = true;
