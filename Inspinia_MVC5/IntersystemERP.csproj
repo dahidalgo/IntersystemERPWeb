@@ -39,7 +39,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -7904,7 +7904,6 @@
       <DependentUpon>IntersystemModel.edmx</DependentUpon>
     </Content>
     <Content Include="package.json" />
-    <None Include="Properties\PublishProfiles\Inspinia.pubxml" />
     <Content Include="Scripts\api\typehead_collection.json" />
     <Content Include="Images\a1.jpg" />
     <Content Include="Images\a2.jpg" />
@@ -8777,6 +8776,7 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <None Include="Properties\PublishProfiles\IntersystemERP.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

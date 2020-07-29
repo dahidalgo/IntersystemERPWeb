@@ -111,6 +111,18 @@
                                 <div id="reciboItems" class="table table-light">
 
                                 </div>
+                                <table id="detailsTable" class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th style="width: 20%">Doc. No.</th>
+                                        <th style="width: 20%">Valor</th>
+                                        <th style="width: 10%">Tipo</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
                             </div>
                         </div>
                     
@@ -162,7 +174,7 @@
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-md-3">
-                        <button class="btn btn-success" id="guardar" name="guardar"><i class="fad fa-save"></i>&nbsp;Guardar</button>
+                        <button class="btn btn-success" id="guardarRecibo" name="guardarRecibo"><i class="fad fa-save"></i>&nbsp;Guardar</button>
                     </div>
                     <div class="col-md-3">
                         <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index")' "><i class="fad fa-step-backward"></i>&nbsp;Regresar</button>
@@ -271,28 +283,6 @@
                 }
             }).change();
 
-
-            //Boton agregar item recibo detalle
-            $("#btnagregar").click(function () {
-                var total = $('#TOTAL').val();
-                var monto = $('#MONTO').val();
-                var totalr = "";
-                if (isNaN(total)) {
-                    total = 0;
-                }
-                totalr = parseFloat(total) + parseFloat(monto);
-                $("#TOTAL").val('');
-                $("#TOTAL").val(totalr);
-
-                reciboItems.push({
-                    FACTURA_ID: parseInt($('#DOC_ID').val()),
-                    DOC_NRO: parseInt($("#DOC_ID option:selected").text()),
-                    MONTO: monto,
-                    TIPO_DOC_ID: parseInt($('#ITEMLIST').val())
-                });
-                GenerateItemsTable();
-            });
-
             //Tipo de documento a pagar
             $("#ITEMLIST").change(function () {
                 var idSelected = parseInt($(this).val());
@@ -334,52 +324,6 @@
                 }
             }).change();
 
-            //guardar
-            $("#guardar").click(function () {
-                var formValid = true;
-                if (formValid) {
-                    var data = {
-                        FECHA_EMISION: $('#FECHA_EMISION').val(),
-                        SERIE_DOC_ID: $('#SERIE_DOC_ID').val(),
-                        NRO_RECIBO: $('#NRO_RECIBO').val(),
-                        CLIENTE_ID: $('#CLIENTE_ID').val(),
-                        TOTAL: $('#TOTAL').val(), 
-                        FORMA_PAGO_ID: $('#FORMA_PAGO_ID').val(), 
-                        NRO_DOC_PAGO: $('#NRO_DOC_PAGO').val(), 
-                        RECIBO_DETALLE: reciboItems,
-                    }
-                    console.log("Detalle: ", reciboItems);
-                    $(this).val('Por favor espere... ');
-                    $.ajax({
-                        url: '@Url.Action("GuardarRecibo", "RECIBOS")',
-                        type: "POST",
-                        data: JSON.stringify(data),
-                        dataType: "JSON",
-                        contentType: "application/json",
-                        success: function (d) {
-                            //check is successfully save to database 
-                            if (d.status == true) {
-                                //will send status from server side
-                                //alert('Successfully done.');
-                                //clear form
-                                orderItems = [];
-                                $('#NRO_RECIBO').val('');
-                                $('#CLIENTE_ID').val('');
-                                $('#orderItems').empty();
-                            }
-                            else {
-                                alert('Failed');
-                            }
-                            $('#submit').val('Save');
-                        },
-                        error: function () {
-                            //alert('Error. Please try again.');
-                            $('#submit').val('Save');
-                            window.location.href = '@Url.Action("Create", "RECIBOS" )';
-                        }
-                    });
-                }
-            });
             //GetNumeroFactura
             $("#SERIE_DOC_ID").change(function () {
                 var idSelected = $(this).val();
@@ -422,25 +366,113 @@
                     });
                 }
             });
+    });
 
-            //funcion agregar items a la tabla
-        function GenerateItemsTable() {
-                if (reciboItems.length > 0) {
-                    var $table = $('<table/>');
-                    $table.append('<thead><tr><th hidden>Id</th><th>Doc. No.</th><th>Monto</th><th hidden>TipoDoc</th></tr></thead>');
-                    var $tbody = $('<tbody/>');
-                    $.each(reciboItems, function (i, val) {
-                        var $row = $('<tr/>');
-                        $row.append($('<td hidden/>').html(val.FACTURA_ID));
-                        $row.append($('<td/>').html(val.DOC_NRO));
-                        $row.append($('<td/>').html(val.MONTO));
-                        $row.append($('<td hidden/>').html(val.TIPO_DOC_ID));
-                        $tbody.append($row);
-                    });
-                    $table.append($tbody);
-                    $('#reciboItems').html($table);
-                }
+    //Boton agregar item recibo detalle
+    $("#btnagregar").click(function (e) {
+        
+        var total = $('#TOTAL').val();
+        var monto = $('#MONTO').val();
+        var totalr = "";
+        
+        e.preventDefault();
+        if ($("#DOC_ID").val() == "" || $("#DOC_ID option:selected").text() == "" || $("#monto").val() == "") return;
+
+        var FACTURA_ID = parseInt($('#DOC_ID').val()),
+            DOC_NRO = parseInt($("#DOC_ID option:selected").text()),
+            monto = $('#MONTO').val(),
+            TIPO_DOC_ID = parseInt($('#ITEMLIST').val()),
+            detailsTableBody = $("#detailsTable tbody");
+
+        var reciboItem = '<tr><td>' + FACTURA_ID + '</td><td>' + DOC_NRO + '</td><td>' + parseFloat(monto) + '</td><td>' +
+            TIPO_DOC_ID +
+            '</td><td><a data-itemId="0" href="#" class="deleteItem">Quitar</a></td></tr>';
+        detailsTableBody.append(reciboItem);
+        if (isNaN(total)) {
+            total = 0;
+        }
+        totalr = parseFloat(total) + parseFloat(monto);
+        $("#TOTAL").val('');
+        $("#TOTAL").val(totalr);
+        clearItem();
+
+    });
+
+    //Para limpiar despues de agregar item
+    function clearItem() {
+        //$("#DOC_ID").val('');
+        //$("#ITEMLIST").val('');
+        $("#MONTO").val('');
+    }
+
+    // Para quitar algún item 
+    $(document).on('click', 'a.deleteItem', function (e) {
+        var TOTAL = $('#TOTAL').val();
+        e.preventDefault();
+        var $self = $(this);
+        if ($(this).attr('data-itemId') == "0") {
+        		
+            $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                var monto = $(this).find('td').eq(2).text();
+                TOTAL = parseFloat(TOTAL) - parseFloat(monto);
+                $("#TOTAL").val(TOTAL);
+                $(this).remove();
+            });
+        }
+    });
+
+    //After Click Save Button Pass All Data View To Controller For Save Database
+    function guardarRecibo(data) {
+        return $.ajax({
+            contentType: 'application/json',
+            dataType: 'JSON',
+            type: 'POST',
+            url: "/Recibos/GuardarRecibo",
+            data: JSON.stringify(data),
+            success: function (result) {
+                alert(result);
+                location.reload();
+            },
+            error: function () {
+                alert("Error!");
             }
         });
+    }
+
+    //Collect Multiple Order List For Pass To Controller
+    $("#guardarRecibo").click(function (e) {
+        e.preventDefault();
+
+        var reciboDetArr = [];
+        reciboDetArr.length = 0;
+
+        $.each($("#detailsTable tbody tr"), function () {
+            reciboDetArr.push({
+                FACTURA_ID: $(this).find('td:eq(0)').html(),
+                DOC_NRO: $(this).find('td:eq(1)').html(),
+                MONTO: parseFloat($(this).find('td:eq(2)').html()),
+                TIPO_DOC_ID: $(this).find('td:eq(3)').html()
+            });
+        });
+
+
+        var data = {
+            FECHA_EMISION: $('#FECHA_EMISION').val(),
+            SERIE_DOC_ID: $('#SERIE_DOC_ID').val(),
+            NRO_RECIBO: $('#NRO_RECIBO').val(),
+            CLIENTE_ID: $('#CLIENTE_ID').val(),
+            TOTAL: $('#TOTAL').val(),
+            FORMA_PAGO_ID: $('#FORMA_PAGO_ID').val(),
+            NRO_DOC_PAGO: $('#NRO_DOC_PAGO').val(),
+            reciboDet: reciboDetArr
+        }
+        console.log(data);
+
+        $.when(guardarRecibo(data)).then(function (response) {
+            console.log(response);
+        }).fail(function (err) {
+            console.log(err);
+        });
+    });
 </script>
 }
