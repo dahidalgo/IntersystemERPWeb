@@ -114,10 +114,10 @@
                                 <table id="detailsTable" class="table">
                                     <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th hidden="">Id</th>
                                         <th style="width: 20%">Doc. No.</th>
                                         <th style="width: 20%">Valor</th>
-                                        <th style="width: 10%">Tipo</th>
+                                        <th style="width: 10%" hidden="">Tipo</th>
                                         <th></th>
                                     </tr>
                                     </thead>
@@ -384,9 +384,8 @@
             TIPO_DOC_ID = parseInt($('#ITEMLIST').val()),
             detailsTableBody = $("#detailsTable tbody");
 
-        var reciboItem = '<tr><td>' + FACTURA_ID + '</td><td>' + DOC_NRO + '</td><td>' + parseFloat(monto) + '</td><td>' +
-            TIPO_DOC_ID +
-            '</td><td><a data-itemId="0" href="#" class="deleteItem">Quitar</a></td></tr>';
+        var reciboItem = '<tr><td hidden>' + FACTURA_ID + '</td><td>' + DOC_NRO + '</td><td>' + parseFloat(monto) +
+            '</td><td hidden>' + TIPO_DOC_ID + '</td><td><a data-itemId="0" href="#" class="deleteItem">Quitar</a></td></tr>';
         detailsTableBody.append(reciboItem);
         if (isNaN(total)) {
             total = 0;
