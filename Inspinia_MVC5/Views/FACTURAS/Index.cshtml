@@ -98,8 +98,9 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.NRO_FACTURA)
                             </td>
+                            @{ var fecha = item.FECHA_EMISION.Value.ToString("dd/MM/yyyy");}
                             <td>
-                                @Html.DisplayFor(modelItem => item.FECHA_EMISION)
+                                @Html.DisplayFor(modelItem => fecha)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.CLIENTE.NOMBRE_CLTE)
@@ -110,9 +111,9 @@
                             <td class="text-right">
                                 <div class="btn-group">
                                     @*<button class="btn-white btn btn-xs"
-                                            onclick="location.href = '@Url.Action("Edit", new { id = item.FACTURA_ID })' ">
-                                        <span class="fad fa-edit"></span>&nbsp;Editar
-                                    </button>*@
+                        onclick="location.href = '@Url.Action("Edit", new { id = item.FACTURA_ID })' ">
+                    <span class="fad fa-edit"></span>&nbsp;Editar
+                </button>*@
                                     <button class="btn-white btn btn-xs"
                                             onclick="location.href = '@Url.Action("Details", new { id = item.FACTURA_ID })' ">
                                         <span class="fad fa-search"></span>&nbsp;Detalle

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -217,6 +218,123 @@ namespace Inspinia_MVC5.Controllers
                 }
             }
             return factnumero;
+        }
+
+        public ActionResult ReportesFacturas()
+        {
+            var clienteList = new List<SelectListItem>();
+            clienteList.Add(new SelectListItem() {Value = "0", Text = "-Elija Cliente-"});
+            clienteList.AddRange(db.CLIENTE.Select(r => new SelectListItem()
+            {
+                Value = r.CLIENTE_ID + "",
+                Text = r.NOMBRE_CLTE
+            }));
+            ViewBag.cliente = clienteList;
+            return View();
+        }
+
+        [HttpPost]
+        public PartialViewResult FacturasPorFecha(FormCollection collection)
+        {
+            DateTime? fechainicio = String.IsNullOrEmpty(collection["fechaDesde"]) ? (DateTime?)null : DateTime.ParseExact(collection["FechaDesde"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime? fechafin = String.IsNullOrEmpty(collection["fechaHasta"]) ? (DateTime?)null : DateTime.ParseExact(collection["fechaHasta"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            ViewBag.fechaDesde = fechainicio.Value.ToShortDateString();
+            ViewBag.fechaHasta = fechafin.Value.ToShortDateString();
+
+            var consulta = (from f in db.FACTURA
+                join c in db.CLIENTE on f.CLIENTE_ID equals c.CLIENTE_ID
+                orderby f.NRO_FACTURA
+                select new ReporteFacturacion
+                {
+                   CODIGO_CLTE = c.CODIGO_CLTE,
+                   NOMBRE_CLTE = c.NOMBRE_CLTE,
+                   NRO_FACTURA = f.NRO_FACTURA,
+                   FECHA_EMISION = f.FECHA_EMISION,
+                   TOTAL = f.TOTAL,
+                   ANULADA = f.ANULADA
+                });
+
+            if (fechainicio != null && fechafin != null)
+            {
+                consulta = consulta.Where(r => r.FECHA_EMISION >= fechainicio && r.FECHA_EMISION <= fechafin);
+            }
+
+            return PartialView("FacturasPorFecha", consulta.ToList());
+        }
+
+        [HttpPost]
+        public PartialViewResult FacturasAnuladasPorFecha(FormCollection collection)
+        {
+            DateTime? fechainicio = String.IsNullOrEmpty(collection["fechaDesde"]) ? (DateTime?)null : DateTime.ParseExact(collection["FechaDesde"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime? fechafin = String.IsNullOrEmpty(collection["fechaHasta"]) ? (DateTime?)null : DateTime.ParseExact(collection["fechaHasta"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            ViewBag.fechaDesde = fechainicio.Value.ToShortDateString();
+            ViewBag.fechaHasta = fechafin.Value.ToShortDateString();
+
+            var consulta = (from f in db.FACTURA
+                join c in db.CLIENTE on f.CLIENTE_ID equals c.CLIENTE_ID
+                            where f.ANULADA == true
+                select new ReporteFacturacion
+                {
+                    CODIGO_CLTE = c.CODIGO_CLTE,
+                    NOMBRE_CLTE = c.NOMBRE_CLTE,
+                    NRO_FACTURA = f.NRO_FACTURA,
+                    FECHA_EMISION = f.FECHA_EMISION,
+                    TOTAL = f.TOTAL,
+                    ANULADA = f.ANULADA
+                });
+
+            if (fechainicio != null && fechafin != null)
+            {
+                consulta = consulta.Where(r => r.FECHA_EMISION >= fechainicio && r.FECHA_EMISION <= fechafin);
+            }
+
+            return PartialView("FacturasAnuladasPorFecha", consulta.ToList());
+        }
+
+        [HttpPost]
+        public PartialViewResult FacturasPorCliente(FormCollection collection)
+        {
+            DateTime? fechainicio = String.IsNullOrEmpty(collection["fechaDesde"]) ? (DateTime?)null : DateTime.ParseExact(collection["FechaDesde"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime? fechafin = String.IsNullOrEmpty(collection["fechaHasta"]) ? (DateTime?)null : DateTime.ParseExact(collection["fechaHasta"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            int cliente;
+
+            if (!collection.AllKeys.Contains("cliente") || string.IsNullOrEmpty(collection["cliente"]))
+                cliente = 0;
+            else
+                cliente = Convert.ToInt32(collection["cliente"]);
+
+            ViewBag.fechaDesde = fechainicio.Value.ToShortDateString();
+            ViewBag.fechaHasta = fechafin.Value.ToShortDateString();
+            ViewBag.cliente = db.CLIENTE.Where(c => c.CLIENTE_ID == cliente).Select(c => c.NOMBRE_CLTE)
+                .FirstOrDefault();
+
+            var consulta = (from f in db.FACTURA
+                join c in db.CLIENTE on f.CLIENTE_ID equals c.CLIENTE_ID
+                orderby f.NRO_FACTURA
+                select new ReporteFacturacion
+                {
+                    CLIENTE_ID = c.CLIENTE_ID,
+                    CODIGO_CLTE = c.CODIGO_CLTE,
+                    NOMBRE_CLTE = c.NOMBRE_CLTE,
+                    NRO_FACTURA = f.NRO_FACTURA,
+                    FECHA_EMISION = f.FECHA_EMISION,
+                    TOTAL = f.TOTAL,
+                    ANULADA = f.ANULADA
+                });
+
+            if (fechainicio != null && fechafin != null)
+            {
+                consulta = consulta.Where(r => r.FECHA_EMISION >= fechainicio && r.FECHA_EMISION <= fechafin);
+            }
+
+            if (cliente != 0)
+            {
+                consulta = consulta.Where(r => r.CLIENTE_ID == cliente);
+            }
+
+            return PartialView("FacturasPorCliente", consulta.ToList());
         }
     }
 }

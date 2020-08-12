@@ -5,8 +5,10 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using Inspinia_MVC5.Models;
@@ -440,6 +442,125 @@ namespace Inspinia_MVC5.Controllers
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ReportesRecibos()
+        {
+            var clienteList = new List<SelectListItem>();
+            clienteList.Add(new SelectListItem() { Value = "0", Text = "-Elija Cliente-" });
+            clienteList.AddRange(db.CLIENTE.Select(r => new SelectListItem()
+            {
+                Value = r.CLIENTE_ID + "",
+                Text = r.NOMBRE_CLTE
+            }));
+            ViewBag.cliente = clienteList;
+            return View();
+        }
+
+        public PartialViewResult ReporteSaldos(FormCollection collection)
+        {
+            ViewBag.fecha = DateTime.Today.ToShortDateString();
+
+            DateTime? fechainicio = String.IsNullOrEmpty(collection["fechaDesde"]) ? (DateTime?)null : DateTime.ParseExact(collection["fechaDesde"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime? fechafin = String.IsNullOrEmpty(collection["fechaHasta"]) ? (DateTime?)null : DateTime.ParseExact(collection["fechaHasta"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            SqlConnection conn = new SqlConnection(db.Database.Connection.ConnectionString);
+            var command = new SqlCommand("sp_rptSaldos", conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@fechainicio", SqlDbType.Date).Value = fechainicio;
+            command.Parameters.Add("@fechafin", SqlDbType.Date).Value = fechafin;
+            conn.Open();
+            DataSet ds = new DataSet();
+            using (SqlDataAdapter sda = new SqlDataAdapter(command))
+            {
+                sda.Fill(ds);
+            }
+            var TotalAnterior = ds.Tables[0].Select().Sum(t => (decimal) t["Anterior"]);
+            var TotalCargo = ds.Tables[0].Select().Sum(t => (decimal)t["Cargo"]);
+            var TotalAbono = ds.Tables[0].Select().Sum(t => (decimal)t["Abono"]);
+            var TotalActual = ds.Tables[0].Select().Sum(t => (decimal)t["Actual"]);
+            conn.Close();
+
+            ViewBag.FechaDesde = fechainicio.Value.ToShortDateString();
+            ViewBag.FechaHasta = fechafin.Value.ToShortDateString();
+            ViewBag.TotalAnterior = TotalAnterior;
+            ViewBag.TotalCargo = TotalCargo;
+            ViewBag.TotalAbono = TotalAbono;
+            ViewBag.TotalActual = TotalActual;
+            return PartialView("ReporteSaldos", ds);
+        }
+
+        public PartialViewResult ListadoRecibos (FormCollection collection)
+        {
+            ViewBag.fecha = DateTime.Today.ToShortDateString();
+            DateTime? fechainicio = String.IsNullOrEmpty(collection["fechaDesde"]) ? (DateTime?)null : DateTime.ParseExact(collection["fechaDesde"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime? fechafin = String.IsNullOrEmpty(collection["fechaHasta"]) ? (DateTime?)null : DateTime.ParseExact(collection["fechaHasta"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            var consulta = (from r in db.RECIBO
+                            join c in db.CLIENTE on r.CLIENTE_ID equals c.CLIENTE_ID
+                            orderby r.NRO_RECIBO
+                            select new ListadoRecibos
+                            {
+                                CODIGO_CLTE = c.CODIGO_CLTE,
+                                NOMBRE_CLTE = c.NOMBRE_CLTE,
+                                NRO_RECIBO = r.NRO_RECIBO,
+                                FECHA_EMISION = r.FECHA_EMISION,
+                                TOTAL = r.TOTAL
+                            });
+
+            if (fechainicio != null && fechafin != null)
+            {
+                consulta = consulta.Where(r => r.FECHA_EMISION >= fechainicio && r.FECHA_EMISION <= fechafin);
+            }
+
+            ViewBag.FechaDesde = fechainicio.Value.ToShortDateString();
+            ViewBag.FechaHasta = fechafin.Value.ToShortDateString();
+
+            return PartialView("ListadoRecibos", consulta.ToList());
+        }
+
+        public PartialViewResult RecibosPorCliente(FormCollection collection)
+        {
+            ViewBag.fecha = DateTime.Today.ToShortDateString();
+            DateTime? fechainicio = String.IsNullOrEmpty(collection["fechaDesde"]) ? (DateTime?)null : DateTime.ParseExact(collection["fechaDesde"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime? fechafin = String.IsNullOrEmpty(collection["fechaHasta"]) ? (DateTime?)null : DateTime.ParseExact(collection["fechaHasta"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            int cliente;
+
+            if (!collection.AllKeys.Contains("cliente") || string.IsNullOrEmpty(collection["cliente"]))
+                cliente = 0;
+            else
+                cliente = Convert.ToInt32(collection["cliente"]);
+
+            var consulta = (from r in db.RECIBO
+                            join c in db.CLIENTE on r.CLIENTE_ID equals c.CLIENTE_ID
+                            orderby r.NRO_RECIBO
+                            select new ListadoRecibos
+                            {
+                                CLIENTE_ID = c.CLIENTE_ID,
+                                CODIGO_CLTE = c.CODIGO_CLTE,
+                                NOMBRE_CLTE = c.NOMBRE_CLTE,
+                                NRO_RECIBO = r.NRO_RECIBO,
+                                FECHA_EMISION = r.FECHA_EMISION,
+                                TOTAL = r.TOTAL
+                            });
+
+            if (fechainicio != null && fechafin != null)
+            {
+                consulta = consulta.Where(r => r.FECHA_EMISION >= fechainicio && r.FECHA_EMISION <= fechafin);
+            }
+
+
+            if (cliente != 0)
+            {
+                consulta = consulta.Where(r => r.CLIENTE_ID == cliente);
+            }
+
+            ViewBag.FechaDesde = fechainicio.Value.ToShortDateString();
+            ViewBag.FechaHasta = fechafin.Value.ToShortDateString();
+            ViewBag.Cliente = db.CLIENTE.Where(c => c.CLIENTE_ID == cliente).Select(c => c.NOMBRE_CLTE)
+                .FirstOrDefault();
+
+            return PartialView("RecibosPorCliente", consulta.ToList());
         }
     }
 }

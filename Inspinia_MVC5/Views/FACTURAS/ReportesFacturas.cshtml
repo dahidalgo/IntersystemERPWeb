@@ -1,0 +1,301 @@
+﻿
+@{
+    ViewBag.Title = "ReportesFacturas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Reportes</h2>
+
+<div class="wrapper wrapper-content animated fadeInDownBig">
+    <div class="row">
+        <!--Columna 1-->
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins collapsed">
+                <div class="ibox-title">
+                    <h5>Facturación por fecha</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table class="footable table table-stripped toggle-arrow-tiny">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @using (Html.BeginForm("FacturasPorFecha", "FACTURAS", FormMethod.Post, new { target = "_blank" }))
+                                    {
+                                        <p>
+                                            <label>Fecha Desde:&nbsp; </label>
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input id="fechaDesde" name="fechaDesde" type="text" placeholder="Fecha Desde" class="form-control">
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <label>Fecha Hasta:&nbsp; </label>
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input id="fechaHasta" name="fechaHasta" type="text" placeholder="Fecha Hasta" class="form-control">
+                                            </div>
+                                        </p>
+                                        <p>&nbsp;</p>
+                                        <input type="submit" class="btn btn-info btn-block" value="Generar Reporte" />
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="ibox float-e-margins collapsed">
+                <div class="ibox-title">
+                    <h5>Libro de ventas</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table class="footable table table-stripped toggle-arrow-tiny">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @using (Html.BeginForm("FacturasPorFecha", "FACTURAS", FormMethod.Post, new { target = "_blank" }))
+                                    {
+                                        <p>
+                                            <label>Fecha Desde:&nbsp; </label>
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input id="fechaDesde" name="fechaDesde" type="text" placeholder="Fecha Desde" class="form-control">
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <label>Fecha Hasta:&nbsp; </label>
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input id="fechaHasta" name="fechaHasta" type="text" placeholder="Fecha Hasta" class="form-control">
+                                            </div>
+                                        </p>
+                                        <p>&nbsp;</p>
+                                        <input type="submit" class="btn btn-info btn-block" value="Generar Reporte" />
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--Columna 2-->
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins collapsed">
+                <div class="ibox-title">
+                    <h5>Facturas anuladas</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table class="footable table table-stripped toggle-arrow-tiny">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @using (Html.BeginForm("FacturasAnuladasPorFecha", "FACTURAS", FormMethod.Post, new { target = "_blank" }))
+                                    {
+                                        <p>
+                                            <label>Fecha Desde:&nbsp; </label>
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input id="fechaDesde" name="fechaDesde" type="text" placeholder="Fecha Desde" class="form-control">
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <label>Fecha Hasta:&nbsp; </label>
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input id="fechaHasta" name="fechaHasta" type="text" placeholder="Fecha Hasta" class="form-control">
+                                            </div>
+                                        </p>
+                                        <p>&nbsp;</p>
+                                        <input type="submit" class="btn btn-info btn-block" value="Generar Reporte" />
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--Columna 3-->
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins collapsed">
+                <div class="ibox-title">
+                    <h5>Facturación por cliente</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table class="footable table table-stripped toggle-arrow-tiny">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @using (Html.BeginForm("FacturasPorCliente", "FACTURAS", FormMethod.Post, new { target = "_blank" }))
+                                    {
+                                        <p>
+                                            <label>Fecha Desde:&nbsp; </label>
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input id="fechaDesde" name="fechaDesde" type="text" placeholder="Fecha Desde" class="form-control">
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <label>Fecha Hasta:&nbsp; </label>
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input id="fechaHasta" name="fechaHasta" type="text" placeholder="Fecha Hasta" class="form-control">
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <label>Seleccione cliente: &nbsp;&nbsp;</label>
+                                            @Html.DropDownList("cliente", null, htmlAttributes: new { @class = "form-control select2", style = "width: 100%; float:left;" })
+
+                                        </p>
+                                        <p>&nbsp;</p>
+                                        <input type="submit" class="btn btn-info btn-block" value="Generar Reporte" />
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+}
+
+@section Scripts {
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".select2").select2();
+
+            $.fn.datepicker.dates['en'] = {
+                days: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
+                daysShort: ["Dom", "Lun", "Mar", "Mie", "Juv", "Vie", "Sáb"],
+                daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+                months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                today: "Hoy",
+                clear: "Clear",
+                format: "dd/mm/yyyy",
+                titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+                weekStart: 0
+            };
+
+            $('.input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                orientation: "top left",
+                beforeShow: function () { $j('.ui-datepicker').css({ 'font-size': 11, 'line-height': 1.2 }) }
+            });
+
+            $('#hora1 .input-group.clockpicker').clockpicker();
+
+            var $image = $(".image-crop > img")
+            $($image).cropper({
+                aspectRatio: 1.618,
+                preview: ".img-preview",
+                done: function (data) {
+                    // Output the result data for cropping image.
+                }
+            });
+
+            var $inputImage = $("#inputImage");
+            if (window.FileReader) {
+                $inputImage.change(function () {
+                    var fileReader = new FileReader(),
+                        files = this.files,
+                        file;
+
+                    if (!files.length) {
+                        return;
+                    }
+
+                    file = files[0];
+
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            $inputImage.val("");
+                            $image.cropper("reset", true).cropper("replace", this.result);
+                        };
+                    } else {
+                        showMessage("Please choose an image file.");
+                    }
+                });
+            } else {
+                $inputImage.addClass("hide");
+            }
+
+        });
+
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+    </script>
+}

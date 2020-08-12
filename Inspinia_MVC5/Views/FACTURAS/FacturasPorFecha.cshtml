@@ -1,0 +1,68 @@
+﻿@using System.Globalization
+@using BoldReports.Linq
+@model IEnumerable<Inspinia_MVC5.Models.ReporteFacturacion>
+@{
+    ViewBag.Title = "FacturasPorFecha";
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+}
+
+<input type="hidden" name="fechaDesde" value="@ViewBag.fechaDesde"/>
+<input type="hidden" name="fechaHasta" value="@ViewBag.fechaHasta" />
+
+<table id="ReporteFacturas" class="table table-bordered table-responsive">
+    <thead>
+    <tr>
+        @*<th style="text-align:center"><img src="~/images/progreso.png" class=".img-fluid" style="max-width: 2%; height:auto; min-width:10em;" /></th>*@
+        <th class="title" style="text-align: center" colspan="5">
+            <h3>DH Y ASOCIADOS</h3><br/>
+            <h3>LISTADO DE FACTURAS</h3><br/>
+            <h3>DEL: @ViewBag.FechaDesde AL: @ViewBag.FechaHasta</h3>
+        </th>
+        @*<th style="text-align:center"><img src="~/images/progreso.png" class=".img-fluid" style="max-width: 2%; height:auto; min-width:10em;" /></th>*@
+    </tr>
+    <tr style="background-color:#9fa1a4">
+        <th class="title" style="width: 5%">Código</th>
+        <th class="title" style="width: 30%">Cliente</th>
+        <th class="title" style="width: 5%">Factura</th>
+        <th class="title" style="width: 5%">Fecha</th>
+        <th class="title" style="width: 5%">Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            
+            @if (item.ANULADA == true)
+            {
+                <td></td>
+                <td>ANULADA</td>
+            }
+            else
+            {
+                <td>@Html.DisplayFor(modelItem => item.CODIGO_CLTE)</td>
+                <td>@Html.DisplayFor(modelItem => item.NOMBRE_CLTE)</td>
+            }
+            
+            <td>@Html.DisplayFor(modelItem => item.NRO_FACTURA)</td>
+            @{var fecha = item.FECHA_EMISION.Value.ToString("dd/MM/yyyy");}
+            <td>@Html.DisplayFor(modelItem => fecha)</td>
+            <td style="text-align: right">@Html.DisplayFor(modelItem => item.TOTAL)</td>
+            @*@if (item.Autorizado == true)
+                {
+                    <td>Autorizado</td>
+                }
+                else
+                {
+                    <td>No Autorizado</td>
+                }*@
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4" style="background-color: gray; text-align: right; font-weight: bold;">TOTAL </td>
+        <td style="text-align: right; font-weight: bold">@Model.Sum(f => f.TOTAL)</td>
+    </tr>
+    </tfoot>
+</table>

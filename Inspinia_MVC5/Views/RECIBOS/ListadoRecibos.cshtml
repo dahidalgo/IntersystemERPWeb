@@ -1,0 +1,48 @@
+﻿@using System.Globalization
+@using BoldReports.Linq
+@model IEnumerable<Inspinia_MVC5.Models.ListadoRecibos>
+@{
+    ViewBag.Title = "ListadoRecibos";
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+}
+
+<input type="hidden" name="fechaDesde" value="@ViewBag.fechaDesde" />
+<input type="hidden" name="fechaHasta" value="@ViewBag.fechaHasta" />
+
+<table id="ListadoRecibos" class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th class="title" style="text-align: center" colspan="5">
+                <h3>DH Y ASOCIADOS</h3><br />
+                <h3>LISTADO DE RECIBOS</h3><br />
+                <h3>DEL: @ViewBag.FechaDesde AL: @ViewBag.FechaHasta</h3>
+            </th>
+        </tr>
+        <tr style="background-color:#9fa1a4">
+            <th class="title" style="width: 5%; text-align:center">CODIGO</th>
+            <th class="title" style="width: 30%; text-align:center">CLIENTE</th>
+            <th class="title" style="width: 5%; text-align:center">RECIBO No.</th>
+            <th class="title" style="width: 5%; text-align:center">FECHA</th>
+            <th class="title" style="width: 5%; text-align:center">TOTAL</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.CODIGO_CLTE)</td>
+                <td>@Html.DisplayFor(modelItem => item.NOMBRE_CLTE)</td>
+                <td style="text-align:right">@Html.DisplayFor(modelItem => item.NRO_RECIBO)</td>
+                @{var fecha = item.FECHA_EMISION.Value.ToString("dd/MM/yyyy");}
+                <td style="text-align:right">@Html.DisplayFor(modelItem => fecha)</td>
+                <td style="text-align:right">@Html.DisplayFor(modelItem => item.TOTAL)</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" style="background-color: gray; text-align: right; font-weight: bold;">TOTAL </td>
+            <td style="text-align: right; font-weight: bold">@String.Format("{0:#,0.00}", Model.Sum(f => f.TOTAL))</td>
+        </tr>
+    </tfoot>
+</table>

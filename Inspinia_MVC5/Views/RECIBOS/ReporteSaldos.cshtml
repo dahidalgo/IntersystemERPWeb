@@ -1,0 +1,56 @@
+﻿@model DataSet
+@using System.Data;
+@using System.Globalization;
+
+@{
+    ViewBag.Title = "ReporteSaldos";
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+}
+
+<input type="hidden" name="fechaDesde" value="@ViewBag.fechaDesde" />
+<input type="hidden" name="fechaHasta" value="@ViewBag.fechaHasta" />
+
+<table id="ReporteSaldos" class="table table-bordered table-responsive" style="">
+    <thead>
+        <tr>
+            @*<th style="text-align:center"><img src="~/images/progreso.png" class=".img-fluid" style="max-width: 2%; height:auto; min-width:10em;" /></th>*@
+            <th class="title" style="text-align: center" colspan="6">
+                <h3>DH Y ASOCIADOS</h3><br />
+                <h3>LISTADO DE SALDOS</h3><br />
+                <h3>DEL: @ViewBag.FechaDesde AL: @ViewBag.FechaHasta</h3>
+            </th>
+            @*<th style="text-align:center"><img src="~/images/progreso.png" class=".img-fluid" style="max-width: 2%; height:auto; min-width:10em;" /></th>*@
+        </tr>
+        <tr style="background-color:#9fa1a4">
+            <th class="title" style="max-width: 10%; height:auto; text-align:center;">CODIGO</th>
+            <th class="title" style="max-width: 50%; text-align:center;">CLIENTE</th>
+            <th class="title" style="max-width: 10%; text-align:center;">S. ANTERIOR</th>
+            <th class="title" style="max-width: 10%; text-align:center;">CARGO</th>
+            <th class="title" style="max-width: 10%; text-align:center;">ABONO</th>
+            <th class="title" style="max-width: 10%; text-align:center;">S. ACTUAL</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow item in Model.Tables[0].Rows)
+        {
+        <tr>
+
+            <td>@item["CODIGO_CLTE"]</td>
+            <td>@item["NOMBRE_CLTE"]</td>
+            <td style="text-align:right;">@String.Format("{0:#,0.00}", @item["Anterior"])</td>
+            <td style="text-align:right;">@String.Format("{0:#,0.00}", @item["Cargo"])</td>
+            <td style="text-align:right;">@String.Format("{0:#,0.00}", @item["Abono"])</td>
+            <td style="text-align:right;">@String.Format("{0:#,0.00}", @item["Actual"])</td>
+        </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2" style="background-color: gray; text-align: right; font-weight: bold;">TOTAL </td>
+            <td style="text-align: right; font-weight: bold">@String.Format("{0:#,0.00}", @ViewBag.TotalAnterior)</td>
+            <td style="text-align: right; font-weight: bold">@String.Format("{0:#,0.00}", @ViewBag.TotalCargo)</td>
+            <td style="text-align: right; font-weight: bold">@String.Format("{0:#,0.00}", @ViewBag.TotalAbono)</td>
+            <td style="text-align: right; font-weight: bold">@String.Format("{0:#,0.00}", @ViewBag.TotalActual)</td>
+        </tr>
+    </tfoot>
+</table>

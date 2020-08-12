@@ -43,8 +43,9 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.NRO_RECIBO)
                                 </td>
+                                @{ var fecha = item.FECHA_EMISION.Value.ToString("dd/MM/yyyy");}
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.FECHA_EMISION)
+                                    @Html.DisplayFor(modelItem => fecha)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CLIENTE.NOMBRE_CLTE)

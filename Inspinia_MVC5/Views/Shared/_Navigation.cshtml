@@ -3,10 +3,10 @@
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
-                    <img alt="image" class="rounded-circle" src="~/Images/profile_small.jpg" />
+                    <img alt="image" class="rounded-circle" src="~/Images/gallery/1s.jpg" />
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="block m-t-xs font-bold">David Williams</span>
-                        <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+                        <span class="block m-t-xs font-bold">Sonia de Hidalgo</span>
+                        <span class="text-muted text-xs block">Directora <b class="caret"></b></span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs" style="position: absolute; top: 91px; left: 0px; will-change: top, left;">
                         <li><a class="dropdown-item" href="@Url.Action("Profile", "AppViews")">Profile</a></li>
@@ -27,7 +27,7 @@
                 <a href=""><i class="fad fa-file-invoice"></i> <span class="nav-label" data-i18n="nav.dashboard">Facturación</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "FACTURAS")">Facturación</a></li>
-                    <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">Reportes</a></li>
+                    <li class="@Html.IsSelected(action: "ReportesFacturas")"><a href="@Url.Action("ReportesFacturas", "FACTURAS")">Reportes</a></li>
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "RECIBOS")">
@@ -36,7 +36,7 @@
                     <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "RECIBOS")">Recibos de caja</a></li>
                     <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "NOTA_ABONO")">Notas de abono</a></li>
                     <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "NOTA_CARGO")">Notas de cargo</a></li>
-                    <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">Reportes</a></li>
+                    <li class="@Html.IsSelected(action: "ReportesRecibos")"><a href="@Url.Action("ReportesRecibos", "RECIBOS")">Reportes</a></li>
                 </ul>
             </li>
 
