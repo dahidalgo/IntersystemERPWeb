@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Inspinia_MVC5.Models
 {
     using System;
@@ -29,7 +27,6 @@ namespace Inspinia_MVC5.Models
         public Nullable<int> NRO_RECIBO { get; set; }
         public Nullable<System.DateTime> FECHA_EMISION { get; set; }
         public Nullable<decimal> SUBTOTAL { get; set; }
-        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public Nullable<decimal> TOTAL { get; set; }
         public Nullable<bool> ANULADO { get; set; }
         public string CAUSA_ANULADO { get; set; }

@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Inspinia_MVC5.Models
 {
     using System;
@@ -21,7 +19,6 @@ namespace Inspinia_MVC5.Models
         public Nullable<int> FACTURA_ID { get; set; }
         public Nullable<int> NOTA_CARGO_ID { get; set; }
         public string DESCRIPCION { get; set; }
-        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public Nullable<decimal> MONTO { get; set; }
         public Nullable<int> TIPO_DOC_ID { get; set; }
         public Nullable<int> DOC_NRO { get; set; }

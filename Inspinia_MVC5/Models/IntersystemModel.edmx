@@ -131,6 +131,7 @@
           <Property Name="FECHA_HORA" Type="datetime" />
           <Property Name="ID_BASE" Type="int" />
           <Property Name="TIPO" Type="nvarchar" MaxLength="1" />
+          <Property Name="FECHA_PAGADO" Type="datetime" />
         </EntityType>
         <EntityType Name="FACTURA">
           <Key>
@@ -1073,6 +1074,7 @@
           <NavigationProperty Name="TIPO_DOCUMENTO" Relationship="Self.FK_DOCS_CC_REFERENCE_TIPO_DOC" FromRole="DOCS_CC" ToRole="TIPO_DOCUMENTO" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_DOCS_CC_REFERENCE_USUARIO" FromRole="DOCS_CC" ToRole="USUARIO" />
           <Property Name="TIPO" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="FECHA_PAGADO" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="FACTURA">
           <Key>
@@ -2003,6 +2005,7 @@
           <EntitySetMapping Name="DOCS_CC">
             <EntityTypeMapping TypeName="intersystemerpModel.DOCS_CC">
               <MappingFragment StoreEntitySet="DOCS_CC">
+                <ScalarProperty Name="FECHA_PAGADO" ColumnName="FECHA_PAGADO" />
                 <ScalarProperty Name="TIPO" ColumnName="TIPO" />
                 <ScalarProperty Name="DOC_ID" ColumnName="DOC_ID" />
                 <ScalarProperty Name="TIPO_DOC_ID" ColumnName="TIPO_DOC_ID" />

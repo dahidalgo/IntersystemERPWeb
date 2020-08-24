@@ -33,6 +33,7 @@ namespace Inspinia_MVC5.Models
         public Nullable<System.DateTime> FECHA_HORA { get; set; }
         public Nullable<int> ID_BASE { get; set; }
         public string TIPO { get; set; }
+        public Nullable<System.DateTime> FECHA_PAGADO { get; set; }
     
         public virtual CLIENTE CLIENTE { get; set; }
         public virtual FORMA_PAGO FORMA_PAGO { get; set; }
