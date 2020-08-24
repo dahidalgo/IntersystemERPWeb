@@ -378,6 +378,7 @@ namespace Inspinia_MVC5.Controllers
                         dOC1.BALANCE = dOC1.BALANCE - i.MONTO;
                         dOC1.NRO_DOC_PAGADO = dOCS.NRO_DOC;
                         dOC1.ID_PAGADO = dOCS.DOC_ID;
+                        dOC1.FECHA_PAGADO = FECHA_EMISION;
                         db.Entry(dOC1).State = EntityState.Modified;
                         db.SaveChanges();
                         #endregion
@@ -431,6 +432,7 @@ namespace Inspinia_MVC5.Controllers
                         dOC1.BALANCE = dOC1.BALANCE - i.MONTO;
                         dOC1.NRO_DOC_PAGADO = dOCS.NRO_DOC;
                         dOC1.ID_PAGADO = dOCS.DOC_ID;
+                        dOC1.FECHA_PAGADO = FECHA_EMISION;
                         db.Entry(dOC1).State = EntityState.Modified;
                         db.SaveChanges();
                         #endregion
