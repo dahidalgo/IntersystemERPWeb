@@ -367,6 +367,7 @@ namespace Inspinia_MVC5.Controllers
                         dOCS.ID_PAGADO = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == fACTURA.NRO_FACTURA).Select(f => f.DOC_ID).FirstOrDefault();
                         dOCS.FECHA_HORA = DateTime.Now;
                         dOCS.ID_BASE = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == fACTURA.NRO_FACTURA).Select(f => f.DOC_ID).FirstOrDefault();
+                        dOCS.TIPO = "A";
                         db.DOCS_CC.Add(dOCS);
                         db.SaveChanges();
                         #endregion
@@ -421,6 +422,7 @@ namespace Inspinia_MVC5.Controllers
                         dOCS.ID_PAGADO = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == nOTA_CARGO.NRO_NOTA_CARGO).Select(f => f.DOC_ID).FirstOrDefault();
                         dOCS.FECHA_HORA = DateTime.Now;
                         dOCS.ID_BASE = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == nOTA_CARGO.NRO_NOTA_CARGO).Select(f => f.DOC_ID).FirstOrDefault();
+                        dOCS.TIPO = "A";
                         db.DOCS_CC.Add(dOCS);
                         db.SaveChanges();
                         #endregion
