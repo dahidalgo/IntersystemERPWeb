@@ -7212,7 +7212,7 @@ button.close {
 }
 
 .text-decoration-underline {
-  text-decoration: underline !important;
+  text-decoration: none !important;
 }
 
 .text-decoration-line-through {

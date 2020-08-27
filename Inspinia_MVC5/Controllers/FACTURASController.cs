@@ -69,9 +69,19 @@ namespace Inspinia_MVC5.Controllers
                 Selected = Factura.SERIE_DOC_ID == r.SERIE_DOC_ID
             }));
 
+            //Tipo Producto
+            var productoList = new List<SelectListItem>();
+            productoList.Add(new SelectListItem() { Value = "0", Text = "-Elija Producto-", Selected = true });
+            productoList.AddRange(db.PRODUCTO.Where(p => p.ACTIVO == true).Select(p => new SelectListItem()
+            {
+                Value = p.CODIGO_PRODUCTO + "",
+                Text = p.NOMBRE,
+            }));
+
             ViewBag.CLIENTE_ID = clienteList;
             ViewBag.SERIE_DOC_ID = seriesList;
             ViewBag.FECHA_EMISION = DateTime.Now.Date.ToShortDateString();
+            ViewBag.PRODUCTO = productoList;
             ViewBag.USUARIO_ID = new SelectList(db.USUARIO, "USUARIO_ID", "NOMBRE_COMPLETO");
             return View();
         }
@@ -81,7 +91,7 @@ namespace Inspinia_MVC5.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include= "FACTURA_ID,USUARIO_ID,CLIENTE_ID,SERIE_DOC_ID,NRO_FACTURA,FECHA_EMISION,SUBTOTAL,TOTAL,ANULADA,CAUSA_ANULADA,ESTADO_DOC,PAGOS,FECHA_ACTUALIZADO, FECHA_VENCIMIENTO")] FACTURA fACTURA)
+        public ActionResult Create([Bind(Include = "FACTURA_ID,USUARIO_ID,CLIENTE_ID,SERIE_DOC_ID,NRO_FACTURA,FECHA_EMISION,SUBTOTAL,TOTAL,ANULADA,CAUSA_ANULADA,ESTADO_DOC,PAGOS,FECHA_ACTUALIZADO, FECHA_VENCIMIENTO")] FACTURA fACTURA)
         {
             if (ModelState.IsValid)
             {
@@ -144,7 +154,7 @@ namespace Inspinia_MVC5.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="FACTURA_ID,USUARIO_ID,CLIENTE_ID,SERIE_DOC_ID,NRO_FACTURA,FECHA_EMISION,SUBTOTAL,TOTAL,ANULADA,CAUSA_ANULADA,ESTADO_DOC,PAGOS,FECHA_ACTUALIZADO, FECHA_VENCIMIENTO")] FACTURA fACTURA)
+        public ActionResult Edit([Bind(Include = "FACTURA_ID,USUARIO_ID,CLIENTE_ID,SERIE_DOC_ID,NRO_FACTURA,FECHA_EMISION,SUBTOTAL,TOTAL,ANULADA,CAUSA_ANULADA,ESTADO_DOC,PAGOS,FECHA_ACTUALIZADO, FECHA_VENCIMIENTO")] FACTURA fACTURA)
         {
             if (ModelState.IsValid)
             {
@@ -219,6 +229,24 @@ namespace Inspinia_MVC5.Controllers
                 }
             }
             return factnumero;
+        }
+
+        [HttpPost]
+        public (string descripcion, decimal? precio) GetDetalleProducto(int? id)
+        {
+            
+            string descripcion = null;
+            decimal? precio = null;
+
+            if (id.HasValue && id.Value > 0)
+            {
+                
+                PRODUCTO prod = db.PRODUCTO.Find(id);
+                descripcion = prod.DESCRIPCION;
+                precio = prod.PRECIO1;
+            }
+            
+            return(descripcion, precio);
         }
 
         public ActionResult ReportesFacturas()

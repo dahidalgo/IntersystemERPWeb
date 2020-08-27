@@ -91,7 +91,7 @@
 
 .gritter-item a:hover {
     color: #f8ac59;
-    text-decoration: underline;
+    text-decoration: none;
 }
 .gritter-close {
 	display:none;

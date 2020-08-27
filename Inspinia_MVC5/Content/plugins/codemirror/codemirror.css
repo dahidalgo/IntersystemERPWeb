@@ -124,7 +124,7 @@ div.CodeMirror-overwrite div.CodeMirror-cursor {}
 .cm-positive {color: #292;}
 .cm-header, .cm-strong {font-weight: bold;}
 .cm-em {font-style: italic;}
-.cm-link {text-decoration: underline;}
+.cm-link {text-decoration: none;}
 
 .cm-s-default .cm-error {color: #f00;}
 .cm-invalidchar {color: #f00;}

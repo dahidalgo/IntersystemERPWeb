@@ -33,7 +33,7 @@ namespace Inspinia_MVC5
 
             // Bootstrap
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/popper.min.js",
+                     // "~/Scripts/popper.min.js",
                       "~/Scripts/bootstrap.min.js"));
 
             // Inspinia script
