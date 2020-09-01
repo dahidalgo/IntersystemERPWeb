@@ -20,6 +20,7 @@ namespace Inspinia_MVC5.Models
         public Nullable<int> CANTIDAD { get; set; }
         public Nullable<decimal> PRECIO_FACTURA { get; set; }
         public Nullable<bool> ANULADA { get; set; }
+        public string DESCRIPCION { get; set; }
     
         public virtual FACTURA FACTURA { get; set; }
         public virtual PRODUCTO PRODUCTO { get; set; }

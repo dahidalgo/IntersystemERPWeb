@@ -112,10 +112,10 @@
                             <table id="detailsTable" class="table">
                                 <thead>
                                     <tr>
-                                        <th hidden="">Id</th>
-                                        <th style="width: 20%">Cantidad</th>
-                                        <th style="width: 20%">Descripción</th>
-                                        <th style="width: 20%">Monto</th>
+                                        <th hidden>ProductoID</th>
+                                        <th style="width: 5%">Cantidad</th>
+                                        <th style="width: 60%">Descripción</th>
+                                        <th style="width: 5%">Monto</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -132,8 +132,8 @@
                         <div class="col-md-1 col-xs-2">
                             <i class="fad fa-file-alt fa-2x"></i>
                         </div>
-                        <div class="col-md-11 col-xs-10">
-                            <input id="TOTAL" type="number" class="form-control" name="TOTAL" placeholder="Total" value="@ViewBag.TOTAL">
+                        <div class="col-md-4 col-xs-4">
+                            <input id="TOTAL" type="number" class="form-control" name="TOTAL" placeholder="Total" value="0">
                             <span id="TOTAL-error" class="labelError" style="display:none; ">&nbsp;</span>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-md-3">
-                        <button class="btn btn-success" id="guardar" name="guardar"><i class="fad fa-save"></i>&nbsp;Guardar</button>
+                        <button class="btn btn-success" id="guardarFactura" name="guardarFactura"><i class="fad fa-save"></i>&nbsp;Guardar</button>
                     </div>
                     <div class="col-md-3">
                         <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index")' "><i class="fad fa-step-backward"></i>&nbsp;Regresar</button>
@@ -215,11 +215,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-
-        //$("#CANTIDAD").val(551);
-        //$("#DESCRIPCION").val("mi descripcion");
-
-
             // autocomplete
             $(".select2").select2();
             // calendario
@@ -248,7 +243,8 @@
             });
 
             //guardar
-            $("#guardar").click(function () {
+        /*
+        $("#guardar").click(function () {
                 var formValid = true;
                 var codigocte = $('#CODIGO_CLTE').val();
                 var empresa = $('#NOMBRE_CLTE').val();
@@ -300,7 +296,7 @@
                 if (formValid) {
                     $('#formulario').submit();
                 }
-            });
+            });*/
 
             //GetNumeroFactura
             $("#SERIE_DOC_ID").change(function () {
@@ -335,7 +331,6 @@
                             id: idSelected
                         },
                         success: function (response) {
-                            console.log(response);
                             var tuple = response.replace("(", "").replace(")", "").split(",");
                             var descripcion = tuple[0];
                             var precio = tuple[1];
@@ -347,36 +342,37 @@
                         }
                     });
                 }
-                $(this).val(0);
             });
     });
 
     //Boton agregar item recibo detalle
     $("#btnagregar").click(function (e) {
-
+        var total = $('#TOTAL').val();
         var cantidad = $('#CANTIDAD').val();
         var precio = $('#PRECIO_FACTURA').val();
-        var total = "";
-
+        var totalr = "";
         e.preventDefault();
-        if ($("#CANTIDAD").val() == "" || $("#DESCRIPCION").text() == "" || $("#PRECIO_FACTURA").val() == "") return;
 
-        var FACTURA_ID = parseInt($('#DOC_ID').val()),
-            PRODUCTO_ID = parseInt($('#DOC_ID').val()),
-            CANTIDAD = parseInt($("#DOC_ID option:selected").text()),
-            PRECIO_FACTURA = $('#MONTO').val(),
-            DESCRIPCION = parseInt($('#ITEMLIST').val()),
+        if ($("#CANTIDAD").val() == "" || $("#DESCRIPCION").val() == "" || $("#PRECIO_FACTURA").val() == "") return;
+
+        var PRODUCTO_ID = parseInt($('#PRODUCTO').val()),
+            CANTIDAD = parseInt($("#CANTIDAD").val()),
+            PRECIO_FACTURA = parseFloat(CANTIDAD * $('#PRECIO_FACTURA').val()).toFixed(2),
+            DESCRIPCION = $('#DESCRIPCION').val(),
             detailsTableBody = $("#detailsTable tbody");
 
-        var facturaItem = '<tr><td hidden>' + FACTURA_ID + '</td><td>' + PRODUCTO_ID + '</td><td>' + parseInt(CANTIDAD) +
-            '</td><td hidden>' + TIPO_DOC_ID + '</td><td><a data-itemId="0" href="#" class="deleteItem">Quitar</a></td></tr>';
-        detailsTableBody.append(reciboItem);
+        var facturaItem = '<tr><td hidden>' + PRODUCTO_ID + '</td><td style="text-align:left;">' + parseInt(CANTIDAD) +
+            '</td><td>' + DESCRIPCION + '</td><td style="text-align:right;">' + PRECIO_FACTURA + '</td><td><a data-itemId="0" href="#" class="deleteItem">Quitar</a></td></tr>';
+        
+        detailsTableBody.append(facturaItem);
+        
         if (isNaN(total)) {
             total = 0;
         }
-        total = parseFloat(cantidad) * parseFloat(precio);
+        
+        totalr = (parseInt(cantidad) * parseFloat(precio)) + parseFloat(total);
         $("#TOTAL").val('');
-        $("#TOTAL").val(total);
+        $("#TOTAL").val(parseFloat(totalr).toFixed(2));
         clearItem();
 
     });
@@ -396,12 +392,64 @@
         if ($(this).attr('data-itemId') == "0") {
 
             $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
-                var monto = $(this).find('td').eq(2).text();
+                var monto = $(this).find('td').eq(3).text();
                 TOTAL = parseFloat(TOTAL) - parseFloat(monto);
-                $("#TOTAL").val(TOTAL);
+                $("#TOTAL").val(parseFloat(TOTAL).toFixed(2));
                 $(this).remove();
             });
         }
+    });
+
+    //After Click Save Button Pass All Data View To Controller For Save Database
+    function guardarFactura(data) {
+        return $.ajax({
+            contentType: 'application/json',
+            dataType: 'JSON',
+            type: 'POST',
+            url: "/Facturas/GuardarFactura",
+            data: JSON.stringify(data),
+            success: function (result) {
+                alert(result);
+                location.reload();
+            },
+            error: function () {
+                alert("Error!!");
+            }
+        });
+    }
+
+    //Collect Multiple Order List For Pass To Controller
+    $("#guardarFactura").click(function (e) {
+        e.preventDefault();
+
+        var facturaDetArr = [];
+        facturaDetArr.length = 0;
+
+        $.each($("#detailsTable tbody tr"), function () {
+            facturaDetArr.push({
+                PRODUCTO_ID: $(this).find('td:eq(0)').html(),
+                CANTIDAD: $(this).find('td:eq(1)').html(),
+                DESCRIPCION: $(this).find('td:eq(2)').html(),
+                PRECIO_FACTURA: $(this).find('td:eq(3)').html()
+            });
+        });
+
+        console.log(facturaDetArr);
+        var data = {
+            FECHA_EMISION: $('#FECHA_EMISION').val(),
+            SERIE_DOC_ID: $('#SERIE_DOC_ID').val(),
+            NRO_FACTURA: $('#NRO_FACTURA').val(),
+            CLIENTE_ID: $('#CLIENTE_ID').val(),
+            TOTAL: $('#TOTAL').val(),
+            FECHA_VENCIMIENTO: $('#FECHA_VENCIMIENTO').val(),
+            facturaDetalle: facturaDetArr
+        }
+
+        $.when(guardarFactura(data)).then(function (response) {
+            console.log(response);
+        }).fail(function (err) {
+            console.log(err);
+        });
     });
 </script>
 }

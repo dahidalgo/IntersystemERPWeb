@@ -55,7 +55,7 @@ namespace Inspinia_MVC5.Controllers
             clienteList.AddRange(db.CLIENTE.Select(r => new SelectListItem()
             {
                 Value = r.CLIENTE_ID + "",
-                Text = r.NOMBRE_CLTE,
+                Text = r.CLIENTE_ID + " - " + r.NOMBRE_CLTE,
                 Selected = Factura.CLIENTE_ID == r.CLIENTE_ID
             }));
 
@@ -83,53 +83,11 @@ namespace Inspinia_MVC5.Controllers
             ViewBag.FECHA_EMISION = DateTime.Now.Date.ToShortDateString();
             ViewBag.PRODUCTO = productoList;
             ViewBag.USUARIO_ID = new SelectList(db.USUARIO, "USUARIO_ID", "NOMBRE_COMPLETO");
+            ViewBag.FECHA_VENCIMIENTO = DateTime.Today.ToShortDateString();
             return View();
         }
 
-        // POST: /FACTURAS/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FACTURA_ID,USUARIO_ID,CLIENTE_ID,SERIE_DOC_ID,NRO_FACTURA,FECHA_EMISION,SUBTOTAL,TOTAL,ANULADA,CAUSA_ANULADA,ESTADO_DOC,PAGOS,FECHA_ACTUALIZADO, FECHA_VENCIMIENTO")] FACTURA fACTURA)
-        {
-            if (ModelState.IsValid)
-            {
-                fACTURA.USUARIO_ID = 1;
-                fACTURA.ANULADA = false;
-                fACTURA.ESTADO_DOC = false;
-                fACTURA.SUBTOTAL = fACTURA.TOTAL;
-                fACTURA.PAGOS = 0;
-                db.FACTURA.Add(fACTURA);
-                db.SaveChanges();
-
-                DOCS_CC docs_cc = new DOCS_CC();
-                SERIE_DOCUMENTO sERIE = db.SERIE_DOCUMENTO.Find(fACTURA.SERIE_DOC_ID);
-                docs_cc.TIPO_DOC_ID = sERIE.TIPO_DOC_ID;
-                docs_cc.USUARIO_ID = 1;
-                docs_cc.CLIENTE_ID = fACTURA.CLIENTE_ID;
-                docs_cc.NRO_DOC = fACTURA.NRO_FACTURA;
-                docs_cc.FECHA_EMISION = fACTURA.FECHA_EMISION;
-                docs_cc.MONTO_DOC = fACTURA.TOTAL;
-                docs_cc.MONTO_PARCIAL = fACTURA.TOTAL;
-                docs_cc.FECHA_HORA = DateTime.Now;
-                docs_cc.TIPO = "C";
-                docs_cc.DESC_DOC = "Factura No. " + fACTURA.NRO_FACTURA;
-                docs_cc.FECHA_VENCIMIENTO = fACTURA.FECHA_VENCIMIENTO;
-                docs_cc.NRO_PAGOS = 0;
-                docs_cc.BALANCE = fACTURA.TOTAL;
-                docs_cc.ID_ORIGEN = db.FACTURA.Where(f => f.NRO_FACTURA == fACTURA.NRO_FACTURA).Select(f => f.FACTURA_ID).FirstOrDefault();
-                db.DOCS_CC.Add(docs_cc);
-                db.SaveChanges();
-
-                return RedirectToAction("Create");
-            }
-
-            ViewBag.CLIENTE_ID = new SelectList(db.CLIENTE, "CLIENTE_ID", "NOMBRE_CLTE", fACTURA.CLIENTE_ID);
-            ViewBag.SERIE_DOC_ID = new SelectList(db.SERIE_DOCUMENTO, "SERIE_DOC_ID", "SERIE", fACTURA.SERIE_DOC_ID);
-            ViewBag.USUARIO_ID = new SelectList(db.USUARIO, "USUARIO_ID", "NOMBRE_COMPLETO", fACTURA.USUARIO_ID);
-            return View(fACTURA);
-        }
+        
 
         // GET: /FACTURAS/Edit/5
         public ActionResult Edit(int? id)
@@ -202,6 +160,72 @@ namespace Inspinia_MVC5.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [HttpPost]
+        public ActionResult GuardarFactura(DateTime FECHA_EMISION, int SERIE_DOC_ID, int NRO_FACTURA, int CLIENTE_ID, decimal TOTAL, DateTime FECHA_VENCIMIENTO, 
+            FACTURA_DETALLE[] facturaDetalle)
+        {
+            string result = "Error! Factura no completado!";
+
+            if(NRO_FACTURA != null)
+            {
+                FACTURA model = new FACTURA();
+                model.USUARIO_ID = 1;
+                model.CLIENTE_ID = CLIENTE_ID;
+                model.SERIE_DOC_ID = SERIE_DOC_ID;
+                model.NRO_FACTURA = NRO_FACTURA;
+                model.FECHA_EMISION = FECHA_EMISION;
+                model.SUBTOTAL = TOTAL;
+                model.TOTAL = TOTAL;
+                model.ANULADA = false;
+                model.ESTADO_DOC = false;
+                model.PAGOS = 0;
+                db.FACTURA.Add(model);
+                db.SaveChanges();
+
+                DOCS_CC docs_cc = new DOCS_CC();
+                SERIE_DOCUMENTO sERIE = db.SERIE_DOCUMENTO.Find(SERIE_DOC_ID);
+                docs_cc.TIPO_DOC_ID = sERIE.TIPO_DOC_ID;
+                docs_cc.USUARIO_ID = 1;
+                docs_cc.CLIENTE_ID = CLIENTE_ID;
+                docs_cc.NRO_DOC = NRO_FACTURA;
+                docs_cc.FECHA_EMISION = FECHA_EMISION;
+                docs_cc.MONTO_DOC = TOTAL;
+                docs_cc.MONTO_PARCIAL = TOTAL;
+                docs_cc.FECHA_HORA = DateTime.Now;
+                docs_cc.TIPO = "C";
+                docs_cc.DESC_DOC = "Factura No. " + NRO_FACTURA;
+                docs_cc.FECHA_VENCIMIENTO = FECHA_VENCIMIENTO;
+                docs_cc.NRO_PAGOS = 0;
+                docs_cc.BALANCE = TOTAL;
+                docs_cc.ID_ORIGEN = db.FACTURA.Where(f => f.NRO_FACTURA == NRO_FACTURA).Select(f => f.FACTURA_ID).FirstOrDefault();
+                db.DOCS_CC.Add(docs_cc);
+                db.SaveChanges();
+
+                foreach (var i in facturaDetalle)
+                {
+                    FACTURA_DETALLE facDetalle = new FACTURA_DETALLE();
+                    facDetalle.FACTURA_ID = docs_cc.ID_ORIGEN;
+                    facDetalle.PRODUCTO_ID = i.PRODUCTO_ID;
+                    facDetalle.CANTIDAD = i.CANTIDAD;
+                    facDetalle.PRECIO_FACTURA = i.PRECIO_FACTURA;
+                    facDetalle.DESCRIPCION = i.DESCRIPCION;
+                    facDetalle.ANULADA = false;
+                    db.FACTURA_DETALLE.Add(facDetalle);
+                    db.SaveChanges();
+
+                    PRODUCTO producto = db.PRODUCTO.Find(i.PRODUCTO_ID);
+                    producto.FECHA_ULTIMA_VENTA = FECHA_EMISION;
+                    db.Entry(producto).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                result = "Factura guardada con éxito!";
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public int? GetNumeroFactura(int? id)
         {
