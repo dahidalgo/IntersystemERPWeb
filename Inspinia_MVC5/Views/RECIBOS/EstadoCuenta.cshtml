@@ -1,0 +1,49 @@
+﻿@using System.Globalization
+@using BoldReports.Linq
+@model IEnumerable<Inspinia_MVC5.Models.EstadoCuenta>
+@{
+    ViewBag.Title = "Estado de Cuenta";
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+}
+
+<input type="hidden" name="fechaDesde" value="@ViewBag.fechaDesde"/>
+<input type="hidden" name="fechaHasta" value="@ViewBag.fechaHasta" />
+
+<table id="ReporteFacturas" class="table table-bordered table-responsive">
+    <thead>
+    <tr>
+        <th class="title" style="text-align: center;" colspan="4">
+            <h3>DH Y ASOCIADOS</h3><br/>
+            <h3>ESTADO DE CUENTA CLIENTES</h3><br/>
+            <h3>DEL: @ViewBag.FechaDesde AL: @ViewBag.FechaHasta</h3>
+        </th>
+    </tr>
+    <tr>
+        <td style="font-weight: bold" colspan="4">CLIENTE: @ViewBag.Cliente</td>
+    </tr>
+    <tr style="background-color:#9fa1a4">
+        <th class="title" style="text-align: center; max-width:5%;">NUMERO</th>
+        <th class="title" style="text-align: center; max-width:10%;">DESCRIPCION</th>
+        <th class="title" style="text-align: center; max-width:10%;">EMISION</th>
+        <th class="title" style="text-align: center; max-width:10%;">MONTO</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align:center">@Html.DisplayFor(modelItem => item.NRO_DOC)</td>
+            <td style="text-align:left">@Html.DisplayFor(modelItem => item.DESC_DOC)</td>
+            @{var fecha = item.FECHA_EMISION.Value.ToString("dd/MM/yyyy");}
+            <td style="text-align:center">@Html.DisplayFor(modelItem => fecha)</td>
+            <td style="text-align: right">@Html.DisplayFor(modelItem => item.MONTO)</td>
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="3" style="background-color: gray; text-align: right; font-weight: bold;">BALANCE TOTAL</td>
+        <td style="text-align: right; font-weight: bold">@String.Format("{0:#,0.00}", Model.Sum(f => f.MONTO))</td>
+    </tr>
+    </tfoot>
+</table>

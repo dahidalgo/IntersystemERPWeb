@@ -162,6 +162,7 @@
           <Property Name="CANTIDAD" Type="int" />
           <Property Name="PRECIO_FACTURA" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ANULADA" Type="bit" />
+          <Property Name="DESCRIPCION" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="FORMA_PAGO">
           <Key>
@@ -1112,6 +1113,7 @@
           <Property Name="ANULADA" Type="Boolean" />
           <NavigationProperty Name="FACTURA" Relationship="Self.FK_FACTURA__REFERENCE_FACTURA" FromRole="FACTURA_DETALLE" ToRole="FACTURA" />
           <NavigationProperty Name="PRODUCTO" Relationship="Self.FK_FACTURA__REFERENCE_PRODUCTO" FromRole="FACTURA_DETALLE" ToRole="PRODUCTO" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="FORMA_PAGO">
           <Key>
@@ -2051,6 +2053,7 @@
           <EntitySetMapping Name="FACTURA_DETALLE">
             <EntityTypeMapping TypeName="intersystemerpModel.FACTURA_DETALLE">
               <MappingFragment StoreEntitySet="FACTURA_DETALLE">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="DETALLE_ID" ColumnName="DETALLE_ID" />
                 <ScalarProperty Name="FACTURA_ID" ColumnName="FACTURA_ID" />
                 <ScalarProperty Name="PRODUCTO_ID" ColumnName="PRODUCTO_ID" />

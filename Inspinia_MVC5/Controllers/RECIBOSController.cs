@@ -566,5 +566,50 @@ namespace Inspinia_MVC5.Controllers
 
             return PartialView("RecibosPorCliente", consulta.ToList());
         }
+
+        public PartialViewResult EstadoCuentaPorCliente(FormCollection collection)
+        {
+            ViewBag.fecha = DateTime.Today.ToShortDateString();
+            DateTime? fechainicio = String.IsNullOrEmpty(collection["fechaDesde"]) ? (DateTime?)null : DateTime.ParseExact(collection["fechaDesde"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime? fechafin = String.IsNullOrEmpty(collection["fechaHasta"]) ? (DateTime?)null : DateTime.ParseExact(collection["fechaHasta"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            int cliente;
+
+            if (!collection.AllKeys.Contains("cliente") || string.IsNullOrEmpty(collection["cliente"]))
+                cliente = 0;
+            else
+                cliente = Convert.ToInt32(collection["cliente"]);
+
+            var consulta = (from d in db.DOCS_CC
+                            join c in db.CLIENTE on d.CLIENTE_ID equals c.CLIENTE_ID
+                            orderby d.FECHA_EMISION
+                            select new EstadoCuenta
+                            {
+                                CLIENTE_ID = c.CLIENTE_ID,
+                                CODIGO_CLTE = c.CODIGO_CLTE,
+                                NOMBRE_CLTE = c.NOMBRE_CLTE,
+                                NRO_DOC = d.NRO_DOC,
+                                FECHA_EMISION = d.FECHA_EMISION,
+                                DESC_DOC = d.DESC_DOC,
+                                MONTO = (d.TIPO_DOC_ID == 1 || d.TIPO_DOC_ID == 3 ? d.MONTO_DOC : (d.MONTO_DOC * -1))
+                            });
+
+            if (fechainicio != null && fechafin != null)
+            {
+                consulta = consulta.Where(r => r.FECHA_EMISION >= fechainicio && r.FECHA_EMISION <= fechafin);
+            }
+
+
+            if (cliente != 0)
+            {
+                consulta = consulta.Where(r => r.CLIENTE_ID == cliente);
+            }
+
+            ViewBag.FechaDesde = fechainicio.HasValue ? fechainicio.Value.ToShortDateString() : consulta.OrderBy(c => c.FECHA_EMISION).Select(c => c.FECHA_EMISION).FirstOrDefault().Value.ToShortDateString();
+            ViewBag.FechaHasta = fechafin.HasValue ? fechafin.Value.ToShortDateString() : consulta.OrderByDescending(c => c.FECHA_EMISION).Select(c => c.FECHA_EMISION).FirstOrDefault().Value.ToShortDateString();
+            ViewBag.Cliente = db.CLIENTE.Where(c => c.CLIENTE_ID == cliente).Select(c => c.NOMBRE_CLTE)
+                .FirstOrDefault();
+
+            return PartialView("EstadoCuenta", consulta.ToList());
+        }
     }
 }

@@ -49,13 +49,10 @@
                     </table>
                 </div>
             </div>
-        </div>
-        
-        <!--Columna 2-->
-        <div class="col-lg-4">
-                <div class="ibox float-e-margins collapsed">
+                        
+            <div class="ibox float-e-margins collapsed">
                     <div class="ibox-title">
-                        <h5>Recibos por Cliente</h5>
+                        <h5>Estado de Cuenta por Cliente</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -67,7 +64,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @using (Html.BeginForm("RecibosPorCliente", "RECIBOS", FormMethod.Post, new { target = "_blank" }))
+                                        @using (Html.BeginForm("EstadoCuentaPorCliente", "RECIBOS", FormMethod.Post, new { target = "_blank" }))
                                         {
                                             <p>
                                                 <label>Fecha Desde:&nbsp; </label>
@@ -97,50 +94,99 @@
                         </table>
                     </div>
                 </div>
-            </div>
-        <!--Columna 3-->
+            
+        </div>
+
+        <!--Columna 2-->
         <div class="col-lg-4">
-                <div class="ibox float-e-margins collapsed">
-                    <div class="ibox-title">
-                        <h5>Saldos por Fecha</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                        <table class="footable table table-stripped toggle-arrow-tiny">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        @using (Html.BeginForm("ReporteSaldos", "RECIBOS", FormMethod.Post, new { target = "_blank" }))
-                                        {
-                                            <p>
-                                                <label>Fecha Desde:&nbsp; </label>
-                                                <div class="input-group date">
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                    <input id="fechaDesde" name="fechaDesde" type="text" placeholder="Fecha Desde" class="form-control">
-                                                </div>
-                                            </p>
-                                            <p>
-                                                <label>Fecha Hasta:&nbsp; </label>
-                                                <div class="input-group date">
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                    <input id="fechaHasta" name="fechaHasta" type="text" placeholder="Fecha Hasta" class="form-control">
-                                                </div>
-                                            </p>
-                                            <p>&nbsp;</p>
-                                            <input type="submit" class="btn btn-info btn-block" value="Generar Reporte" />
-                                        }
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+            <div class="ibox float-e-margins collapsed">
+                <div class="ibox-title">
+                    <h5>Recibos por Cliente</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
                     </div>
                 </div>
+                <div class="ibox-content">
+                    <table class="footable table table-stripped toggle-arrow-tiny">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @using (Html.BeginForm("RecibosPorCliente", "RECIBOS", FormMethod.Post, new { target = "_blank" }))
+                                    {
+                                        <p>
+                                            <label>Fecha Desde:&nbsp; </label>
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input id="fechaDesde" name="fechaDesde" type="text" placeholder="Fecha Desde" class="form-control">
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <label>Fecha Hasta:&nbsp; </label>
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input id="fechaHasta" name="fechaHasta" type="text" placeholder="Fecha Hasta" class="form-control">
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <label>Seleccione cliente: &nbsp;&nbsp;</label>
+                                            @Html.DropDownList("cliente", null, htmlAttributes: new { @class = "form-control select2", style = "width: 100%; float:left;" })
 
+                                        </p>
+                                        <p>&nbsp;</p>
+                                        <input type="submit" class="btn btn-info btn-block" value="Generar Reporte" />
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+        </div>
+        <!--Columna 3-->
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins collapsed">
+                <div class="ibox-title">
+                    <h5>Saldos por Fecha</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table class="footable table table-stripped toggle-arrow-tiny">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @using (Html.BeginForm("ReporteSaldos", "RECIBOS", FormMethod.Post, new { target = "_blank" }))
+                                    {
+                                        <p>
+                                            <label>Fecha Desde:&nbsp; </label>
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input id="fechaDesde" name="fechaDesde" type="text" placeholder="Fecha Desde" class="form-control">
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <label>Fecha Hasta:&nbsp; </label>
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input id="fechaHasta" name="fechaHasta" type="text" placeholder="Fecha Hasta" class="form-control">
+                                            </div>
+                                        </p>
+                                        <p>&nbsp;</p>
+                                        <input type="submit" class="btn btn-info btn-block" value="Generar Reporte" />
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
 
