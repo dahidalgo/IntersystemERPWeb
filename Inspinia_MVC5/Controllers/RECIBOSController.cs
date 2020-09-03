@@ -56,7 +56,7 @@ namespace Inspinia_MVC5.Controllers
             clienteList.AddRange(db.CLIENTE.Select(r => new SelectListItem()
             {
                 Value = r.CLIENTE_ID + "",
-                Text = r.NOMBRE_CLTE,
+                Text = r.CLIENTE_ID + " - " + r.NOMBRE_CLTE,
                 Selected = Recibo.CLIENTE_ID == r.CLIENTE_ID
             }));
 
