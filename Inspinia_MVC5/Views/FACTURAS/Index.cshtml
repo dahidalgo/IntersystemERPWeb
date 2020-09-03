@@ -40,7 +40,7 @@
                 <h5>Facturado</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins">@ViewBag.Total_Anio</h1>
+                <h1 class="no-margins">@String.Format("{0:#,0.00}", ViewBag.Total_Anio)</h1>
                 <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
                 <small>Total del año</small>
             </div>
@@ -59,7 +59,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3">
+    @*<div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title">
                 <span class="label label-danger float-right">Low value</span>
@@ -71,7 +71,7 @@
                 <small>In first month</small>
             </div>
         </div>
-    </div>
+    </div>*@
 </div>
 
 <div class="row">
@@ -94,7 +94,7 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
+                            <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.NRO_FACTURA)
                             </td>
@@ -110,10 +110,7 @@
                             </td>
                             <td class="text-right">
                                 <div class="btn-group">
-                                    @*<button class="btn-white btn btn-xs"
-                        onclick="location.href = '@Url.Action("Edit", new { id = item.FACTURA_ID })' ">
-                    <span class="fad fa-edit"></span>&nbsp;Editar
-                </button>*@
+                                   
                                     <button class="btn-white btn btn-xs"
                                             onclick="location.href = '@Url.Action("Details", new { id = item.FACTURA_ID })' ">
                                         <span class="fad fa-search"></span>&nbsp;Detalle
@@ -122,14 +119,14 @@
                                             onclick="location.href = '@Url.Action("Delete", new { id = item.FACTURA_ID })' ">
                                         <span class="fad fa-eraser"></span>&nbsp;Anular
                                     </button>
-                                    <button class="btn-white btn btn-xs"
-                                            onclick="location.href = '@Url.Action("Imprimir", new { id = item.FACTURA_ID })' ">
+                                    <button class="btn-white btn btn-xs" 
+                                            onclick="location.href = '@Url.Action("ImprimirFactura", "FACTURAS", new { id = item.FACTURA_ID })'" formtarget="_blank">
                                         <span class="fad fa-print"></span>&nbsp;Imprimir
                                     </button>
-                                    <button class="btn-white btn btn-xs"
+                                    @*<button class="btn-white btn btn-xs"
                                             onclick="location.href = '@Url.Action("Delete", new { id = item.FACTURA_ID })' ">
                                         <span class="fad fa-cash-register"></span>&nbsp;Pagar
-                                    </button>
+                                    </button>*@
                                 </div>
 
                             </td>

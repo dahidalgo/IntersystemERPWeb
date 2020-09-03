@@ -389,5 +389,12 @@ namespace Inspinia_MVC5.Controllers
 
             return PartialView("FacturasPorCliente", consulta.ToList());
         }
+
+        public ViewResult ImprimirFactura(int id)
+        {
+            FACTURA factura = db.FACTURA.Find(id);
+            ViewBag.fecha = factura.FECHA_EMISION.Value.ToShortDateString();
+            return View(factura);
+        }
     }
 }
