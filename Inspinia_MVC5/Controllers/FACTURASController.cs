@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Inspinia_MVC5.Models;
+using Syncfusion.Pdf.Parsing;
 
 namespace Inspinia_MVC5.Controllers
 {
@@ -147,8 +149,8 @@ namespace Inspinia_MVC5.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             FACTURA fACTURA = db.FACTURA.Find(id);
-            db.FACTURA.Remove(fACTURA);
-            db.SaveChanges();
+            //db.FACTURA.Remove(fACTURA);
+            //db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -395,6 +397,65 @@ namespace Inspinia_MVC5.Controllers
             FACTURA factura = db.FACTURA.Find(id);
             ViewBag.fecha = factura.FECHA_EMISION.Value.ToShortDateString();
             return View(factura);
+        }
+
+        public ActionResult InvoicePrint(int id)
+        {
+            FACTURA factura = db.FACTURA.Find(id);
+            return View(factura);
+        }
+
+        [HttpPost]
+        public ActionResult AnularFactura(int id, FormCollection collection )
+        {
+            string result = "Error!";
+            FACTURA factura = db.FACTURA.Find(id);
+            factura.SUBTOTAL = 0;
+            factura.TOTAL = 0;
+            factura.ANULADA = true;
+            factura.CAUSA_ANULADA = collection["CAUSA_ANULADA"];
+            factura.ESTADO_DOC = false;
+            factura.PAGOS = 0;
+            factura.FECHA_ACTUALIZADO = DateTime.Today;
+            db.Entry(factura).State = EntityState.Modified;
+            db.SaveChanges();
+
+            var docsID = db.DOCS_CC.Where(d => d.NRO_DOC == factura.NRO_FACTURA && d.TIPO_DOC_ID == 1).Select(d => d.DOC_ID).FirstOrDefault();
+            DOCS_CC docs = db.DOCS_CC.Find(docsID);
+            docs.MONTO_DOC = 0;
+            docs.MONTO_PARCIAL = 0;
+            docs.NRO_PAGOS = 0;
+            docs.BALANCE = 0;
+            db.Entry(docs).State = EntityState.Modified;
+            db.SaveChanges();
+
+            var facDetalle = from d in db.FACTURA_DETALLE where d.FACTURA_ID == id select d;
+            
+            foreach (FACTURA_DETALLE fdDetalle in facDetalle)
+            {
+                SqlConnection connection = new SqlConnection(db.Database.Connection.ConnectionString);
+                using (var cmd = new SqlCommand(String.Empty, connection))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText =
+                        "UPDATE FACTURA_DETALLE SET ANULADA = 1 WHERE DETALLE_ID = @DETALLE_ID";
+                    cmd.Parameters.AddWithValue("@DETALLE_ID", fdDetalle.DETALLE_ID);
+                    try
+                    {
+                        connection.Open();
+                        cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                    catch (SqlException e)
+                    {
+                        result = e.ToString();
+                        return Json(result, JsonRequestBehavior.AllowGet);
+                    }
+                }
+            }
+
+            result = "Factura anulada con éxito!";
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

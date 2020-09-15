@@ -10064,6 +10064,7 @@
     <Content Include="Views\RECIBOS\RecibosPorCliente.cshtml" />
     <Content Include="Views\RECIBOS\EstadoCuenta.cshtml" />
     <Content Include="Views\FACTURAS\ImprimirFactura.cshtml" />
+    <Content Include="Views\FACTURAS\InvoicePrint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

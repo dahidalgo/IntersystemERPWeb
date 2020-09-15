@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Inspinia_MVC5.Models.FACTURA
+@{
     Layout = null;
 }
 
@@ -9,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Invoice Print</title>
+    <title>IntersystemERP | Imprimir Factura</title>
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -24,28 +25,27 @@
         <div class="ibox-content p-xl">
             <div class="row">
                 <div class="col-sm-6">
-                    <h5>From:</h5>
+                    <h5>De:</h5>
                     <address>
-                        <strong>Inspinia, Inc.</strong><br>
-                        106 Jorg Avenu, 600/10<br>
-                        Chicago, VT 32456<br>
-                        <abbr title="Phone">P:</abbr> (123) 601-4590
+                        <strong>D.H. & Asociados, S.A.</strong><br>
+                        7a. Av. 1-20, Zona 4, Torre Café,<br>
+                        Oficina 640, Nivel 6<br>
+                        <abbr title="Phone">Tel:</abbr> 2331-9821 <br/>
+                        <abbr title="Email">Correo:</abbr> gerencia@dhyasociados.com
                     </address>
                 </div>
 
                 <div class="col-sm-6 text-right">
-                    <h4>Invoice No.</h4>
-                    <h4 class="text-navy">INV-000567F7-00</h4>
-                    <span>To:</span>
+                    <h4>Factura No.</h4>
+                    <h4 class="text-navy">@Model.SERIE_DOCUMENTO.SERIE - @Model.NRO_FACTURA</h4>
+                    <span>Para:</span>
                     <address>
-                        <strong>Corporate, Inc.</strong><br>
-                        112 Street Avenu, 1080<br>
-                        Miami, CT 445611<br>
-                        <abbr title="Phone">P:</abbr> (120) 9000-4321
+                        <strong>@Model.CLIENTE.NOMBRE_CLTE</strong><br>
+                        @Model.CLIENTE.DIRECCION<br>
+                        <abbr title="Nit">NIT:</abbr> @Model.CLIENTE.NIT
                     </address>
                     <p>
-                        <span><strong>Invoice Date:</strong> Marh 18, 2014</span><br />
-                        <span><strong>Due Date:</strong> March 24, 2014</span>
+                        <span><strong>Fecha:</strong> @Model.FECHA_EMISION.Value.ToShortDateString()</span><br />
                     </p>
                 </div>
             </div>
