@@ -113,13 +113,14 @@
                                 </div>
                                 <table id="detailsTable" class="table">
                                     <thead>
-                                    <tr>
-                                        <th hidden="">Id</th>
-                                        <th style="width: 20%">Doc. No.</th>
-                                        <th style="width: 20%">Valor</th>
-                                        <th style="width: 10%" hidden="">Tipo</th>
-                                        <th></th>
-                                    </tr>
+                                        <tr>
+                                            <th hidden="">Id</th>
+                                            <th style="width: 20%">Doc. No.</th>
+                                            <th style="width: 30%">Descripción</th>
+                                            <th style="width: 20%">Valor</th>
+                                            <th style="width: 10%" hidden="">Tipo</th>
+                                            <th></th>
+                                        </tr>
                                     </thead>
                                     <tbody></tbody>
                                 </table>
@@ -380,11 +381,21 @@
 
         var FACTURA_ID = parseInt($('#DOC_ID').val()),
             DOC_NRO = parseInt($("#DOC_ID option:selected").text()),
-            monto = $('#MONTO').val(),
+            DESCRIPCION = $('#OTRO_DESC').val();
+            monto = parseFloat($('#MONTO').val()).toFixed(2) ,
             TIPO_DOC_ID = parseInt($('#ITEMLIST').val()),
             detailsTableBody = $("#detailsTable tbody");
 
-        var reciboItem = '<tr><td hidden>' + FACTURA_ID + '</td><td>' + DOC_NRO + '</td><td>' + parseFloat(monto) +
+        if (TIPO_DOC_ID == 1) {
+            DESCRIPCION = "Pago de factura No. " + DOC_NRO;
+        } else if (TIPO_DOC_ID == 3) {
+            DESCRIPCION = "Pago de nota de cargo No. " + DOC_NRO;
+        } else if (TIPO_DOC_ID == 4) {
+            FACTURA_ID = "";
+            DOC_NRO = "";
+        }
+
+        var reciboItem = '<tr><td hidden>' + FACTURA_ID + '</td><td>' + DOC_NRO + '</td><td>' + DESCRIPCION + '</td><td>' + parseFloat(monto).toFixed(2) +
             '</td><td hidden>' + TIPO_DOC_ID + '</td><td><a data-itemId="0" href="#" class="deleteItem">Quitar</a></td></tr>';
         detailsTableBody.append(reciboItem);
         if (isNaN(total)) {
@@ -392,7 +403,7 @@
         }
         totalr = parseFloat(total) + parseFloat(monto);
         $("#TOTAL").val('');
-        $("#TOTAL").val(totalr);
+        $("#TOTAL").val(parseFloat(totalr).toFixed(2));
         clearItem();
 
     });
@@ -449,8 +460,9 @@
             reciboDetArr.push({
                 FACTURA_ID: $(this).find('td:eq(0)').html(),
                 DOC_NRO: $(this).find('td:eq(1)').html(),
-                MONTO: parseFloat($(this).find('td:eq(2)').html()),
-                TIPO_DOC_ID: $(this).find('td:eq(3)').html()
+                DESCRIPCION: $(this).find('td:eq(2)').html(),
+                MONTO: parseFloat($(this).find('td:eq(3)').html()),
+                TIPO_DOC_ID: $(this).find('td:eq(4)').html()
             });
         });
 
