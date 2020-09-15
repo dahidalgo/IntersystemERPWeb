@@ -1,0 +1,51 @@
+﻿@using System.Globalization
+@using BoldReports.Linq
+@model Inspinia_MVC5.Models.FACTURA
+@{
+    ViewBag.Title = "Impresion de Factura";
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+}
+
+<table border="1" style="width:400px">
+    <tr>
+        <td>
+            @ViewBag.fecha
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Model.CLIENTE.NOMBRE_CLTE
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Model.CLIENTE.DIRECCION
+        </td>
+        <td>
+            @Model.CLIENTE.NIT
+        </td>
+    </tr>
+</table>
+
+
+<table>
+    @foreach(var item in Model.FACTURA_DETALLE.Where(i => i.FACTURA_ID == Model.FACTURA_ID))
+    {
+        var facturaDetalle = "facturaDetalle" + item.DETALLE_ID;
+        <tr id="@facturaDetalle">
+            <td>
+                @Html.DisplayFor(modelItem => item.DESCRIPCION)
+            </td>
+            <td>
+                @String.Format("{0:C}", item.PRECIO_FACTURA)
+            </td>
+        </tr>
+    }
+<tfoot>
+    <tr>
+        <td colspan="2" style="text-align:right">
+            @String.Format("{0:C}", Model.TOTAL)
+        </td>
+    </tr>
+</tfoot>
+</table>

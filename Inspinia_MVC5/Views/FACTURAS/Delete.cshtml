@@ -1,153 +1,126 @@
 ﻿@model Inspinia_MVC5.Models.FACTURA
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Anular Factura";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Delete</h2>
-        <ol class="breadcrumb">
-            <li>
-                @Html.ActionLink("List", "Index")
-            </li>
-            <li class="active">
-                <strong>Delete</strong>
-            </li>
-        </ol>
+    <div class="col-lg-8">
+        <h2>Anular Factura</h2>
     </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary"})
-        </div>
-    </div>
-</div>
-
-
-<div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>FACTURA</h5>
-                </div>
-                <div class="ibox-content">
-				<h4 class="text-danger">Are you sure you want to delete this?</h4>
-				 <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NRO_FACTURA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NRO_FACTURA)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FECHA_EMISION)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FECHA_EMISION)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SUBTOTAL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SUBTOTAL)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TOTAL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TOTAL)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ANULADA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ANULADA)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CAUSA_ANULADA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CAUSA_ANULADA)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ESTADO_DOC)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ESTADO_DOC)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PAGOS)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PAGOS)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FECHA_ACTUALIZADO)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FECHA_ACTUALIZADO)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CLIENTE.NOMBRE_CLTE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CLIENTE.NOMBRE_CLTE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SERIE_DOCUMENTO.SERIE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SERIE_DOCUMENTO.SERIE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.USUARIO.NOMBRE_COMPLETO)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.USUARIO.NOMBRE_COMPLETO)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-primary" />
-            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-white"})
+        <div class="col-lg-8">
+            <div class="bg-danger p-xs b-r-sm ">¿Está seguro de anular este registro?</div>
         </div>
-    }
-
-
-
-                </div>
+        <div class="col-lg-4">
+            <div class="title">
+                <a href='@Url.Action("Index")' class="btn btn-success"><i class="fad fa-step-backward"></i> Regresar </a>
+                <button class="btn btn-danger" id="anularFactura" name="anularFactura"><i class="fad fa-eraser"></i>&nbsp;Anular</button>
             </div>
         </div>
     </div>
- </div>
+    
+</div>
 
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox-content p-xl">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5>De:</h5>
+                <address>
+                    <strong>DH & Asociados, S.A.</strong><br>
+                    7a. Avenida 1-20 Zona 4, Torre Café, Of. 640<br>
+                    Guatemala, Guatemala<br>
+                    <abbr title="Phone">Tel:</abbr> 2331-9821, 2331-9461<br>
+                    <abbr title="Mail">E-Mail:</abbr> gerencia@dhyasociados.com
+                </address>
+            </div>
 
+            <div class="col-sm-6 text-right">
+                <h4>Factura No.</h4>
+                <input id="ID_FACTURA" name="ID_FACTURA" value="@Model.FACTURA_ID" hidden=""/>
+                <h4 class="text-navy">@Model.SERIE_DOCUMENTO.SERIE - @Model.NRO_FACTURA</h4>
+                <span>Para:</span>
+                <address>
+                    <strong>@Model.CLIENTE.NOMBRE_CLTE</strong><br>
+                    @Model.CLIENTE.DIRECCION<br>
+                    <abbr title="Nit">NIT:</abbr> @Model.CLIENTE.NIT
+                </address>
+                <p>
+                    <span><strong>Fecha:</strong> @Model.FECHA_EMISION.Value.ToShortDateString()</span><br />
+                </p>
+            </div>
+        </div>
+
+        <div class="table-responsive m-t">
+            <table class="table invoice-table">
+                <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Valor</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.FACTURA_DETALLE.Where(i => i.FACTURA_ID == Model.FACTURA_ID))
+                {
+                    var facturaDetalle = "facturaDetalle" + item.DETALLE_ID;
+                    <tr id="@facturaDetalle">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DESCRIPCION)
+                        </td>
+                        <td>
+                            @String.Format("{0:C}", item.PRECIO_FACTURA)
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div><!-- /table-responsive -->
+
+        <table class="table invoice-total">
+            <tbody>
+            <tr>
+                <td><strong>TOTAL :</strong></td>
+                <td>@String.Format("{0:C}", Model.TOTAL)</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/sweetAlertStyles")
+}
+
+@section Scripts {
+    @Scripts.Render("~/plugins/sweetAlert")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#anularFactura").click(function () {
+                var idSelected = $("#ID_FACTURA").val();
+
+                if (idSelected > 0) {
+                    $.ajax({
+                        url: '@Url.Action("AnularFactura", "FACTURAS")',
+                        type: "POST",
+                        data: {
+                            id: idSelected
+                        },
+                        success: function (result) {
+                            //$("#NRO_FACTURA").val(response);
+                            //$("#NRO_FACTURA").change();
+                            alert(result);
+                            window.location.href = '@Url.Action("Index", "FACTURAS")';
+                        },
+                        error: function () {
+                            alert("Error!");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
