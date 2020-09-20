@@ -304,17 +304,31 @@ namespace Inspinia_MVC5.Controllers
                     using (var cmd = new SqlCommand(String.Empty, connection))
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.CommandText =
-                            "insert into RECIBO_DETALLE (RECIBO_ID, FACTURA_ID, DESCRIPCION, MONTO, TIPO_DOC_ID, DOC_NRO)" +
-                            " values (@RECIBO_ID, @FACTURA_ID, @DESCRIPCION, @MONTO, @TIPO_DOC_ID, @DOC_NRO)";
-                        cmd.Parameters.AddWithValue("@RECIBO_ID",
-                            db.RECIBO.OrderByDescending(r => r.RECIBO_ID).Select(r => r.RECIBO_ID).FirstOrDefault());
-                        cmd.Parameters.AddWithValue("@FACTURA_ID", db.DOCS_CC.Where(d => d.DOC_ID == i.FACTURA_ID).Select(d => d.ID_ORIGEN).FirstOrDefault());
-                        cmd.Parameters.AddWithValue("@DESCRIPCION", i.DESCRIPCION);
-                        cmd.Parameters.AddWithValue("@MONTO", i.MONTO);
-                        cmd.Parameters.AddWithValue("@TIPO_DOC_ID", i.TIPO_DOC_ID);
-                        cmd.Parameters.AddWithValue("@DOC_NRO", i.DOC_NRO);
-
+                        if (i.TIPO_DOC_ID == 1 || i.TIPO_DOC_ID == 3)
+                        {
+                            cmd.CommandText =
+                                "insert into RECIBO_DETALLE (RECIBO_ID, FACTURA_ID, DESCRIPCION, MONTO, TIPO_DOC_ID, DOC_NRO)" +
+                                " values (@RECIBO_ID, @FACTURA_ID, @DESCRIPCION, @MONTO, @TIPO_DOC_ID, @DOC_NRO)";
+                            cmd.Parameters.AddWithValue("@RECIBO_ID",
+                                db.RECIBO.OrderByDescending(r => r.RECIBO_ID).Select(r => r.RECIBO_ID).FirstOrDefault());
+                            cmd.Parameters.AddWithValue("@FACTURA_ID", db.DOCS_CC.Where(d => d.DOC_ID == i.FACTURA_ID).Select(d => d.ID_ORIGEN).FirstOrDefault());
+                            cmd.Parameters.AddWithValue("@DESCRIPCION", i.DESCRIPCION);
+                            cmd.Parameters.AddWithValue("@MONTO", i.MONTO);
+                            cmd.Parameters.AddWithValue("@TIPO_DOC_ID", i.TIPO_DOC_ID);
+                            cmd.Parameters.AddWithValue("@DOC_NRO", i.DOC_NRO);
+                        }
+                        else
+                        {
+                            cmd.CommandText =
+                                "insert into RECIBO_DETALLE (RECIBO_ID, DESCRIPCION, MONTO, TIPO_DOC_ID)" +
+                                " values (@RECIBO_ID, @DESCRIPCION, @MONTO, @TIPO_DOC_ID)";
+                            cmd.Parameters.AddWithValue("@RECIBO_ID",
+                                db.RECIBO.OrderByDescending(r => r.RECIBO_ID).Select(r => r.RECIBO_ID).FirstOrDefault());
+                            cmd.Parameters.AddWithValue("@DESCRIPCION", i.DESCRIPCION);
+                            cmd.Parameters.AddWithValue("@MONTO", i.MONTO);
+                            cmd.Parameters.AddWithValue("@TIPO_DOC_ID", i.TIPO_DOC_ID);
+                        }
+                        
                         try
                         {
                             connection.Open();
@@ -457,15 +471,15 @@ namespace Inspinia_MVC5.Controllers
                         dOCS.CLIENTE_ID = CLIENTE_ID;
                         dOCS.NRO_DOC = NRO_RECIBO; //db.RECIBO.OrderByDescending(r => r.RECIBO_ID).Select(r => r.NRO_RECIBO).FirstOrDefault();
                         dOCS.FECHA_EMISION = FECHA_EMISION;
-                        dOCS.DESC_DOC = "Pago de Nota de cargo No. " + nOTA_CARGO.NRO_NOTA_CARGO;
+                        dOCS.DESC_DOC = i.DESCRIPCION;
                         dOCS.MONTO_DOC = i.MONTO;
                         dOCS.MONTO_PARCIAL = i.MONTO;
                         dOCS.NRO_PAGOS = 1;
                         dOCS.BALANCE = 0;
-                        dOCS.NRO_DOC_PAGADO = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == nOTA_CARGO.NRO_NOTA_CARGO).Select(f => f.NRO_DOC).FirstOrDefault();
-                        dOCS.ID_PAGADO = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == nOTA_CARGO.NRO_NOTA_CARGO).Select(f => f.DOC_ID).FirstOrDefault();
+                        dOCS.NRO_DOC_PAGADO = null;
+                        dOCS.ID_PAGADO = null;
                         dOCS.FECHA_HORA = DateTime.Now;
-                        dOCS.ID_BASE = db.DOCS_CC.Where(f => f.TIPO_DOC_ID == i.TIPO_DOC_ID && f.NRO_DOC == nOTA_CARGO.NRO_NOTA_CARGO).Select(f => f.DOC_ID).FirstOrDefault();
+                        dOCS.ID_BASE = null;
                         dOCS.TIPO = "A";
                         db.DOCS_CC.Add(dOCS);
                         db.SaveChanges();
