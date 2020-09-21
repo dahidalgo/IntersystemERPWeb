@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Inspinia_MVC5.Models.AnalisisSaldo>
+@using System.Data;
+@using System.Globalization;
+
+@{
+    ViewBag.Title = "Analisis de saldos";
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+}
+
+<table id="ReporteSaldos" class="table table-bordered">
+    <thead>
+        <tr>
+            <th class="title" style="text-align: center" colspan="6">
+                <h3>DH Y ASOCIADOS</h3><br />
+                <h3>ANALISIS DE SALDOS</h3><br />
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="font-weight: bold">
+                    CODIGO: @Html.DisplayFor(modelItem => item.CODIGO_CLTE)
+                    CLIENTE:  @Html.DisplayFor(modelItem => item.NOMBRE_CLTE)
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        
+    </tfoot>
+</table>

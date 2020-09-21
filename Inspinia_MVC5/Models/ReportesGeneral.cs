@@ -42,4 +42,16 @@ namespace Inspinia_MVC5.Models
         [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public decimal? MONTO { get; set; }
     }
+
+    public class AnalisisSaldo
+    {
+        public int? CLIENTE_ID { get; set; }
+        public int? CODIGO_CLTE { get; set; }
+        public string NOMBRE_CLTE { get; set; }
+        public int? NRO_DOC { get; set; }
+        public DateTime? FECHA_EMISION { get; set; }
+        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
+        public decimal? BALANCE { get; set; }
+        public string TIPO_DOCUMENTO { get; set; }
+    }
 }

@@ -658,5 +658,41 @@ namespace Inspinia_MVC5.Controllers
 
             return PartialView("EstadoCuenta", consulta.ToList());
         }
+
+        public PartialViewResult AnalisisSaldos(FormCollection collection)
+        {
+            ViewBag.fecha = DateTime.Today.ToShortDateString();
+            int cliente;
+
+            if (!collection.AllKeys.Contains("cliente") || string.IsNullOrEmpty(collection["cliente"]))
+                cliente = 0;
+            else
+                cliente = Convert.ToInt32(collection["cliente"]);
+
+            var consulta = (from d in db.DOCS_CC
+                            join c in db.CLIENTE on d.CLIENTE_ID equals c.CLIENTE_ID
+                            join t in db.TIPO_DOCUMENTO on d.TIPO_DOC_ID equals t.TIPO_DOC_ID
+                            where d.BALANCE > 0 && (d.TIPO_DOC_ID == 1 || d.TIPO_DOC_ID == 3)
+                            orderby c.CODIGO_CLTE
+                            select new AnalisisSaldo()
+                            {
+                                CLIENTE_ID = c.CLIENTE_ID,
+                                CODIGO_CLTE = c.CODIGO_CLTE,
+                                NOMBRE_CLTE = c.NOMBRE_CLTE,
+                                TIPO_DOCUMENTO = t.DESCRIPCION,
+                                NRO_DOC = d.NRO_DOC,
+                                FECHA_EMISION = d.FECHA_EMISION,
+                                BALANCE = d.BALANCE
+                            });
+
+            if (cliente != 0)
+            {
+                consulta = consulta.Where(r => r.CLIENTE_ID == cliente);
+            }
+            //ViewBag.Cliente = db.CLIENTE.Where(c => c.CLIENTE_ID == cliente).Select(c => c.NOMBRE_CLTE)
+            //    .FirstOrDefault();
+
+            return PartialView("AnalisisSaldos", consulta.ToList());
+        }
     }
 }
