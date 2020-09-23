@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Inspinia_MVC5.Models.AnalisisSaldo>
+﻿@model IEnumerable<Inspinia_MVC5.Models.CLIENTE>
 @using System.Data;
 @using System.Globalization;
 
@@ -7,7 +7,7 @@
     Layout = "~/Views/Shared/_LayoutPrint.cshtml";
 }
 
-<table id="ReporteSaldos" class="table table-bordered">
+<table id="AnalisisSaldos" class="table table-bordered">
     <thead>
         <tr>
             <th class="title" style="text-align: center" colspan="6">
@@ -20,9 +20,18 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td style="font-weight: bold">
+                <td style="text-align: center; width: 5%">
+                    <img src="~/Images/plus.png" />
+                </td>
+                <td style="font-weight: bold; width: 90%">
                     CODIGO: @Html.DisplayFor(modelItem => item.CODIGO_CLTE)
-                    CLIENTE:  @Html.DisplayFor(modelItem => item.NOMBRE_CLTE)
+                    CLIENTE: @Html.DisplayFor(modelItem => item.NOMBRE_CLTE)
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.Action("DetalleAnalisisSaldos", new {clienteID = item.CLIENTE_ID})
                 </td>
             </tr>
         }

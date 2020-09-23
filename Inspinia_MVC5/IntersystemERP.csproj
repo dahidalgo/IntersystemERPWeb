@@ -7992,6 +7992,8 @@
     <Content Include="Content\plugins\slick\fonts\slick.eot" />
     <Content Include="Content\plugins\slick\fonts\slick.ttf" />
     <Content Include="Content\plugins\slick\fonts\slick.woff" />
+    <Content Include="Images\menos.png" />
+    <Content Include="Images\plus.png" />
     <Content Include="locales\en.json" />
     <Content Include="locales\es.json" />
     <Content Include="Models\IntersystemModel.Context.tt">
@@ -10066,6 +10068,7 @@
     <Content Include="Views\FACTURAS\ImprimirFactura.cshtml" />
     <Content Include="Views\FACTURAS\InvoicePrint.cshtml" />
     <Content Include="Views\RECIBOS\AnalisisSaldos.cshtml" />
+    <Content Include="Views\RECIBOS\DetalleAnalisisSaldos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

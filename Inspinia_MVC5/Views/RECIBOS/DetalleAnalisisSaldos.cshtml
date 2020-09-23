@@ -1,0 +1,38 @@
+﻿@model System.Collections.Generic.List<Inspinia_MVC5.Models.DOCS_CC>
+
+@{
+ViewBag.Title = "Analisis de saldos";
+Layout = null;
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th style="text-align: center; width: 10%">Tipo</th>
+        <th style="text-align: center; width: 10%">No. Doc.</th>
+        <th style="text-align: center; width: 5%">Fecha</th>
+        <th style="text-align: center; width: 5%">Días</th>
+        <th style="text-align: center; width: 15%">Balance</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.TIPO_DOCUMENTO.DESCRIPCION</td>
+            <td>@item.NRO_DOC</td>
+            @{ var fecha = item.FECHA_EMISION.Value.ToShortDateString();}
+            <td>@Html.DisplayFor(modelItem => fecha)</td>
+            @{ var dias = (DateTime.Today - @item.FECHA_EMISION.Value).Days;}
+            <td>@Html.DisplayFor(modelItem => dias)</td>
+            <td style="text-align: right">@item.BALANCE</td>
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" style="background-color: gray; text-align: right; font-weight: bold;">SUB TOTAL</td>
+            <td style="text-align: right; font-weight: bold">@String.Format("{0:#,0.00}", Model.Sum(f => f.BALANCE))</td>
+        </tr>
+    </tfoot>
+</table>
