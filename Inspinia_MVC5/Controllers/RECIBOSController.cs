@@ -513,8 +513,10 @@ namespace Inspinia_MVC5.Controllers
         {
             ViewBag.fecha = DateTime.Today.ToShortDateString();
 
-            DateTime? fechainicio = String.IsNullOrEmpty(collection["fechaDesde"]) ? (DateTime?)null : DateTime.ParseExact(collection["fechaDesde"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            //DateTime? fechainicio = String.IsNullOrEmpty(collection["fechaDesde"]) ? (DateTime?)null : DateTime.ParseExact(collection["fechaDesde"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
             DateTime? fechafin = String.IsNullOrEmpty(collection["fechaHasta"]) ? (DateTime?)null : DateTime.ParseExact(collection["fechaHasta"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            string v = "01/" + fechafin.Value.Month + "/" + fechafin.Value.Year;
+            DateTime? fechainicio = Convert.ToDateTime(v);
 
             SqlConnection conn = new SqlConnection(db.Database.Connection.ConnectionString);
             var command = new SqlCommand("sp_rptSaldos", conn);
