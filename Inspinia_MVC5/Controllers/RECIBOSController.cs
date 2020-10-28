@@ -79,6 +79,7 @@ namespace Inspinia_MVC5.Controllers
             itemList.Add(new SelectListItem() {Value = "1", Text = "Factura"});
             itemList.Add(new SelectListItem() {Value = "3", Text = "Nota de cargo"});
             itemList.Add(new SelectListItem() {Value = "4", Text = "Otro"});
+            itemList.Add(new SelectListItem() {Value = "5", Text = "Adelanto"});
 
             //Forma de pago
             var formaPagoList = new List<SelectListItem>();
