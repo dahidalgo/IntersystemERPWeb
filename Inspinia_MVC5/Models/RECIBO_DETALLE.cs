@@ -22,6 +22,7 @@ namespace Inspinia_MVC5.Models
         public Nullable<decimal> MONTO { get; set; }
         public Nullable<int> TIPO_DOC_ID { get; set; }
         public Nullable<int> DOC_NRO { get; set; }
+        public Nullable<decimal> BALANCE { get; set; }
     
         public virtual FACTURA FACTURA { get; set; }
         public virtual NOTA_CARGO NOTA_CARGO { get; set; }

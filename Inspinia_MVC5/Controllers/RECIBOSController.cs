@@ -296,6 +296,7 @@ namespace Inspinia_MVC5.Controllers
                 model.TOTAL = TOTAL;
                 model.NRO_DOC_PAGO = NRO_DOC_PAGO;
                 model.SERIE_DOC_ID = SERIE_DOC_ID;
+                model.BALANCE = 0;
                 db.RECIBO.Add(model);
                 db.SaveChanges();
 
@@ -310,7 +311,7 @@ namespace Inspinia_MVC5.Controllers
                         {
                             cmd.CommandText =
                                 "insert into RECIBO_DETALLE (RECIBO_ID, FACTURA_ID, DESCRIPCION, MONTO, TIPO_DOC_ID, DOC_NRO)" +
-                                " values (@RECIBO_ID, @FACTURA_ID, @DESCRIPCION, @MONTO, @TIPO_DOC_ID, @DOC_NRO)";
+                                " values (@RECIBO_ID, @FACTURA_ID, @DESCRIPCION, @MONTO, @TIPO_DOC_ID, @DOC_NRO, @BALANCE)";
                             cmd.Parameters.AddWithValue("@RECIBO_ID",
                                 db.RECIBO.OrderByDescending(r => r.RECIBO_ID).Select(r => r.RECIBO_ID).FirstOrDefault());
                             cmd.Parameters.AddWithValue("@FACTURA_ID", db.DOCS_CC.Where(d => d.DOC_ID == i.FACTURA_ID).Select(d => d.ID_ORIGEN).FirstOrDefault());
@@ -318,19 +319,38 @@ namespace Inspinia_MVC5.Controllers
                             cmd.Parameters.AddWithValue("@MONTO", i.MONTO);
                             cmd.Parameters.AddWithValue("@TIPO_DOC_ID", i.TIPO_DOC_ID);
                             cmd.Parameters.AddWithValue("@DOC_NRO", i.DOC_NRO);
+                            cmd.Parameters.AddWithValue("@BALANCE", 0);
                         }
-                        else
+                        else if (i.TIPO_DOC_ID == 4)
                         {
                             cmd.CommandText =
                                 "insert into RECIBO_DETALLE (RECIBO_ID, DESCRIPCION, MONTO, TIPO_DOC_ID)" +
-                                " values (@RECIBO_ID, @DESCRIPCION, @MONTO, @TIPO_DOC_ID)";
+                                " values (@RECIBO_ID, @DESCRIPCION, @MONTO, @TIPO_DOC_ID, @BALANCE)";
                             cmd.Parameters.AddWithValue("@RECIBO_ID",
                                 db.RECIBO.OrderByDescending(r => r.RECIBO_ID).Select(r => r.RECIBO_ID).FirstOrDefault());
                             cmd.Parameters.AddWithValue("@DESCRIPCION", i.DESCRIPCION);
                             cmd.Parameters.AddWithValue("@MONTO", i.MONTO);
                             cmd.Parameters.AddWithValue("@TIPO_DOC_ID", i.TIPO_DOC_ID);
+                            cmd.Parameters.AddWithValue("@BALANCE", 0);
                         }
-                        
+
+                        else if (i.TIPO_DOC_ID == 5)
+                        {
+                            cmd.CommandText =
+                                "insert into RECIBO_DETALLE (RECIBO_ID, DESCRIPCION, MONTO, TIPO_DOC_ID, BALANCE)" +
+                                " values (@RECIBO_ID, @DESCRIPCION, @MONTO, @TIPO_DOC_ID, @BALANCE)";
+                            cmd.Parameters.AddWithValue("@RECIBO_ID",
+                                db.RECIBO.OrderByDescending(r => r.RECIBO_ID).Select(r => r.RECIBO_ID).FirstOrDefault());
+                            cmd.Parameters.AddWithValue("@DESCRIPCION", i.DESCRIPCION);
+                            cmd.Parameters.AddWithValue("@MONTO", i.MONTO);
+                            cmd.Parameters.AddWithValue("@TIPO_DOC_ID", i.TIPO_DOC_ID);
+                            cmd.Parameters.AddWithValue("@BALANCE", i.MONTO);
+
+                            model.BALANCE = i.MONTO;
+                            db.Entry(model).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+
                         try
                         {
                             connection.Open();
@@ -462,7 +482,7 @@ namespace Inspinia_MVC5.Controllers
                     }
                     #endregion
 
-                    #region Cancelan otros
+                    #region Cancelan otros 
                     else if (i.TIPO_DOC_ID == 4)
                     {
                         #region guardar recibo en DOCS_CC
@@ -471,13 +491,40 @@ namespace Inspinia_MVC5.Controllers
                         dOCS.FORMA_PAGO_ID = FORMA_PAGO_ID;
                         dOCS.USUARIO_ID = 1;
                         dOCS.CLIENTE_ID = CLIENTE_ID;
-                        dOCS.NRO_DOC = NRO_RECIBO; //db.RECIBO.OrderByDescending(r => r.RECIBO_ID).Select(r => r.NRO_RECIBO).FirstOrDefault();
+                        dOCS.NRO_DOC = NRO_RECIBO; 
                         dOCS.FECHA_EMISION = FECHA_EMISION;
                         dOCS.DESC_DOC = i.DESCRIPCION;
                         dOCS.MONTO_DOC = i.MONTO;
                         dOCS.MONTO_PARCIAL = i.MONTO;
                         dOCS.NRO_PAGOS = 1;
                         dOCS.BALANCE = 0;
+                        dOCS.NRO_DOC_PAGADO = null;
+                        dOCS.ID_PAGADO = null;
+                        dOCS.FECHA_HORA = DateTime.Now;
+                        dOCS.ID_BASE = null;
+                        dOCS.TIPO = "A";
+                        db.DOCS_CC.Add(dOCS);
+                        db.SaveChanges();
+                        #endregion
+                    }
+                    #endregion
+
+                    #region Cancelan adelanto
+                    else if (i.TIPO_DOC_ID == 5)
+                    {
+                        #region guardar recibo en DOCS_CC
+                        DOCS_CC dOCS = new DOCS_CC();
+                        dOCS.TIPO_DOC_ID = 2;
+                        dOCS.FORMA_PAGO_ID = FORMA_PAGO_ID;
+                        dOCS.USUARIO_ID = 1;
+                        dOCS.CLIENTE_ID = CLIENTE_ID;
+                        dOCS.NRO_DOC = NRO_RECIBO;
+                        dOCS.FECHA_EMISION = FECHA_EMISION;
+                        dOCS.DESC_DOC = i.DESCRIPCION;
+                        dOCS.MONTO_DOC = i.MONTO;
+                        dOCS.MONTO_PARCIAL = i.MONTO;
+                        dOCS.NRO_PAGOS = 1;
+                        dOCS.BALANCE = i.MONTO;
                         dOCS.NRO_DOC_PAGADO = null;
                         dOCS.ID_PAGADO = null;
                         dOCS.FECHA_HORA = DateTime.Now;
