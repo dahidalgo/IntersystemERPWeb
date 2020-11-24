@@ -1,0 +1,96 @@
+﻿@model Inspinia_MVC5.Models.FACTURA
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IntersystemERP | Imprimir Factura</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+
+</head>
+
+<body class="white-bg">
+    <div class="wrapper wrapper-content p-xl">
+        <div class="ibox-content p-xl">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5>De:</h5>
+                    <address>
+                        <strong>D.H. & Asociados, S.A.</strong><br>
+                        7a. Av. 1-20, Zona 4, Torre Café,<br>
+                        Oficina 640, Nivel 6<br>
+                        <abbr title="Phone">Tel:</abbr> 2331-9821
+                        <abbr title="Email">Tel:</abbr> gerencia@dhyasociados.com
+                    </address>
+                </div>
+
+                <div class="col-sm-6 text-right">
+                    <h4>Factura No.</h4>
+                    <h4 class="text-navy">@Model.SERIE_DOCUMENTO.SERIE - @Model.NRO_FACTURA</h4>
+                    <span>Para:</span>
+                    <address>
+                        <strong>@Model.CLIENTE.NOMBRE_CLTE</strong><br>
+                        @Model.CLIENTE.DIRECCION<br>
+                        <abbr title="Nit">NIT:</abbr> @Model.CLIENTE.NIT
+                    </address>
+                    <p>
+                        <span><strong>Fecha:</strong> @Model.FECHA_EMISION.Value.ToShortDateString()</span><br />
+                    </p>
+                </div>
+            </div>
+
+            <div class="table-responsive m-t">
+                <table class="table invoice-table">
+                    <thead>
+                        <tr>
+                            <th>Descripción</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach(var item in Model.FACTURA_DETALLE.Where(i => i.FACTURA_ID == Model.FACTURA_ID))
+                    {
+                        var facturaDetalle = "facturaDetalle" + item.DETALLE_ID;
+                        <tr id="@facturaDetalle">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DESCRIPCION)
+                            </td>
+                            <td>
+                                @String.Format("{0:C}", item.PRECIO_FACTURA)
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div><!-- /table-responsive -->
+
+            <table class="table invoice-total">
+                <tbody>
+                    <tr>
+                        <td><strong>TOTAL :</strong></td>
+                        <td>@String.Format("{0:C}", Model.TOTAL)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+<script type="text/javascript">
+    window.print();
+</script>
