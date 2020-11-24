@@ -304,6 +304,10 @@
                         $("#div_pago").hide();
                         $("#div_descripcion").show();
                         break;
+                    case 5:
+                        $("#div_pago").hide();
+                        $("#div_descripcion").show();
+                        break;
                 }
                 if (idSelected > 0) {
                     $.ajax({
@@ -465,7 +469,7 @@
                 TIPO_DOC_ID: $(this).find('td:eq(4)').html()
             });
         });
-
+        console.log('Detalle: ',reciboDetArr);
 
         var data = {
             FECHA_EMISION: $('#FECHA_EMISION').val(),
@@ -477,8 +481,7 @@
             NRO_DOC_PAGO: $('#NRO_DOC_PAGO').val(),
             reciboDet: reciboDetArr
         }
-        console.log(data);
-
+        
         $.when(guardarRecibo(data)).then(function (response) {
             console.log(response);
         }).fail(function (err) {

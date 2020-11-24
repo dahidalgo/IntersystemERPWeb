@@ -246,6 +246,7 @@
           <Property Name="NRO_DOC_PAGO" Type="nvarchar" MaxLength="50" />
           <Property Name="NRO_FACTURA" Type="int" />
           <Property Name="SERIE_DOC_ID" Type="int" />
+          <Property Name="BALANCE" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="RECIBO_DETALLE">
           <Key>
@@ -259,6 +260,7 @@
           <Property Name="MONTO" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TIPO_DOC_ID" Type="int" />
           <Property Name="DOC_NRO" Type="int" />
+          <Property Name="BALANCE" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="ROL">
           <Key>
@@ -655,18 +657,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RECIBO_D_REFERENCE_TIPO_DOC">
-          <End Role="TIPO_DOCUMENTO" Type="Self.TIPO_DOCUMENTO" Multiplicity="0..1" />
-          <End Role="RECIBO_DETALLE" Type="Self.RECIBO_DETALLE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TIPO_DOCUMENTO">
-              <PropertyRef Name="TIPO_DOC_ID" />
-            </Principal>
-            <Dependent Role="RECIBO_DETALLE">
-              <PropertyRef Name="TIPO_DOC_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_RECIBO_REFERENCE_CLIENTE">
           <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
           <End Role="RECIBO" Type="Self.RECIBO" Multiplicity="*" />
@@ -894,10 +884,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_RECIBO_D_REFERENCE_RECIBO" Association="Self.FK_RECIBO_D_REFERENCE_RECIBO">
             <End Role="RECIBO" EntitySet="RECIBO" />
-            <End Role="RECIBO_DETALLE" EntitySet="RECIBO_DETALLE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RECIBO_D_REFERENCE_TIPO_DOC" Association="Self.FK_RECIBO_D_REFERENCE_TIPO_DOC">
-            <End Role="TIPO_DOCUMENTO" EntitySet="TIPO_DOCUMENTO" />
             <End Role="RECIBO_DETALLE" EntitySet="RECIBO_DETALLE" />
           </AssociationSet>
           <AssociationSet Name="FK_RECIBO_REFERENCE_CLIENTE" Association="Self.FK_RECIBO_REFERENCE_CLIENTE">
@@ -1167,6 +1153,7 @@
           <NavigationProperty Name="RECIBO_DETALLE" Relationship="intersystemerpModel.FK_RECIBO_D_REFERENCE_RECIBO" FromRole="RECIBO" ToRole="RECIBO_DETALLE" />
           <Property Name="SERIE_DOC_ID" Type="Int32" />
           <NavigationProperty Name="SERIE_DOCUMENTO" Relationship="intersystemerpModel.FK_RECIBO_REFERENCE_SERIE_DO" FromRole="RECIBO" ToRole="SERIE_DOCUMENTO" />
+          <Property Name="BALANCE" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="ROL">
           <Key>
@@ -1837,6 +1824,7 @@
           <Property Name="TIPO_DOC_ID" Type="Int32" />
           <NavigationProperty Name="TIPO_DOCUMENTO" Relationship="intersystemerpModel.FK_RECIBO_D_REFERENCE_TIPO_DOC" FromRole="RECIBO_DETALLE" ToRole="TIPO_DOCUMENTO" />
           <Property Name="DOC_NRO" Type="Int32" />
+          <Property Name="BALANCE" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <Association Name="FK_RECIBO_D_REFERENCE_FACTURA">
           <End Type="intersystemerpModel.FACTURA" Role="FACTURA" Multiplicity="0..1" />
@@ -2092,6 +2080,7 @@
           <EntitySetMapping Name="RECIBO">
             <EntityTypeMapping TypeName="intersystemerpModel.RECIBO">
               <MappingFragment StoreEntitySet="RECIBO">
+                <ScalarProperty Name="BALANCE" ColumnName="BALANCE" />
                 <ScalarProperty Name="SERIE_DOC_ID" ColumnName="SERIE_DOC_ID" />
                 <ScalarProperty Name="NRO_FACTURA" ColumnName="NRO_FACTURA" />
                 <ScalarProperty Name="RECIBO_ID" ColumnName="RECIBO_ID" />
@@ -2227,6 +2216,7 @@
           <EntitySetMapping Name="RECIBO_DETALLE">
             <EntityTypeMapping TypeName="intersystemerpModel.RECIBO_DETALLE">
               <MappingFragment StoreEntitySet="RECIBO_DETALLE">
+                <ScalarProperty Name="BALANCE" ColumnName="BALANCE" />
                 <ScalarProperty Name="DOC_NRO" ColumnName="DOC_NRO" />
                 <ScalarProperty Name="TIPO_DOC_ID" ColumnName="TIPO_DOC_ID" />
                 <ScalarProperty Name="MONTO" ColumnName="MONTO" />
