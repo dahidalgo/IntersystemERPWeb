@@ -151,6 +151,28 @@
                     <div class="row">
                         <div class="col-md-12">&nbsp;</div>
                     </div>
+
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-md-1 col-xs-2">
+                                <i class="fad fa-file-invoice-dollar fa-2x"></i>
+                            </div>
+                            <div class="col-md-3 col-xs-3 checkbox checkbox-primary checkbox-circle">
+                                <input id="checkboxrecibo" name="checkboxrecibo" type="checkbox" onclick="checkRecibo()">
+                                <label for="checkboxrecibo">
+                                    Aplicar recibo
+                                </label>
+                            </div>
+                            <div class="col-md-4 col-xs-2" id="divRecibo">
+                                @Html.DropDownList("RECIBO_ID", null, htmlAttributes: new { @id = "RECIBO_ID", @class = "form-control select2", style = "width: 100%; float:left;" })
+                                <span id="RECIBO_ID-error" class="labelError" style="display:none; ">&nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
                 }
             </div>
             <div class="panel-footer">
@@ -173,6 +195,7 @@
 @section Styles {
     @Styles.Render("~/plugins/select2Styles")
     @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
     <style type="text/css">
         .labelError {
             color: red;
@@ -208,12 +231,12 @@
 
 @section Scripts {
 
-   
+
     @Scripts.Render("~/plugins/select2")
     @Scripts.Render("~/plugins/dataPicker")
     @Scripts.Render("~/plugins/clockpicker")
-<script type="text/javascript">
-    $(document).ready(function () {
+    <script type="text/javascript">
+        $(document).ready(function() {
 
             // autocomplete
             $(".select2").select2();
@@ -243,63 +266,63 @@
             });
 
             //guardar
-        /*
-        $("#guardar").click(function () {
-                var formValid = true;
-                var codigocte = $('#CODIGO_CLTE').val();
-                var empresa = $('#NOMBRE_CLTE').val();
-                var direccion = $('#DIRECCION').val();
-                var nit = $('#NIT').val();
-                var contacto = $('#CONTACTO').val();
-                var telefono = $('#TELEFONO').val();
-                var email = $('#E_MAIL').val();
-
-                //clean all error labels
-                $(".labelError").hide();
-
-                //if (!codigocte) {
-                //    formValid = false;
-                //    $("#CODIGO_CLTE-error").text('Requerido.');
-                //    $("#CODIGO_CLTE-error").show();
-                //}
-
-                //if (!empresa) {
-                //    formValid = false;
-                //    $("#NOMBRE_CLTE-error").text('Requerido.');
-                //    $("#NOMBRE_CLTE-error").show();
-                //}
-                //if (!direccion) {
-                //    formValid = false;
-                //    $("#DIRECCION-error").text('Requerido.');
-                //    $("#DIRECCION-error").show();
-                //}
-                //if (!nit) {
-                //    formValid = false;
-                //    $("#NIT-error").text('Requerido.');
-                //    $("#NIT-error").show();
-                //}
-                //if (!contacto) {
-                //    formValid = false;
-                //    $("#CONTACTO-error").text('Requerido.');
-                //    $("#CONTACTO-error").show();
-                //}
-                //if (!telefono) {
-                //    formValid = false;
-                //    $("#TELEFONO-error").text('Requerido.');
-                //    $("#TELEFONO-error").show();
-                //}
-                //if (!email) {
-                //    formValid = false;
-                //    $("#E_MAIL-error").text('Requerido.');
-                //    $("#E_MAIL-error").show();
-                //}
-                if (formValid) {
-                    $('#formulario').submit();
-                }
-            });*/
+            /*
+            $("#guardar").click(function () {
+                    var formValid = true;
+                    var codigocte = $('#CODIGO_CLTE').val();
+                    var empresa = $('#NOMBRE_CLTE').val();
+                    var direccion = $('#DIRECCION').val();
+                    var nit = $('#NIT').val();
+                    var contacto = $('#CONTACTO').val();
+                    var telefono = $('#TELEFONO').val();
+                    var email = $('#E_MAIL').val();
+    
+                    //clean all error labels
+                    $(".labelError").hide();
+    
+                    //if (!codigocte) {
+                    //    formValid = false;
+                    //    $("#CODIGO_CLTE-error").text('Requerido.');
+                    //    $("#CODIGO_CLTE-error").show();
+                    //}
+    
+                    //if (!empresa) {
+                    //    formValid = false;
+                    //    $("#NOMBRE_CLTE-error").text('Requerido.');
+                    //    $("#NOMBRE_CLTE-error").show();
+                    //}
+                    //if (!direccion) {
+                    //    formValid = false;
+                    //    $("#DIRECCION-error").text('Requerido.');
+                    //    $("#DIRECCION-error").show();
+                    //}
+                    //if (!nit) {
+                    //    formValid = false;
+                    //    $("#NIT-error").text('Requerido.');
+                    //    $("#NIT-error").show();
+                    //}
+                    //if (!contacto) {
+                    //    formValid = false;
+                    //    $("#CONTACTO-error").text('Requerido.');
+                    //    $("#CONTACTO-error").show();
+                    //}
+                    //if (!telefono) {
+                    //    formValid = false;
+                    //    $("#TELEFONO-error").text('Requerido.');
+                    //    $("#TELEFONO-error").show();
+                    //}
+                    //if (!email) {
+                    //    formValid = false;
+                    //    $("#E_MAIL-error").text('Requerido.');
+                    //    $("#E_MAIL-error").show();
+                    //}
+                    if (formValid) {
+                        $('#formulario').submit();
+                    }
+                });*/
 
             //GetNumeroFactura
-            $("#SERIE_DOC_ID").change(function () {
+            $("#SERIE_DOC_ID").change(function() {
                 var idSelected = $(this).val();
 
                 if (idSelected > 0) {
@@ -309,11 +332,11 @@
                         data: {
                             id: idSelected
                         },
-                        success: function (response) {
+                        success: function(response) {
                             $("#NRO_FACTURA").val(response);
                             $("#NRO_FACTURA").change();
                         },
-                        error: function () {
+                        error: function() {
 
                         }
                     });
@@ -321,7 +344,7 @@
             });
 
             //GetDetalleProducto
-            $("#PRODUCTO").change(function () {
+            $("#PRODUCTO").change(function() {
                 var idSelected = $(this).val();
                 if (idSelected > 0) {
                     $.ajax({
@@ -330,7 +353,7 @@
                         data: {
                             id: idSelected
                         },
-                        success: function (response) {
+                        success: function(response) {
                             var tuple = response.replace("(", "").replace(")", "").split(",");
                             var descripcion = tuple[0];
                             var precio = tuple[1];
@@ -338,117 +361,162 @@
                             $("#DESCRIPCION").val(descripcion);
                             $("#PRECIO_FACTURA").val(parseInt(precio).toFixed(2));
                         },
-                        error: function () {
+                        error: function() {
                         }
                     });
                 }
             });
-    });
 
-    //Boton agregar item recibo detalle
-    $("#btnagregar").click(function (e) {
-        var total = $('#TOTAL').val();
-        var cantidad = $('#CANTIDAD').val();
-        var precio = $('#PRECIO_FACTURA').val();
-        var totalr = "";
-        e.preventDefault();
+        });
 
-        if ($("#CANTIDAD").val() == "" || $("#DESCRIPCION").val() == "" || $("#PRECIO_FACTURA").val() == "") return;
+        //AplicarRecibo
+        function checkRecibo() {
+            var checkbox = document.getElementById("checkboxrecibo");
+            var idSelected = $('#CLIENTE_ID').val();
+            
+            if (checkbox.checked === true) {
+                console.log("x: ", checkbox.checked);
+                $("#divRecibo").show();
 
-        var PRODUCTO_ID = parseInt($('#PRODUCTO').val()),
-            CANTIDAD = parseInt($("#CANTIDAD").val()),
-            PRECIO_FACTURA = parseFloat(CANTIDAD * $('#PRECIO_FACTURA').val()).toFixed(2),
-            DESCRIPCION = $('#DESCRIPCION').val(),
-            detailsTableBody = $("#detailsTable tbody");
+                $.ajax({
+                    url: '@Url.Action("GetRecibos", "FACTURAS")',
+                    type: "POST",
+                    data: {
+                        id: idSelected,
+                    },
+                    success: function (response) {
+                        $.each(response, function (i, option) {
+                            $('#RECIBO_ID').append($('<option/>').attr("value", option.Value).text(option.Text));
+                        });
+                    },
+                    error: function () {
 
-        var facturaItem = '<tr><td hidden>' + PRODUCTO_ID + '</td><td style="text-align:left;">' + parseInt(CANTIDAD) +
-            '</td><td>' + DESCRIPCION + '</td><td style="text-align:right;">' + PRECIO_FACTURA + '</td><td><a data-itemId="0" href="#" class="deleteItem">Quitar</a></td></tr>';
-        
-        detailsTableBody.append(facturaItem);
-        
-        if (isNaN(total)) {
-            total = 0;
-        }
-        
-        totalr = (parseInt(cantidad) * parseFloat(precio)) + parseFloat(total);
-        $("#TOTAL").val('');
-        $("#TOTAL").val(parseFloat(totalr).toFixed(2));
-        clearItem();
+                    }
+                });
 
-    });
-
-    //Para limpiar despues de agregar item
-    function clearItem() {
-        $("#CANTIDAD").val('');
-        $("#DESCRIPCION").val('');
-        $("#PRECIO_FACTURA").val('');
-    }
-
-    // Para quitar algún item 
-    $(document).on('click', 'a.deleteItem', function (e) {
-        var TOTAL = $('#TOTAL').val();
-        e.preventDefault();
-        var $self = $(this);
-        if ($(this).attr('data-itemId') == "0") {
-
-            $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
-                var monto = $(this).find('td').eq(3).text();
-                TOTAL = parseFloat(TOTAL) - parseFloat(monto);
-                $("#TOTAL").val(parseFloat(TOTAL).toFixed(2));
-                $(this).remove();
-            });
-        }
-    });
-
-    //After Click Save Button Pass All Data View To Controller For Save Database
-    function guardarFactura(data) {
-        return $.ajax({
-            contentType: 'application/json',
-            dataType: 'JSON',
-            type: 'POST',
-            url: "/Facturas/GuardarFactura",
-            data: JSON.stringify(data),
-            success: function (result) {
-                alert(result);
-                location.reload();
-            },
-            error: function () {
-                alert("Error!");
+            } else {
+                console.log("x: ", checkbox.checked);
+                $("#divRecibo").hide();
             }
-        });
-    }
-
-    //Collect Multiple Order List For Pass To Controller
-    $("#guardarFactura").click(function (e) {
-        e.preventDefault();
-
-        var facturaDetArr = [];
-        facturaDetArr.length = 0;
-
-        $.each($("#detailsTable tbody tr"), function () {
-            facturaDetArr.push({
-                PRODUCTO_ID: $(this).find('td:eq(0)').html(),
-                CANTIDAD: $(this).find('td:eq(1)').html(),
-                DESCRIPCION: $(this).find('td:eq(2)').html(),
-                PRECIO_FACTURA: $(this).find('td:eq(3)').html()
-            });
-        });
-
-        var data = {
-            FECHA_EMISION: $('#FECHA_EMISION').val(),
-            SERIE_DOC_ID: $('#SERIE_DOC_ID').val(),
-            NRO_FACTURA: $('#NRO_FACTURA').val(),
-            CLIENTE_ID: $('#CLIENTE_ID').val(),
-            TOTAL: $('#TOTAL').val(),
-            FECHA_VENCIMIENTO: $('#FECHA_VENCIMIENTO').val(),
-            facturaDetalle: facturaDetArr
         }
 
-        $.when(guardarFactura(data)).then(function (response) {
-            console.log(response);
-        }).fail(function (err) {
-            console.log(err);
+        //Boton agregar item recibo detalle
+        $("#btnagregar").click(function(e) {
+            var total = $('#TOTAL').val();
+            var cantidad = $('#CANTIDAD').val();
+            var precio = $('#PRECIO_FACTURA').val();
+            var totalr = "";
+            e.preventDefault();
+
+            if ($("#CANTIDAD").val() == "" || $("#DESCRIPCION").val() == "" || $("#PRECIO_FACTURA").val() == "") return;
+
+            var PRODUCTO_ID = parseInt($('#PRODUCTO').val()),
+                CANTIDAD = parseInt($("#CANTIDAD").val()),
+                PRECIO_FACTURA = parseFloat(CANTIDAD * $('#PRECIO_FACTURA').val()).toFixed(2),
+                DESCRIPCION = $('#DESCRIPCION').val(),
+                detailsTableBody = $("#detailsTable tbody");
+
+            var facturaItem = '<tr><td hidden>' +
+                PRODUCTO_ID +
+                '</td><td style="text-align:left;">' +
+                parseInt(CANTIDAD) +
+                '</td><td>' +
+                DESCRIPCION +
+                '</td><td style="text-align:right;">' +
+                PRECIO_FACTURA +
+                '</td><td><a data-itemId="0" href="#" class="deleteItem">Quitar</a></td></tr>';
+
+            detailsTableBody.append(facturaItem);
+
+            if (isNaN(total)) {
+                total = 0;
+            }
+
+            totalr = (parseInt(cantidad) * parseFloat(precio)) + parseFloat(total);
+            $("#TOTAL").val('');
+            $("#TOTAL").val(parseFloat(totalr).toFixed(2));
+            clearItem();
+
         });
-    });
-</script>
+
+        //Para limpiar despues de agregar item
+        function clearItem() {
+            $("#CANTIDAD").val('');
+            $("#DESCRIPCION").val('');
+            $("#PRECIO_FACTURA").val('');
+        }
+
+        // Para quitar algún item
+        $(document).on('click',
+            'a.deleteItem',
+            function(e) {
+                var TOTAL = $('#TOTAL').val();
+                e.preventDefault();
+                var $self = $(this);
+                if ($(this).attr('data-itemId') == "0") {
+
+                    $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800,
+                        function() {
+                            var monto = $(this).find('td').eq(3).text();
+                            TOTAL = parseFloat(TOTAL) - parseFloat(monto);
+                            $("#TOTAL").val(parseFloat(TOTAL).toFixed(2));
+                            $(this).remove();
+                        });
+                }
+            });
+
+        //After Click Save Button Pass All Data View To Controller For Save Database
+        function guardarFactura(data) {
+            return $.ajax({
+                contentType: 'application/json',
+                dataType: 'JSON',
+                type: 'POST',
+                url: "/Facturas/GuardarFactura",
+                data: JSON.stringify(data),
+                success: function(result) {
+                    alert(result);
+                    location.reload();
+                },
+                error: function() {
+                    alert("Error!");
+                }
+            });
+        }
+
+        //Collect Multiple Order List For Pass To Controller
+        $("#guardarFactura").click(function(e) {
+            e.preventDefault();
+            var checkbox = document.getElementById("checkboxrecibo");
+            var facturaDetArr = [];
+            facturaDetArr.length = 0;
+
+            $.each($("#detailsTable tbody tr"),
+                function() {
+                    facturaDetArr.push({
+                        PRODUCTO_ID: $(this).find('td:eq(0)').html(),
+                        CANTIDAD: $(this).find('td:eq(1)').html(),
+                        DESCRIPCION: $(this).find('td:eq(2)').html(),
+                        PRECIO_FACTURA: $(this).find('td:eq(3)').html()
+                    });
+                });
+
+            var data = {
+                FECHA_EMISION: $('#FECHA_EMISION').val(),
+                SERIE_DOC_ID: $('#SERIE_DOC_ID').val(),
+                NRO_FACTURA: $('#NRO_FACTURA').val(),
+                CLIENTE_ID: $('#CLIENTE_ID').val(),
+                TOTAL: $('#TOTAL').val(),
+                FECHA_VENCIMIENTO: $('#FECHA_VENCIMIENTO').val(),
+                APLICAR_RECIBO: checkbox.checked,
+                RECIBO_ID: $('#RECIBO_ID').val(),
+                facturaDetalle: facturaDetArr
+            }
+
+            $.when(guardarFactura(data)).then(function(response) {
+                console.log(response);
+            }).fail(function(err) {
+                console.log(err);
+            });
+        });
+    </script>
 }

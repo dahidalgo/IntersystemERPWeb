@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Inspinia_MVC5.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,10 +7,7 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Inspinia_MVC5.Models;
-using Syncfusion.Pdf.Parsing;
 
 namespace Inspinia_MVC5.Controllers
 {
@@ -80,6 +78,12 @@ namespace Inspinia_MVC5.Controllers
                 Text = p.NOMBRE,
             }));
 
+            //Recibo
+            var recibosList = new List<SelectListItem>();
+            recibosList.Add(new SelectListItem() { Value = "0", Text = "-Elija Recibo-", Selected = true });
+
+
+            ViewBag.RECIBO_ID = recibosList;
             ViewBag.CLIENTE_ID = clienteList;
             ViewBag.SERIE_DOC_ID = seriesList;
             ViewBag.FECHA_EMISION = DateTime.Now.Date.ToShortDateString();
@@ -89,7 +93,7 @@ namespace Inspinia_MVC5.Controllers
             return View();
         }
 
-        
+
 
         // GET: /FACTURAS/Edit/5
         public ActionResult Edit(int? id)
@@ -164,12 +168,12 @@ namespace Inspinia_MVC5.Controllers
         }
 
         [HttpPost]
-        public ActionResult GuardarFactura(DateTime FECHA_EMISION, int SERIE_DOC_ID, int NRO_FACTURA, int CLIENTE_ID, decimal TOTAL, DateTime FECHA_VENCIMIENTO, 
-            FACTURA_DETALLE[] facturaDetalle)
+        public ActionResult GuardarFactura(DateTime FECHA_EMISION, int SERIE_DOC_ID, int NRO_FACTURA, int CLIENTE_ID, decimal TOTAL, DateTime FECHA_VENCIMIENTO,
+           bool APLICAR_RECIBO, int RECIBO_ID, FACTURA_DETALLE[] facturaDetalle)
         {
             string result = "Error! Factura no completado!";
 
-            if(NRO_FACTURA != null)
+            if (NRO_FACTURA != null)
             {
                 FACTURA model = new FACTURA();
                 model.USUARIO_ID = 1;
@@ -185,8 +189,8 @@ namespace Inspinia_MVC5.Controllers
                 db.FACTURA.Add(model);
                 db.SaveChanges();
 
-                DOCS_CC docs_cc = new DOCS_CC();
                 SERIE_DOCUMENTO sERIE = db.SERIE_DOCUMENTO.Find(SERIE_DOC_ID);
+                DOCS_CC docs_cc = new DOCS_CC();
                 docs_cc.TIPO_DOC_ID = sERIE.TIPO_DOC_ID;
                 docs_cc.USUARIO_ID = 1;
                 docs_cc.CLIENTE_ID = CLIENTE_ID;
@@ -203,6 +207,8 @@ namespace Inspinia_MVC5.Controllers
                 docs_cc.ID_ORIGEN = db.FACTURA.Where(f => f.NRO_FACTURA == NRO_FACTURA).Select(f => f.FACTURA_ID).FirstOrDefault();
                 db.DOCS_CC.Add(docs_cc);
                 db.SaveChanges();
+
+
 
                 foreach (var i in facturaDetalle)
                 {
@@ -222,9 +228,119 @@ namespace Inspinia_MVC5.Controllers
                     db.SaveChanges();
                 }
 
+                if (APLICAR_RECIBO == true && RECIBO_ID > 0)
+                {
+                    RECIBO recibo = db.RECIBO.Find(RECIBO_ID);
+                    if (recibo.BALANCE - TOTAL > 0)
+                    {
+                        //Nuevos registros
+
+                        RECIBO_DETALLE reciboDetalle = new RECIBO_DETALLE();
+                        reciboDetalle.RECIBO_ID = RECIBO_ID;
+                        reciboDetalle.FACTURA_ID = docs_cc.ID_ORIGEN;
+                        reciboDetalle.DESCRIPCION = "Pago de factura No." + NRO_FACTURA;
+                        reciboDetalle.MONTO = TOTAL;
+                        reciboDetalle.TIPO_DOC_ID = docs_cc.TIPO_DOC_ID;
+                        reciboDetalle.DOC_NRO = NRO_FACTURA;
+                        db.RECIBO_DETALLE.Add(reciboDetalle);
+                        db.SaveChanges();
+
+                        DOCS_CC docs_cc2 = new DOCS_CC();
+                        docs_cc2.TIPO_DOC_ID = 2;
+                        docs_cc2.USUARIO_ID = 1;
+                        docs_cc2.CLIENTE_ID = CLIENTE_ID;
+                        docs_cc2.NRO_DOC = recibo.NRO_RECIBO;
+                        docs_cc2.FECHA_EMISION = FECHA_EMISION;
+                        docs_cc2.MONTO_DOC = TOTAL;
+                        docs_cc2.MONTO_PARCIAL = TOTAL;
+                        docs_cc2.FECHA_HORA = DateTime.Now;
+                        docs_cc2.TIPO = "A";
+                        docs_cc2.DESC_DOC = "Pago de factura No. " + NRO_FACTURA;
+                        docs_cc2.FECHA_VENCIMIENTO = null;
+                        docs_cc2.NRO_PAGOS = 0;
+                        docs_cc2.BALANCE = 0;
+                        docs_cc2.ID_ORIGEN = RECIBO_ID;
+                        db.DOCS_CC.Add(docs_cc2);
+                        db.SaveChanges();
+
+                        recibo.BALANCE = recibo.BALANCE - TOTAL;
+                        db.Entry(recibo).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        //Actualizo registros anteriores
+                        RECIBO_DETALLE reciboDetalle2 = db.RECIBO_DETALLE.FirstOrDefault(d => d.RECIBO_ID == RECIBO_ID && d.BALANCE > 0);
+                        reciboDetalle2.MONTO = reciboDetalle2.MONTO - TOTAL;
+                        reciboDetalle2.BALANCE = reciboDetalle2.BALANCE - TOTAL;
+                        db.Entry(reciboDetalle2).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        DOCS_CC docs_cc3 = db.DOCS_CC.FirstOrDefault(d =>
+                            d.NRO_DOC == recibo.NRO_RECIBO && d.TIPO_DOC_ID == 2 && d.BALANCE > 0);
+                        docs_cc3.MONTO_DOC = docs_cc3.MONTO_DOC - TOTAL;
+                        docs_cc3.MONTO_PARCIAL = docs_cc3.MONTO_PARCIAL - TOTAL;
+                        docs_cc3.BALANCE = docs_cc3.BALANCE - TOTAL;
+                        db.Entry(docs_cc3).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        //Actualizo FACTURA
+                        model.PAGOS = TOTAL;
+                        model.ESTADO_DOC = true;
+                        model.FECHA_ACTUALIZADO = DateTime.Today;
+                        db.Entry(model).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        //Actualizo factura en DOCS_CC 
+                        docs_cc.NRO_PAGOS = docs_cc.NRO_PAGOS + 1;
+                        docs_cc.BALANCE = docs_cc.BALANCE - TOTAL;
+                        docs_cc.NRO_DOC_PAGADO = recibo.NRO_RECIBO;
+                        docs_cc.ID_PAGADO = docs_cc2.DOC_ID;
+                        docs_cc.FECHA_PAGADO = FECHA_EMISION;
+                        db.Entry(docs_cc).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    else if (recibo.BALANCE - TOTAL == 0)
+                    {
+                        recibo.BALANCE = recibo.BALANCE - TOTAL;
+                        db.Entry(recibo).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        RECIBO_DETALLE reciboDetalle = db.RECIBO_DETALLE.FirstOrDefault(d => d.RECIBO_ID == RECIBO_ID && d.BALANCE > 0);
+                        reciboDetalle.DESCRIPCION = "Pago de factura No. " + NRO_FACTURA;
+                        reciboDetalle.MONTO = reciboDetalle.MONTO - TOTAL;
+                        reciboDetalle.BALANCE = reciboDetalle.BALANCE - TOTAL;
+                        db.Entry(reciboDetalle).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        DOCS_CC docs_cc2 = db.DOCS_CC.FirstOrDefault(d =>
+                            d.NRO_DOC == recibo.NRO_RECIBO && d.TIPO_DOC_ID == 2 && d.BALANCE > 0);
+                        docs_cc2.DESC_DOC = "Pago de factura No. " + NRO_FACTURA;
+                        docs_cc2.MONTO_DOC = docs_cc2.MONTO_DOC - TOTAL;
+                        docs_cc2.MONTO_PARCIAL = docs_cc2.MONTO_PARCIAL - TOTAL;
+                        docs_cc2.BALANCE = docs_cc2.BALANCE - TOTAL;
+                        db.Entry(docs_cc2).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        //Actualizo FACTURA
+                        model.PAGOS = TOTAL;
+                        model.ESTADO_DOC = true;
+                        model.FECHA_ACTUALIZADO = DateTime.Today;
+                        db.Entry(model).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        //Actualizo factura en DOCS_CC 
+                        docs_cc.NRO_PAGOS = docs_cc.NRO_PAGOS + 1;
+                        docs_cc.BALANCE = docs_cc.BALANCE - TOTAL;
+                        docs_cc.NRO_DOC_PAGADO = recibo.NRO_RECIBO;
+                        docs_cc.ID_PAGADO = docs_cc2.DOC_ID;
+                        docs_cc.FECHA_PAGADO = FECHA_EMISION;
+                        db.Entry(docs_cc).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+
+
+                }
                 result = "Factura guardada con éxito!";
             }
-
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -258,27 +374,44 @@ namespace Inspinia_MVC5.Controllers
         }
 
         [HttpPost]
+        public JsonResult GetRecibos(int? id)
+        {
+            var recibosList = new List<SelectListItem>();
+            if (id.HasValue && id > 0)
+            {
+                recibosList.AddRange(db.RECIBO.Where(r => r.CLIENTE_ID == id && r.BALANCE > 0).Select(
+                    r => new SelectListItem()
+                    {
+                        Value = r.RECIBO_ID + "",
+                        Text = r.NRO_RECIBO.ToString(),
+                        Selected = true
+                    }));
+            }
+            return Json(recibosList);
+        }
+
+        [HttpPost]
         public (string descripcion, decimal? precio) GetDetalleProducto(int? id)
         {
-            
+
             string descripcion = null;
             decimal? precio = null;
 
             if (id.HasValue && id.Value > 0)
             {
-                
+
                 PRODUCTO prod = db.PRODUCTO.Find(id);
                 descripcion = prod.DESCRIPCION;
                 precio = prod.PRECIO1;
             }
-            
-            return(descripcion, precio);
+
+            return (descripcion, precio);
         }
 
         public ActionResult ReportesFacturas()
         {
             var clienteList = new List<SelectListItem>();
-            clienteList.Add(new SelectListItem() {Value = "0", Text = "-Elija Cliente-"});
+            clienteList.Add(new SelectListItem() { Value = "0", Text = "-Elija Cliente-" });
             clienteList.AddRange(db.CLIENTE.Select(r => new SelectListItem()
             {
                 Value = r.CLIENTE_ID + "",
@@ -298,17 +431,17 @@ namespace Inspinia_MVC5.Controllers
             ViewBag.fechaHasta = fechafin.Value.ToShortDateString();
 
             var consulta = (from f in db.FACTURA
-                join c in db.CLIENTE on f.CLIENTE_ID equals c.CLIENTE_ID
-                orderby f.NRO_FACTURA
-                select new ReporteFacturacion
-                {
-                   CODIGO_CLTE = c.CODIGO_CLTE,
-                   NOMBRE_CLTE = c.NOMBRE_CLTE,
-                   NRO_FACTURA = f.NRO_FACTURA,
-                   FECHA_EMISION = f.FECHA_EMISION,
-                   TOTAL = f.TOTAL,
-                   ANULADA = f.ANULADA
-                });
+                            join c in db.CLIENTE on f.CLIENTE_ID equals c.CLIENTE_ID
+                            orderby f.NRO_FACTURA
+                            select new ReporteFacturacion
+                            {
+                                CODIGO_CLTE = c.CODIGO_CLTE,
+                                NOMBRE_CLTE = c.NOMBRE_CLTE,
+                                NRO_FACTURA = f.NRO_FACTURA,
+                                FECHA_EMISION = f.FECHA_EMISION,
+                                TOTAL = f.TOTAL,
+                                ANULADA = f.ANULADA
+                            });
 
             if (fechainicio != null && fechafin != null)
             {
@@ -328,17 +461,17 @@ namespace Inspinia_MVC5.Controllers
             ViewBag.fechaHasta = fechafin.Value.ToShortDateString();
 
             var consulta = (from f in db.FACTURA
-                join c in db.CLIENTE on f.CLIENTE_ID equals c.CLIENTE_ID
+                            join c in db.CLIENTE on f.CLIENTE_ID equals c.CLIENTE_ID
                             where f.ANULADA == true
-                select new ReporteFacturacion
-                {
-                    CODIGO_CLTE = c.CODIGO_CLTE,
-                    NOMBRE_CLTE = c.NOMBRE_CLTE,
-                    NRO_FACTURA = f.NRO_FACTURA,
-                    FECHA_EMISION = f.FECHA_EMISION,
-                    TOTAL = f.TOTAL,
-                    ANULADA = f.ANULADA
-                });
+                            select new ReporteFacturacion
+                            {
+                                CODIGO_CLTE = c.CODIGO_CLTE,
+                                NOMBRE_CLTE = c.NOMBRE_CLTE,
+                                NRO_FACTURA = f.NRO_FACTURA,
+                                FECHA_EMISION = f.FECHA_EMISION,
+                                TOTAL = f.TOTAL,
+                                ANULADA = f.ANULADA
+                            });
 
             if (fechainicio != null && fechafin != null)
             {
@@ -366,18 +499,18 @@ namespace Inspinia_MVC5.Controllers
                 .FirstOrDefault();
 
             var consulta = (from f in db.FACTURA
-                join c in db.CLIENTE on f.CLIENTE_ID equals c.CLIENTE_ID
-                orderby f.NRO_FACTURA
-                select new ReporteFacturacion
-                {
-                    CLIENTE_ID = c.CLIENTE_ID,
-                    CODIGO_CLTE = c.CODIGO_CLTE,
-                    NOMBRE_CLTE = c.NOMBRE_CLTE,
-                    NRO_FACTURA = f.NRO_FACTURA,
-                    FECHA_EMISION = f.FECHA_EMISION,
-                    TOTAL = f.TOTAL,
-                    ANULADA = f.ANULADA
-                });
+                            join c in db.CLIENTE on f.CLIENTE_ID equals c.CLIENTE_ID
+                            orderby f.NRO_FACTURA
+                            select new ReporteFacturacion
+                            {
+                                CLIENTE_ID = c.CLIENTE_ID,
+                                CODIGO_CLTE = c.CODIGO_CLTE,
+                                NOMBRE_CLTE = c.NOMBRE_CLTE,
+                                NRO_FACTURA = f.NRO_FACTURA,
+                                FECHA_EMISION = f.FECHA_EMISION,
+                                TOTAL = f.TOTAL,
+                                ANULADA = f.ANULADA
+                            });
 
             if (fechainicio != null && fechafin != null)
             {
@@ -406,7 +539,7 @@ namespace Inspinia_MVC5.Controllers
         }
 
         [HttpPost]
-        public ActionResult AnularFactura(int id, FormCollection collection )
+        public ActionResult AnularFactura(int id, FormCollection collection)
         {
             string result = "Error!";
             FACTURA factura = db.FACTURA.Find(id);
@@ -430,7 +563,7 @@ namespace Inspinia_MVC5.Controllers
             db.SaveChanges();
 
             var facDetalle = from d in db.FACTURA_DETALLE where d.FACTURA_ID == id select d;
-            
+
             foreach (FACTURA_DETALLE fdDetalle in facDetalle)
             {
                 SqlConnection connection = new SqlConnection(db.Database.Connection.ConnectionString);
