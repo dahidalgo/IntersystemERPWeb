@@ -310,7 +310,7 @@ namespace Inspinia_MVC5.Controllers
                         if (i.TIPO_DOC_ID == 1 || i.TIPO_DOC_ID == 3)
                         {
                             cmd.CommandText =
-                                "insert into RECIBO_DETALLE (RECIBO_ID, FACTURA_ID, DESCRIPCION, MONTO, TIPO_DOC_ID, DOC_NRO)" +
+                                "insert into RECIBO_DETALLE (RECIBO_ID, FACTURA_ID, DESCRIPCION, MONTO, TIPO_DOC_ID, DOC_NRO, BALANCE)" +
                                 " values (@RECIBO_ID, @FACTURA_ID, @DESCRIPCION, @MONTO, @TIPO_DOC_ID, @DOC_NRO, @BALANCE)";
                             cmd.Parameters.AddWithValue("@RECIBO_ID",
                                 db.RECIBO.OrderByDescending(r => r.RECIBO_ID).Select(r => r.RECIBO_ID).FirstOrDefault());
